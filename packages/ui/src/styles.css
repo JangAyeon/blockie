@@ -22,64 +22,134 @@
   --color-error: #ef4444;
   --color-info: #60a5fa;
   /* 폰트 패밀리 */
-  --font-family-sans: Pretendard, system-ui, sans-serif;
-  /* 애니메이션 타이밍 */
-  --transition-fast: 0.2s;
-  --transition-medium: 0.3s;
-  --transition-slow: 0.5s;
+  /* 폰트 패밀리 */
+  --font-sans: Pretendard, sans-serif;
+  --font-display: Montserrat, Pretendard, sans-serif;
+
+  /* 타이포그래피 시스템 */
+  --text-display: 2rem; /* 32px */
+  --text-display--line-height: 2.5rem; /* 40px */
+  --text-display--font-weight: 700;
+
+  --text-title-1: 1.5rem; /* 24px */
+  --text-title-1--line-height: 2rem; /* 32px */
+  --text-title-1--font-weight: 700;
+
+  --text-title-2: 1.25rem; /* 20px */
+  --text-title-2--line-height: 1.75rem; /* 28px */
+  --text-title-2--font-weight: 600;
+
+  --text-title-3: 1.125rem; /* 18px */
+  --text-title-3--line-height: 1.625rem; /* 26px */
+  --text-title-3--font-weight: 600;
+
+  --text-body-1: 1rem; /* 16px */
+  --text-body-1--line-height: 1.5rem; /* 24px */
+  --text-body-1--font-weight: 400;
+
+  --text-body-2: 0.875rem; /* 14px */
+  --text-body-2--line-height: 1.25rem; /* 20px */
+  --text-body-2--font-weight: 400;
+
+  --text-caption: 0.75rem; /* 12px */
+  --text-caption--line-height: 1rem; /* 16px */
+  --text-caption--font-weight: 400;
+
+  --text-button: 1rem; /* 16px */
+  --text-button--line-height: 1.5rem; /* 24px */
+  --text-button--font-weight: 500;
+
+  --text-number-l: 2.5rem; /* 40px */
+  --text-number-l--line-height: 3rem; /* 48px */
+  --text-number-l--font-weight: 700;
+
+  --text-number-m: 1.5rem; /* 24px */
+  --text-number-m--line-height: 2rem; /* 32px */
+  --text-number-m--font-weight: 600;
+
+  --text-number-s: 1rem; /* 16px */
+  --text-number-s--line-height: 1.5rem; /* 24px */
+  --text-number-s--font-weight: 500;
+
   /* 커스텀 애니메이션 */
-  --animate-slide-up: slide-up var(--transition-medium) ease-out;
+  /* --animate-slide-up: slide-up var(--transition-medium) ease-out;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-bounce-gentle: bounce 2s infinite;
+  --animate-bounce-gentle: bounce 2s infinite; */
 
   /* 그리드 컬럼 */
-  --grid-template-columns-10: repeat(10, minmax(0, 1fr));
-  --grid-template-columns-8: repeat(8, minmax(0, 1fr));
+  /* --grid-template-columns-10: repeat(10, minmax(0, 1fr));
+  --grid-template-columns-8: repeat(8, minmax(0, 1fr)); */
 
   /* 스페이싱 */
-  --spacing-18: 4.5rem;
-  --spacing-22: 5.5rem;
+  --spacing-0_5: 2px;
+  --spacing-1: 4px;
+  --spacing-1_5: 6px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
 
   /* 보더 반경 */
-  --radius-2xl: 1rem;
-  --radius-3xl: 1.5rem;
+  --radius-sm: 0.25rem; /* 4px */
+  --radius: 0.5rem; /* 8px (DEFAULT) */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.25rem; /* 20px */
+  --radius-2xl: 1.5rem; /* 24px */
+  --radius-3xl: 2rem; /* 32px */
 
   /* 그림자 */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-default: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-3xl: 0 35px 35px rgba(0, 0, 0, 0.25);
+
   /* 브레이크포인트 */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
-}
 
-/* 키프레임 애니메이션 정의 */
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+  /* 애니메이션 타이밍 */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
 
-/* 버튼 애니메이션 */
-@keyframes button-press {
-  0% {
-    transform: scale(1);
+  /* 애니메이션 */
+  --animate-slide-up: slide-up 0.3s ease-out forwards;
+  --animate-bounce-slow: bounce 3s infinite;
+  --animate-spin-slow: spin 3s linear infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* 키프레임 애니메이션 정의 */
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
-  50% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
+
+  /* 버튼 애니메이션 */
+  @keyframes button-press {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 }
 

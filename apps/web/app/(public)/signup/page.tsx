@@ -1,7 +1,7 @@
 "use client";
 
+import { useSignUp } from "@hook/useAuth";
 import { useState } from "react";
-import { useSignUp } from "../../@hook/useAuth";
 
 export default function SignUpPage() {
   const [form, setForm] = useState({

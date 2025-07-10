@@ -48,11 +48,9 @@ export default function HomePage() {
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-dark mb-4">버튼 사이즈</h2>
           <div className="flex flex-wrap items-end gap-4">
-            <Button size="xs">Extra Small</Button>
             <Button size="sm">Small</Button>
             <Button size="md">Medium</Button>
             <Button size="lg">Large</Button>
-            <Button size="xl">Extra Large</Button>
           </div>
         </section>
 
@@ -85,7 +83,7 @@ export default function HomePage() {
           <div className="flex flex-wrap gap-4">
             <Button disabled>비활성화</Button>
             <Button
-              isLoading={isLoading}
+              loading={isLoading}
               onClick={handleAsyncAction}
               variant="success"
             >
@@ -119,19 +117,6 @@ export default function HomePage() {
               rightIcon={<HeartIcon className="w-4 h-4" />}
             >
               프로젝트 다운로드
-            </Button>
-          </div>
-        </section>
-
-        {/* 애니메이션 없는 버튼 */}
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-dark mb-4">
-            애니메이션 제어
-          </h2>
-          <div className="flex gap-4">
-            <Button animated={true}>애니메이션 있음</Button>
-            <Button animated={false} variant="secondary">
-              애니메이션 없음
             </Button>
           </div>
         </section>
@@ -211,9 +196,6 @@ export default function HomePage() {
             아이콘 크기 자동 조정
           </h2>
           <div className="flex flex-wrap items-end gap-4">
-            <Button size="xs" leftIcon={<PlusIcon />}>
-              XS
-            </Button>
             <Button size="sm" leftIcon={<PlusIcon />}>
               SM
             </Button>
@@ -222,9 +204,6 @@ export default function HomePage() {
             </Button>
             <Button size="lg" leftIcon={<PlusIcon />}>
               LG
-            </Button>
-            <Button size="xl" leftIcon={<PlusIcon />}>
-              XL
             </Button>
           </div>
         </section>
