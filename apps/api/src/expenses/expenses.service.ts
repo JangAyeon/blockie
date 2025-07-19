@@ -124,4 +124,70 @@ export class ExpensesService {
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     return { total, expenses };
   }
+  async getCategoryStats(userId: string, year: number, month: number) {
+    const start = startOfMonth(new Date(year, month - 1, 1));
+    const end = endOfMonth(new Date(year, month - 1, 1));
+
+    // 해당 월의 모든 지출 데이터 조회
+    const expenses = await this.prisma.expense.findMany({
+      where: {
+        userId,
+        expenseDate: {
+          gte: start,
+          lte: end,
+        },
+      },
+      orderBy: {
+        amount: 'desc',
+      },
+    });
+
+    if (expenses.length === 0) {
+      return {
+        totalAmount: 0,
+        totalCount: 0,
+        categories: [],
+      };
+    }
+
+    // 카테고리별 집계
+    const categoryMap = new Map<string, { amount: number; count: number }>();
+    let totalAmount = 0;
+
+    expenses.forEach((expense) => {
+      const category = expense.category;
+      const amount = expense.amount;
+
+      totalAmount += amount;
+
+      if (categoryMap.has(category)) {
+        const existing = categoryMap.get(category)!;
+        categoryMap.set(category, {
+          amount: existing.amount + amount,
+          count: existing.count + 1,
+        });
+      } else {
+        categoryMap.set(category, {
+          amount: amount,
+          count: 1,
+        });
+      }
+    });
+
+    // 결과 변환 및 정렬 (금액 기준 내림차순)
+    const categories = Array.from(categoryMap.entries())
+      .map(([category, data]) => ({
+        category,
+        amount: data.amount,
+        count: data.count,
+        percentage: totalAmount > 0 ? (data.amount / totalAmount) * 100 : 0,
+      }))
+      .sort((a, b) => b.amount - a.amount);
+
+    return {
+      totalAmount,
+      totalCount: expenses.length,
+      categories,
+    };
+  }
 }

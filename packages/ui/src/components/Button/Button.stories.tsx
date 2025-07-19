@@ -1,669 +1,585 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
-import {
-  Button,
-  PlusIcon,
-  DownloadIcon,
-  SettingsIcon,
-  HeartIcon,
-  TrashIcon,
-} from "./Button";
+import { useState } from "react";
+import Button from "./Button";
 
 const meta = {
-  title: "Blockie Design System/Button",
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: "padded",
     docs: {
       description: {
         component: `
-Blockie 앱의 디자인 시스템을 기반으로 한 재사용 가능한 Button 컴포넌트입니다. 
+Blockie 디자인 시스템의 기본 버튼 컴포넌트입니다.
 
-### 특징
-- 🎨 Blockie 브랜드 색상 시스템 적용
-- 📱 5가지 크기 지원 (xs, sm, md, lg, xl)
-- 🎭 7가지 variant 스타일
-- ⚡ 내장 SVG 아이콘 (lucide-react 불필요)
-- 🔄 로딩 상태 및 애니메이션 지원
-- ♿ 접근성 고려 (포커스, 키보드 네비게이션)
+### 주요 특징
+- 🎨 **5가지 변형**: primary, secondary, outline, ghost, danger
+- 📏 **다양한 크기**: sm, md, lg 지원
+- ⚡ **인터랙션**: hover, active, focus 상태 애니메이션
+- 🔄 **로딩 상태**: 스피너와 비활성화 지원
+- ♿ **접근성**: 키보드 네비게이션, 포커스 링
 
 ### 사용법
-\`\`\`jsx
-import { Button, PlusIcon } from '@repo/ui'
+\`\`\`tsx
+import { Button } from './components/Button';
 
-<Button variant="primary" leftIcon={<PlusIcon />}>
-  버튼 텍스트
+<Button variant="primary" size="md">
+  클릭하세요
 </Button>
 \`\`\`
         `,
       },
     },
   },
-  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: "select",
+      control: { type: "select" },
+      options: ["primary", "secondary", "outline", "ghost", "danger"],
+      description: "버튼 스타일 변형",
+    },
+    color: {
+      control: { type: "select" },
       options: [
-        "primary",
-        "secondary",
-        "outline",
-        "ghost",
+        "blockie-yellow",
+        "blockie-green",
+        "blockie-blue",
+        "blockie-purple",
+        "blockie-pink",
+        "blockie-red",
+        "blockie-red-light",
+        "neutral-black",
+        "neutral-dark-gray",
         "success",
         "warning",
         "error",
+        "info",
       ],
-      description: "버튼의 시각적 스타일을 결정합니다.",
-      table: {
-        type: { summary: "ButtonVariant" },
-        defaultValue: { summary: "primary" },
-      },
+      description: "커스텀 색상 (CSS 변수명)",
     },
     size: {
-      control: "select",
-      options: ["xs", "sm", "md", "lg", "xl"],
-      description: "버튼의 크기를 결정합니다.",
-      table: {
-        type: { summary: "ButtonSize" },
-        defaultValue: { summary: "md" },
-      },
-    },
-    isLoading: {
-      control: "boolean",
-      description: "로딩 상태를 표시하고 클릭을 비활성화합니다.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
-    disabled: {
-      control: "boolean",
-      description: "버튼을 비활성화합니다.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+      control: { type: "select" },
+      options: ["sm", "md", "lg"],
+      description: "버튼 크기",
     },
     fullWidth: {
-      control: "boolean",
-      description: "버튼을 부모 컨테이너의 전체 너비로 확장합니다.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+      control: { type: "boolean" },
+      description: "전체 너비 사용 여부",
     },
-    animated: {
-      control: "boolean",
-      description: "호버 및 클릭 애니메이션을 활성화/비활성화합니다.",
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
-      },
+    loading: {
+      control: { type: "boolean" },
+      description: "로딩 상태",
+    },
+    disabled: {
+      control: { type: "boolean" },
+      description: "비활성화 상태",
     },
     children: {
-      control: "text",
-      description: "버튼 내부에 표시될 텍스트 또는 콘텐츠입니다.",
-      table: {
-        type: { summary: "React.ReactNode" },
-      },
-    },
-    leftIcon: {
-      control: false,
-      description: "버튼 텍스트 왼쪽에 표시될 아이콘입니다.",
-      table: {
-        type: { summary: "React.ReactNode" },
-      },
-    },
-    rightIcon: {
-      control: false,
-      description: "버튼 텍스트 오른쪽에 표시될 아이콘입니다.",
-      table: {
-        type: { summary: "React.ReactNode" },
-      },
+      control: { type: "text" },
+      description: "버튼 내용",
     },
   },
-  args: {
-    onClick: fn(),
-    children: "Button",
-  },
+  tags: ["autodocs"],
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// 기본 스토리
-export const Default: Story = {
+// 1. Basic Button 스토리
+export const BasicButton: Story = {
   args: {
-    children: "Default Button",
-  },
-};
-
-// Playground - 모든 props를 자유롭게 조정할 수 있는 스토리
-export const Playground: Story = {
-  args: {
+    children: "기본 버튼",
     variant: "primary",
-    size: "md",
-    children: "Playground Button",
-    isLoading: false,
-    disabled: false,
-    fullWidth: false,
-    animated: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "가장 기본적인 형태의 버튼입니다.",
+      },
+    },
   },
 };
 
-// Variant 스토리들
-export const Primary: Story = {
+// 2. Button Variants 스토리
+export const ButtonVariants: Story = {
   args: {
-    variant: "primary",
-    children: "Primary Button",
+    children: <div>ButtonVariants</div>,
   },
-};
-
-export const Secondary: Story = {
-  args: {
-    variant: "secondary",
-    children: "Secondary Button",
-  },
-};
-
-export const Outline: Story = {
-  args: {
-    variant: "outline",
-    children: "Outline Button",
-  },
-};
-
-export const Ghost: Story = {
-  args: {
-    variant: "ghost",
-    children: "Ghost Button",
-  },
-};
-
-export const Success: Story = {
-  args: {
-    variant: "success",
-    children: "Success Button",
-  },
-};
-
-export const Warning: Story = {
-  args: {
-    variant: "warning",
-    children: "Warning Button",
-  },
-};
-
-export const Error: Story = {
-  args: {
-    variant: "error",
-    children: "Error Button",
-  },
-};
-
-// 전체 Variant 비교
-export const AllVariants: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Button variant="primary">Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="success">Success</Button>
-      <Button variant="warning">Warning</Button>
-      <Button variant="error">Error</Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "모든 버튼 variant를 한눈에 비교할 수 있습니다.",
-      },
-    },
-  },
-};
-
-// 사이즈 스토리들
-export const Sizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-4 items-center">
-      <Button size="xs">Extra Small (xs)</Button>
-      <Button size="sm">Small (sm)</Button>
-      <Button size="md">Medium (md)</Button>
-      <Button size="lg">Large (lg)</Button>
-      <Button size="xl">Extra Large (xl)</Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "5가지 버튼 크기를 비교할 수 있습니다. 아이콘 크기도 자동으로 조정됩니다.",
-      },
-    },
-  },
-};
-
-// 내장 아이콘이 포함된 버튼들
-export const WithBuiltInIcons: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4">
-      <Button leftIcon={<PlusIcon />}>Add Item</Button>
-      <Button variant="secondary" rightIcon={<DownloadIcon />}>
-        Download
-      </Button>
-      <Button variant="outline" leftIcon={<SettingsIcon />}>
-        Settings
-      </Button>
-      <Button
-        variant="success"
-        leftIcon={<HeartIcon />}
-        rightIcon={<PlusIcon />}
-      >
-        Like & Add
-      </Button>
-      <Button variant="error" leftIcon={<TrashIcon />} size="sm">
-        Delete
-      </Button>
-      <Button variant="warning" rightIcon={<SettingsIcon />} size="lg">
-        Configure
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "내장 SVG 아이콘들을 사용한 버튼 예시입니다. lucide-react 없이도 다양한 아이콘을 사용할 수 있습니다.",
-      },
-    },
-  },
-};
-
-// 커스텀 아이콘 예시
-export const WithCustomIcons: Story = {
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      <Button
-        leftIcon={
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 10V3L4 14h7v7l9-11h-7z"
-            />
-          </svg>
-        }
-        variant="warning"
-      >
-        번개 ⚡
-      </Button>
-      <Button
-        rightIcon={
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-            />
-          </svg>
-        }
-        variant="success"
-      >
-        전송 📤
-      </Button>
-      <Button
-        leftIcon={
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        }
-        variant="success"
-      >
-        완료 ✅
-      </Button>
-      <Button
-        leftIcon={
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-            />
-          </svg>
-        }
-        variant="outline"
-      >
-        즐겨찾기 ⭐
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "커스텀 SVG 아이콘을 사용한 버튼 예시입니다. 어떤 SVG 아이콘이든 사용할 수 있습니다.",
-      },
-    },
-  },
-};
-
-// 아이콘 크기 자동 조정
-export const IconSizeAdaptation: Story = {
-  render: () => (
-    <div className="flex flex-wrap items-end gap-4">
-      <Button size="xs" leftIcon={<PlusIcon />}>
-        XS
-      </Button>
-      <Button size="sm" leftIcon={<PlusIcon />}>
-        SM
-      </Button>
-      <Button size="md" leftIcon={<PlusIcon />}>
-        MD
-      </Button>
-      <Button size="lg" leftIcon={<PlusIcon />}>
-        LG
-      </Button>
-      <Button size="xl" leftIcon={<PlusIcon />}>
-        XL
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "버튼 크기에 따라 아이콘 크기가 자동으로 조정됩니다. xs(12px) → sm/md(16px) → lg(20px) → xl(24px)",
-      },
-    },
-  },
-};
-
-// 로딩 상태
-export const Loading: Story = {
-  args: {
-    isLoading: true,
-    children: "Loading...",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "로딩 상태에서는 스피너가 표시되고 버튼이 비활성화됩니다.",
-      },
-    },
-  },
-};
-
-export const LoadingVariants: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4">
-      <Button isLoading variant="primary">
-        Primary Loading
-      </Button>
-      <Button isLoading variant="secondary">
-        Secondary Loading
-      </Button>
-      <Button isLoading variant="success">
-        Success Loading
-      </Button>
-      <Button isLoading variant="error">
-        Error Loading
-      </Button>
-      <Button isLoading variant="outline">
-        Outline Loading
-      </Button>
-      <Button isLoading variant="ghost">
-        Ghost Loading
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "모든 variant에서 로딩 상태를 확인할 수 있습니다.",
-      },
-    },
-  },
-};
-
-// 비활성화 상태
-export const Disabled: Story = {
-  render: () => (
-    <div className="grid grid-cols-2 gap-4">
-      <Button disabled>Disabled Primary</Button>
-      <Button disabled variant="secondary">
-        Disabled Secondary
-      </Button>
-      <Button disabled variant="outline">
-        Disabled Outline
-      </Button>
-      <Button disabled variant="success" leftIcon={<HeartIcon />}>
-        Disabled Success
-      </Button>
-      <Button disabled variant="error" rightIcon={<TrashIcon />}>
-        Disabled Error
-      </Button>
-      <Button disabled variant="ghost">
-        Disabled Ghost
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "비활성화된 버튼들입니다. 투명도가 50%로 설정되고 클릭할 수 없습니다.",
-      },
-    },
-  },
-};
-
-// 전체 너비
-export const FullWidth: Story = {
-  render: () => (
-    <div className="w-80 space-y-3">
-      <Button fullWidth leftIcon={<PlusIcon />}>
-        Add New Block
-      </Button>
-      <Button fullWidth variant="outline" rightIcon={<DownloadIcon />}>
-        Download Project
-      </Button>
-      <Button fullWidth variant="secondary">
-        Cancel Action
-      </Button>
-      <Button fullWidth variant="error" leftIcon={<TrashIcon />}>
-        Delete Everything
-      </Button>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: "전체 너비 버튼들입니다. 폼이나 카드에서 주로 사용됩니다.",
-      },
-    },
-  },
-};
-
-// 애니메이션 비교
-export const AnimationComparison: Story = {
-  render: () => (
-    <div className="flex gap-8">
-      <div className="text-center space-y-4">
-        <h3 className="font-semibold">애니메이션 있음</h3>
-        <div className="space-y-2">
-          <Button animated={true}>Hover me! 🎭</Button>
-          <Button animated={true} variant="outline">
-            Click me! 🎪
-          </Button>
+  render: () => {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">기본 버튼 변형</h3>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+          </div>
         </div>
       </div>
-      <div className="text-center space-y-4">
-        <h3 className="font-semibold">애니메이션 없음</h3>
-        <div className="space-y-2">
-          <Button animated={false} variant="secondary">
-            Static Button
-          </Button>
-          <Button animated={false} variant="ghost">
-            No Animation
-          </Button>
-        </div>
-      </div>
-    </div>
-  ),
+    );
+  },
   parameters: {
     docs: {
       description: {
-        story:
-          "애니메이션이 있는 버튼과 없는 버튼을 비교할 수 있습니다. 호버하거나 클릭해보세요!",
+        story: "다양한 버튼 스타일 변형을 보여줍니다.",
       },
     },
   },
 };
 
-// 실제 사용 시나리오들
-export const RealWorldExamples: Story = {
-  render: () => (
-    <div className="space-y-8 max-w-2xl">
-      {/* 블록 생성 영역 */}
-      <div className="bg-white p-6 rounded-lg border">
-        <h3 className="text-lg font-semibold text-dark mb-4">🧱 블록 생성</h3>
-        <div className="flex gap-3">
-          <Button leftIcon={<PlusIcon />}>새 블록</Button>
-          <Button variant="outline" leftIcon={<SettingsIcon />}>
-            템플릿
-          </Button>
-          <Button variant="ghost" size="sm">
-            미리보기
-          </Button>
+// 3. Custom Colors 스토리
+export const CustomColors: Story = {
+  args: {
+    children: <div>CustomColors</div>,
+  },
+  render: () => {
+    const colors = [
+      "blockie-yellow",
+      "blockie-green",
+      "blockie-blue",
+      "blockie-purple",
+      "blockie-pink",
+      "blockie-red",
+      "success",
+      "warning",
+      "error",
+      "info",
+    ];
+
+    return (
+      <div className="space-y-8">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">커스텀 색상 조합</h3>
+
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-medium mb-3">Primary 변형 + 다양한 색상</h4>
+              <div className="flex flex-wrap gap-3">
+                {colors.map((color) => (
+                  <Button
+                    key={`primary-${color}`}
+                    variant="primary"
+                    color={color}
+                  >
+                    {color.split("-").pop()}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">Outline 변형 + 다양한 색상</h4>
+              <div className="flex flex-wrap gap-3">
+                {colors.map((color) => (
+                  <Button
+                    key={`outline-${color}`}
+                    variant="outline"
+                    color={color}
+                  >
+                    {color.split("-").pop()}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">Ghost 변형 + 다양한 색상</h4>
+              <div className="flex flex-wrap gap-3">
+                {colors.map((color) => (
+                  <Button key={`ghost-${color}`} variant="ghost" color={color}>
+                    {color.split("-").pop()}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <h4 className="font-medium text-blue-800 mb-2">💡 사용법</h4>
+          <div className="text-sm text-blue-700 space-y-1">
+            <code className="block bg-white px-2 py-1 rounded">
+              &lt;Button variant="primary" color="blockie-green"&gt;초록
+              버튼&lt;/Button&gt;
+            </code>
+            <code className="block bg-white px-2 py-1 rounded">
+              &lt;Button variant="outline" color="blockie-purple"&gt;보라
+              테두리&lt;/Button&gt;
+            </code>
+            <code className="block bg-white px-2 py-1 rounded">
+              &lt;Button variant="ghost" color="error"&gt;에러
+              고스트&lt;/Button&gt;
+            </code>
+          </div>
         </div>
       </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Blockie 색상 변수를 자유롭게 조합한 커스텀 버튼들을 보여줍니다.",
+      },
+    },
+  },
+};
 
-      {/* 프로젝트 관리 */}
-      <div className="bg-white p-6 rounded-lg border">
-        <h3 className="text-lg font-semibold text-dark mb-4">
-          📁 프로젝트 관리
-        </h3>
-        <div className="flex gap-3">
-          <Button variant="success" rightIcon={<DownloadIcon />}>
-            저장
-          </Button>
-          <Button variant="warning">미리보기</Button>
-          <Button variant="error" leftIcon={<TrashIcon />}>
-            삭제
-          </Button>
-        </div>
-      </div>
-
-      {/* 양식 제출 */}
-      <div className="bg-white p-6 rounded-lg border">
-        <h3 className="text-lg font-semibold text-dark mb-4">📝 양식 제출</h3>
-        <div className="space-y-3">
-          <Button fullWidth size="lg" leftIcon={<PlusIcon />}>
-            프로젝트 생성하기
-          </Button>
-          <div className="flex gap-3">
-            <Button fullWidth variant="outline">
-              취소
+// 4. Button Sizes 스토리
+export const ButtonSizes: Story = {
+  args: {
+    children: <div>ButtonSizes</div>,
+  },
+  render: () => {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">버튼 크기</h3>
+          <div className="flex items-center gap-4">
+            <Button variant="primary" size="sm">
+              Small
             </Button>
-            <Button fullWidth variant="secondary">
-              임시저장
+            <Button variant="primary" size="md">
+              Medium
+            </Button>
+            <Button variant="primary" size="lg">
+              Large
+            </Button>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-medium mb-3">커스텀 색상 + 크기 조합</h4>
+          <div className="space-y-3">
+            <div className="flex items-center gap-4">
+              <Button variant="primary" color="blockie-green" size="sm">
+                Small Green
+              </Button>
+              <Button variant="primary" color="blockie-green" size="md">
+                Medium Green
+              </Button>
+              <Button variant="primary" color="blockie-green" size="lg">
+                Large Green
+              </Button>
+            </div>
+            <div className="flex items-center gap-4">
+              <Button variant="outline" color="blockie-purple" size="sm">
+                Small Purple
+              </Button>
+              <Button variant="outline" color="blockie-purple" size="md">
+                Medium Purple
+              </Button>
+              <Button variant="outline" color="blockie-purple" size="lg">
+                Large Purple
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "다양한 크기의 버튼과 커스텀 색상 조합을 보여줍니다.",
+      },
+    },
+  },
+};
+
+// 4. Button States 스토리
+export const ButtonStates: Story = {
+  args: {
+    children: <div>ButtonStates</div>,
+  },
+  render: () => {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">버튼 상태</h3>
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-medium mb-3">기본 상태</h4>
+              <div className="flex gap-4">
+                <Button variant="primary">Normal</Button>
+                <Button variant="secondary">Normal</Button>
+                <Button variant="outline">Normal</Button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">비활성화 상태</h4>
+              <div className="flex gap-4">
+                <Button variant="primary" disabled>
+                  Disabled
+                </Button>
+                <Button variant="secondary" disabled>
+                  Disabled
+                </Button>
+                <Button variant="outline" disabled>
+                  Disabled
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">로딩 상태</h4>
+              <div className="flex gap-4">
+                <Button variant="primary" loading>
+                  Loading
+                </Button>
+                <Button variant="secondary" loading>
+                  Loading
+                </Button>
+                <Button variant="outline" loading>
+                  Loading
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "버튼의 다양한 상태를 보여줍니다.",
+      },
+    },
+  },
+};
+
+// 5. Full Width Buttons 스토리
+export const FullWidthButtons: Story = {
+  args: {
+    children: <div>ButtonStates</div>,
+  },
+  render: () => {
+    return (
+      <div className="space-y-6 max-w-md">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">전체 너비 버튼</h3>
+          <div className="space-y-3">
+            <Button variant="primary" fullWidth>
+              전체 너비 Primary
+            </Button>
+            <Button variant="secondary" fullWidth>
+              전체 너비 Secondary
+            </Button>
+            <Button variant="outline" fullWidth>
+              전체 너비 Outline
             </Button>
           </div>
         </div>
       </div>
-
-      {/* 상태별 액션 */}
-      <div className="bg-white p-6 rounded-lg border">
-        <h3 className="text-lg font-semibold text-dark mb-4">🎯 상태별 액션</h3>
-        <div className="grid grid-cols-2 gap-3">
-          <Button isLoading>업로드 중...</Button>
-          <Button disabled>비활성화됨</Button>
-          <Button variant="success" leftIcon={<HeartIcon />}>
-            좋아요
-          </Button>
-          <Button variant="error" size="sm">
-            신고하기
-          </Button>
-        </div>
-      </div>
-    </div>
-  ),
+    );
+  },
   parameters: {
-    layout: "padded",
     docs: {
       description: {
-        story: "Blockie 앱에서 실제로 사용될 수 있는 다양한 시나리오들입니다.",
+        story: "전체 너비를 사용하는 버튼들을 보여줍니다.",
       },
     },
   },
 };
 
-// 접근성 테스트
-export const AccessibilityTest: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-3">
-          ⌨️ 키보드 네비게이션 테스트
-        </h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Tab 키로 이동하고 Enter/Space로 클릭해보세요.
-        </p>
-        <div className="flex gap-3">
-          <Button>첫 번째</Button>
-          <Button variant="outline">두 번째</Button>
-          <Button variant="success">세 번째</Button>
-          <Button disabled>네 번째 (비활성)</Button>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold mb-3">🎯 포커스 스타일</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          버튼에 포커스할 때 노란색 outline이 표시됩니다.
-        </p>
-        <div className="flex gap-3">
-          <Button leftIcon={<PlusIcon />}>Primary Focus</Button>
-          <Button variant="outline" rightIcon={<SettingsIcon />}>
-            Outline Focus
-          </Button>
-        </div>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "키보드 네비게이션과 포커스 스타일을 테스트할 수 있습니다. 웹 접근성 가이드라인을 준수합니다.",
-      },
-    },
-  },
-};
-
-// 인터랙티브 테스트 (Storybook interactions)
-export const InteractiveTest: Story = {
+// 6. Interactive Examples 스토리
+export const InteractiveExamples: Story = {
   args: {
-    children: "Click me!",
-    leftIcon: <PlusIcon />,
+    children: <div>InteractiveExamples</div>,
   },
-  play: async ({ canvasElement, step }) => {
-    // Storybook 인터랙션 테스트는 선택사항으로 여기서는 기본 설정만
-    console.log("Button interaction test ready");
+  render: () => {
+    const [count, setCount] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [liked, setLiked] = useState(false);
+
+    const handleAsyncAction = async () => {
+      setLoading(true);
+      // 2초 대기 시뮬레이션
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setLoading(false);
+      setCount((prev) => prev + 1);
+    };
+
+    return (
+      <div className="space-y-8">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">인터랙티브 예시</h3>
+
+          <div className="space-y-6">
+            <div className="bg-white p-6 border border-gray-200 rounded-lg">
+              <h4 className="font-medium mb-3">카운터</h4>
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCount((prev) => Math.max(0, prev - 1))}
+                  disabled={count === 0}
+                >
+                  -
+                </Button>
+                <span className="text-lg font-semibold min-w-[2rem] text-center">
+                  {count}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCount((prev) => prev + 1)}
+                >
+                  +
+                </Button>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 border border-gray-200 rounded-lg">
+              <h4 className="font-medium mb-3">비동기 액션</h4>
+              <div className="flex gap-4">
+                <Button
+                  variant="primary"
+                  loading={loading}
+                  onClick={handleAsyncAction}
+                >
+                  {loading ? "처리 중..." : "비동기 작업 실행"}
+                </Button>
+                <span className="text-sm text-gray-600 self-center">
+                  실행 횟수: {count}
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 border border-gray-200 rounded-lg">
+              <h4 className="font-medium mb-3">토글 액션</h4>
+              <Button
+                variant={liked ? "primary" : "outline"}
+                onClick={() => setLiked((prev) => !prev)}
+              >
+                {liked ? "❤️ 좋아요 취소" : "🤍 좋아요"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "실제 사용 시나리오를 보여주는 인터랙티브 예시입니다.",
+      },
+    },
+  },
+};
+
+// 7. Button Groups 스토리
+export const ButtonGroups: Story = {
+  render: () => {
+    const [selected, setSelected] = useState("left");
+
+    return (
+      <div className="space-y-8">
+        <div>
+          <h3 className="text-lg font-semibold mb-4">버튼 그룹</h3>
+
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-medium mb-3">액션 그룹</h4>
+              <div className="flex gap-2">
+                <Button variant="primary">저장</Button>
+                <Button variant="secondary">취소</Button>
+                <Button variant="outline">미리보기</Button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">커스텀 색상 액션 그룹</h4>
+              <div className="flex gap-2">
+                <Button variant="primary" color="success">
+                  완료
+                </Button>
+                <Button variant="outline" color="warning">
+                  대기
+                </Button>
+                <Button variant="outline" color="error">
+                  삭제
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">위험한 액션</h4>
+              <div className="flex gap-2">
+                <Button variant="secondary">뒤로</Button>
+                <Button variant="primary" color="error">
+                  삭제
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-3">세그먼트 컨트롤 (토글 그룹)</h4>
+              <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                <Button
+                  variant={selected === "left" ? "primary" : "ghost"}
+                  color={selected === "left" ? "blockie-blue" : undefined}
+                  onClick={() => setSelected("left")}
+                  className="rounded-none border-0"
+                >
+                  왼쪽
+                </Button>
+                <Button
+                  variant={selected === "center" ? "primary" : "ghost"}
+                  color={selected === "center" ? "blockie-blue" : undefined}
+                  onClick={() => setSelected("center")}
+                  className="rounded-none border-0 border-l border-r border-gray-300"
+                >
+                  가운데
+                </Button>
+                <Button
+                  variant={selected === "right" ? "primary" : "ghost"}
+                  color={selected === "right" ? "blockie-blue" : undefined}
+                  onClick={() => setSelected("right")}
+                  className="rounded-none border-0"
+                >
+                  오른쪽
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+  args: {
+    children: "Button Group",
   },
   parameters: {
     docs: {
       description: {
         story:
-          "인터랙티브 테스트용 버튼입니다. Actions 탭에서 클릭 이벤트를 확인할 수 있습니다.",
+          "여러 버튼을 조합한 그룹 사용 예시입니다. 커스텀 색상을 활용한 다양한 조합을 확인할 수 있습니다.",
+      },
+    },
+  },
+};
+
+// 8. Playground (모든 props 조합 테스트용)
+export const Playground: Story = {
+  args: {
+    children: "플레이그라운드 버튼",
+    variant: "primary",
+    color: "blockie-yellow", // 기본 색상 추가
+    size: "md",
+    fullWidth: false,
+    loading: false,
+    disabled: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "모든 Button 속성을 자유롭게 테스트할 수 있는 플레이그라운드입니다. 하단의 Controls 패널에서 다양한 속성과 색상을 변경해보세요.",
       },
     },
   },

@@ -27,6 +27,8 @@ import { getUser } from 'src/users/users.decorator';
 import { CreateExpensesDto } from './dto/create-expenses.dto';
 import { UpdateExpensesDto } from './dto/update-expenses.dto';
 import { AuthUser } from '@repo/types';
+// import { GetCategoryStatsDto } from './dto/category-stats.dto';
+import { CategoryStatsResponseEntity } from './entity/category-stats.entity';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
@@ -282,5 +284,46 @@ export class ExpensesController {
   })
   getMonthlyStats(@getUser() user: AuthUser, @Query('date') date: string) {
     return this.expensesService.getMonthlyStats(user.id, new Date(date));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('stats/category')
+  @ApiOperation({
+    summary: '카테고리별 지출 통계 조회',
+    description:
+      '특정 년월의 카테고리별 지출 통계를 조회합니다. 도넛 차트 데이터로 활용할 수 있습니다.',
+  })
+  @ApiQuery({
+    name: 'year',
+    type: Number,
+    required: true,
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiOkResponse({
+    type: CategoryStatsResponseEntity,
+    description: '카테고리별 지출 통계 조회 성공',
+  })
+  @ApiNotFoundResponse({
+    description: '해당 기간에 지출 데이터가 없습니다',
+  })
+  getCategoryStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+  ) {
+    return this.expensesService.getCategoryStats(
+      user.id,
+      Number(year),
+      Number(month),
+    );
   }
 }

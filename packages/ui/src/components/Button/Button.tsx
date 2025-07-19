@@ -1,13 +1,5 @@
-import React, { forwardRef } from "react";
-import { motion } from "framer-motion";
-import {
-  cn,
-  getButtonVariantStyle,
-  getButtonSizeStyle,
-  createInlineStyle,
-  type ButtonVariant,
-  type ButtonSize,
-} from "../../utils/styles";
+// src/components/Button.tsx
+import React from "react";
 
 // 내장 아이콘 컴포넌트들
 const PlusIcon = ({ className }: { className?: string }) => (
@@ -27,11 +19,7 @@ const PlusIcon = ({ className }: { className?: string }) => (
 );
 
 const LoadingIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={cn("animate-spin", className)}
-    fill="none"
-    viewBox="0 0 24 24"
-  >
+  <svg className={className} fill="none" viewBox="0 0 24 24">
     <circle
       className="opacity-25"
       cx="12"
@@ -118,6 +106,54 @@ const HeartIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 13l4 4L19 7"
+    />
+  </svg>
+);
+
+const AlertIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.34 16.5c-.77.833.192 2.5 1.732 2.5z"
+    />
+  </svg>
+);
+
+const XIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
 // 내장 아이콘 export
 export {
   PlusIcon,
@@ -126,116 +162,302 @@ export {
   SettingsIcon,
   TrashIcon,
   HeartIcon,
+  CheckIcon,
+  AlertIcon,
+  XIcon,
 };
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  isLoading?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  fullWidth?: boolean;
-  animated?: boolean;
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "size"> {
+  /** 버튼 내용 */
   children: React.ReactNode;
+  /** 버튼 변형 */
+  variant?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "ghost"
+    | "success"
+    | "warning"
+    | "error";
+  /** 커스텀 색상 (CSS 변수명 또는 HEX) */
+  color?:
+    | "blockie-yellow"
+    | "blockie-green"
+    | "blockie-blue"
+    | "blockie-purple"
+    | "blockie-pink"
+    | "blockie-red"
+    | "blockie-red-light"
+    | "neutral-black"
+    | "neutral-dark-gray"
+    | "success"
+    | "warning"
+    | "error"
+    | "info"
+    | string;
+  /** 버튼 크기 */
+  size?: "sm" | "md" | "lg";
+  /** 왼쪽 아이콘 */
+  leftIcon?: React.ReactNode;
+  /** 오른쪽 아이콘 */
+  rightIcon?: React.ReactNode;
+  /** 전체 너비 사용 여부 */
+  fullWidth?: boolean;
+  /** 로딩 상태 */
+  loading?: boolean;
+  /** 추가 CSS 클래스 */
+  className?: string;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+/**
+ * Blockie 디자인 시스템의 기본 버튼 컴포넌트
+ *
+ * @example
+ * ```tsx
+ * <Button variant="primary" size="md" leftIcon={<PlusIcon />}>
+ *   새로 만들기
+ * </Button>
+ *
+ * // 커스텀 색상 사용
+ * <Button variant="primary" color="blockie-green" rightIcon={<CheckIcon />}>
+ *   완료
+ * </Button>
+ * ```
+ */
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
-      className,
       variant = "primary",
+      color,
       size = "md",
-      isLoading = false,
       leftIcon,
       rightIcon,
       fullWidth = false,
-      animated = true,
+      loading = false,
+      className = "",
       disabled,
       style,
       ...props
     },
     ref
   ) => {
-    const variantStyle = getButtonVariantStyle(variant);
-    const sizeClasses = getButtonSizeStyle(size);
-
-    const buttonClasses = cn(
-      "btn-base",
-      variantStyle.className,
-      sizeClasses,
-      fullWidth && "w-full",
-      (disabled || isLoading) && "opacity-50 cursor-not-allowed",
-      animated && "hover-lift",
-      className
-    );
-
-    const inlineStyle = createInlineStyle(
-      variantStyle.backgroundColor,
-      variantStyle.color,
-      variantStyle.borderColor,
-      style
-    );
+    const sizeClasses = {
+      sm: "px-3 py-1.5 text-sm",
+      md: "px-4 py-2 text-base",
+      lg: "px-6 py-3 text-lg",
+    };
 
     // 아이콘 크기를 버튼 사이즈에 맞게 조정
     const getIconSize = () => {
       switch (size) {
-        case "xs":
-          return "w-3 h-3";
         case "sm":
           return "w-4 h-4";
         case "md":
           return "w-4 h-4";
         case "lg":
           return "w-5 h-5";
-        case "xl":
-          return "w-6 h-6";
         default:
           return "w-4 h-4";
       }
     };
 
-    const iconSize = getIconSize();
-    const ButtonComponent = (
-      animated ? motion.button : "button"
-    ) as React.ElementType;
-    const motionProps = animated
+    // 색상이 지정된 경우 커스텀 스타일 생성
+    const getCustomStyles = () => {
+      if (!color) return {};
+
+      const colorValue = color.startsWith("#")
+        ? color
+        : `var(--color-${color})`;
+
+      switch (variant) {
+        case "primary":
+          return {
+            backgroundColor: colorValue,
+            color: getContrastColor(color),
+            "--tw-ring-color": colorValue,
+          };
+        case "outline":
+          return {
+            borderColor: colorValue,
+            color: colorValue,
+            "--tw-ring-color": colorValue,
+          };
+        case "ghost":
+          return {
+            color: colorValue,
+            "--tw-ring-color": colorValue,
+          };
+        default:
+          return {};
+      }
+    };
+
+    // 색상에 따른 대비 텍스트 색상 결정
+    const getContrastColor = (colorName: string) => {
+      const lightColors = [
+        "blockie-yellow",
+        "blockie-green",
+        "blockie-pink",
+        "blockie-red-light",
+        "warning",
+      ];
+      const darkColors = [
+        "blockie-blue",
+        "blockie-purple",
+        "blockie-red",
+        "neutral-black",
+        "neutral-dark-gray",
+        "success",
+        "error",
+      ];
+
+      if (lightColors.includes(colorName)) {
+        return "var(--color-neutral-black)";
+      } else if (darkColors.includes(colorName)) {
+        return "white";
+      }
+      return "white"; // 기본값
+    };
+
+    const defaultVariantClasses = {
+      primary: `
+        bg-blockie-yellow text-neutral-black 
+        hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-blockie-yellow focus:ring-offset-2
+      `,
+      secondary: `
+        bg-white border border-gray-300 text-gray-700 
+        hover:bg-gray-50 hover:shadow hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+      `,
+      outline: `
+        bg-transparent border-2 border-current
+        hover:bg-current hover:text-white  hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-current focus:ring-offset-2
+      `,
+      ghost: `
+        bg-transparent 
+        hover:bg-current hover:text-white hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-current focus:ring-offset-2
+      `,
+      success: `
+        bg-success text-white 
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-success focus:ring-offset-2
+      `,
+      warning: `
+        bg-warning text-neutral-black 
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-warning focus:ring-offset-2
+      `,
+      error: `
+        bg-error text-white 
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-error focus:ring-offset-2
+      `,
+    };
+
+    // color가 지정된 경우 기본 색상 클래스 제거
+    const variantClasses = color
       ? {
-          whileHover: !disabled && !isLoading ? { y: -2 } : undefined,
-          whileTap: !disabled && !isLoading ? { scale: 0.95 } : undefined,
-          transition: {
-            type: "spring",
-            stiffness: 400,
-            damping: 17,
-            duration: 0.2,
-          },
+          primary: `
+        hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
+          secondary: `
+        bg-white border border-gray-300 
+        hover:bg-gray-50 hover:shadow hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
+      `,
+          outline: `
+        bg-white border-2 
+        hover:bg-current/10 hover:text-white  hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
+          ghost: `
+        bg-white 
+        hover:bg-current/10 hover:text-white  hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
+          success: `
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
+          warning: `
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
+          error: `
+        hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
+        active:scale-95 
+        focus:ring-2 focus:ring-offset-2
+      `,
         }
-      : {};
+      : defaultVariantClasses;
+
+    const baseClasses = `
+      btn-base
+      inline-flex items-center justify-center gap-2
+      font-medium rounded-lg 
+      transition-all duration-200 
+      focus:outline-none
+      disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+    `;
+
+    const widthClasses = fullWidth ? "w-full" : "";
+    const iconSize = getIconSize();
+
+    const buttonClasses = [
+      baseClasses,
+      sizeClasses[size],
+      variantClasses[variant],
+      widthClasses,
+      className,
+    ]
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const isDisabled = disabled || loading;
+    const customStyles = { ...getCustomStyles(), ...style };
 
     return (
-      <ButtonComponent
+      <button
         ref={ref}
         className={buttonClasses}
-        style={inlineStyle}
-        disabled={disabled || isLoading}
-        {...(animated ? motionProps : {})}
+        style={customStyles}
+        disabled={isDisabled}
         {...props}
       >
-        {isLoading ? (
-          <LoadingIcon className={iconSize} />
+        {loading ? (
+          <LoadingIcon className={`${iconSize} animate-spin`} />
         ) : (
           leftIcon && <span className={iconSize}>{leftIcon}</span>
         )}
 
         <span>{children}</span>
 
-        {!isLoading && rightIcon && (
-          <span className={iconSize}>{rightIcon}</span>
-        )}
-      </ButtonComponent>
+        {!loading && rightIcon && <span className={iconSize}>{rightIcon}</span>}
+      </button>
     );
   }
 );
 
 Button.displayName = "Button";
+
+export default Button;
