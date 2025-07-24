@@ -4,9 +4,9 @@
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { signIn, signOut } from "../@utils/apis/auth";
-import { queryFns, queryKeys } from "../@utils/query/query.control";
-import { fetchUserProfile, updateUserProfile } from "../@utils/apis/user";
-import { userFormData } from "../@component/UserProfile";
+import { queryFns, queryKeys } from "../@utils/query/query.key";
+// import { fetchUserProfile, updateUserProfile } from "../@utils/apis/_user";
+// import { userFormData } from "../@component/_UserProfile";
 
 export const useLogout = () => {
   const router = useRouter();
@@ -75,30 +75,30 @@ export const useSignIn = () => {
   });
 };
 
-export const useUserProfile = () => {
-  // const { data, isLoading, isError } = useQuery({
-  //   queryKey: queryKeys.user.base,
-  //   queryFn: () => fetchUserProfile(""),
-  //   staleTime: 1000 * 60 * 5,
-  // });
-  return useQuery({
-    queryKey: queryKeys.user.base,
-    queryFn: () => fetchUserProfile(""),
-    staleTime: 1000 * 60 * 5,
-  });
-};
+// export const useUserProfile = () => {
+//   // const { data, isLoading, isError } = useQuery({
+//   //   queryKey: queryKeys.user.base,
+//   //   queryFn: () => fetchUserProfile(""),
+//   //   staleTime: 1000 * 60 * 5,
+//   // });
+//   return useQuery({
+//     queryKey: queryKeys.user.base,
+//     queryFn: () => fetchUserProfile(""),
+//     staleTime: 1000 * 60 * 5,
+//   });
+// };
 
-export const useUpdateUserProfile = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (newData: userFormData) => updateUserProfile(newData),
-    onSuccess: (updatedData) => {
-      // 캐시 수동 업데이트 (더 깔끔)
-      queryClient.setQueryData(queryKeys.user.base, updatedData);
-      alert("저장되었습니다!");
-    },
-    onError: () => {
-      alert("저장 실패");
-    },
-  });
-};
+// export const useUpdateUserProfile = () => {
+//   const queryClient = useQueryClient();
+//   return useMutation({
+//     mutationFn: (newData: userFormData) => updateUserProfile(newData),
+//     onSuccess: (updatedData) => {
+//       // 캐시 수동 업데이트 (더 깔끔)
+//       queryClient.setQueryData(queryKeys.user.base, updatedData);
+//       alert("저장되었습니다!");
+//     },
+//     onError: () => {
+//       alert("저장 실패");
+//     },
+//   });
+// };

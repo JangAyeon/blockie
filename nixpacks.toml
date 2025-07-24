@@ -1,0 +1,33 @@
+providers = ["node"]
+
+[variables]
+NODE_ENV = "production"
+NPM_CONFIG_FUND = "false"
+NPM_CONFIG_AUDIT = "false"
+NPM_CONFIG_PROGRESS = "false"
+NPM_CONFIG_LOGLEVEL = "error"
+# 메모리 및 성능 최적화
+NODE_OPTIONS = "--max-old-space-size=6144 --max-semi-space-size=1024"
+# 빌드 최적화
+CI = "true"
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = [
+  "echo '🔧 Installing deps...'",
+  "rm -rf node_modules package-lock.json",
+  "npm install --prefer-offline --no-audit --no-fund"
+]
+
+[phases.build]
+cmds = [
+  "echo '⚡ Building...'",
+  "npm run type-check -w @repo/types &",
+  "npm run build -w @repo/ui",
+  "npm run build --workspace=web"
+]
+
+[start]
+cmd = "cd apps/web && npm run start"

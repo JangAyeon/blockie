@@ -27,6 +27,10 @@ import { getUser } from 'src/users/users.decorator';
 import { CreateExpensesDto } from './dto/create-expenses.dto';
 import { UpdateExpensesDto } from './dto/update-expenses.dto';
 import { AuthUser } from '@repo/types';
+// import { GetCategoryStatsDto } from './dto/category-stats.dto';
+import { CategoryStatsResponseEntity } from './entity/category-stats.entity';
+import { GetTrendAnalysisDto } from './dto/trend-analysis.dto';
+import { TrendAnalysisEntity } from './entity/trend-analysis.entity';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
@@ -282,5 +286,115 @@ export class ExpensesController {
   })
   getMonthlyStats(@getUser() user: AuthUser, @Query('date') date: string) {
     return this.expensesService.getMonthlyStats(user.id, new Date(date));
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('stats/category')
+  @ApiOperation({
+    summary: '카테고리별 지출 통계 조회',
+    description:
+      '특정 년월의 카테고리별 지출 통계를 조회합니다. 도넛 차트 데이터로 활용할 수 있습니다.',
+  })
+  @ApiQuery({
+    name: 'year',
+    type: Number,
+    required: true,
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiOkResponse({
+    type: CategoryStatsResponseEntity,
+    description: '카테고리별 지출 통계 조회 성공',
+  })
+  @ApiNotFoundResponse({
+    description: '해당 기간에 지출 데이터가 없습니다',
+  })
+  getCategoryStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+  ) {
+    return this.expensesService.getCategoryStats(
+      user.id,
+      Number(year),
+      Number(month),
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('trends/analysis')
+  @ApiOperation({
+    summary: '지출 추이 분석',
+    description: `지출 패턴의 상세한 트렌드 분석을 제공합니다. 
+  월별/주별/일별 분석이 가능하며, 카테고리별 트렌드, 변동성 분석, 
+  예측 정보, 맞춤 인사이트를 포함합니다.`,
+  })
+  @ApiQuery({
+    name: 'months',
+    type: Number,
+    required: false,
+    description: '분석할 기간 (개월 수, 기본값: 6, 최대: 24)',
+    example: 6,
+  })
+  @ApiQuery({
+    name: 'period',
+    enum: ['monthly', 'weekly', 'daily'],
+    required: false,
+    description: '분석 단위 (기본값: monthly)',
+    example: 'monthly',
+  })
+  @ApiQuery({
+    name: 'startYear',
+    type: Number,
+    required: false,
+    description: '시작 연도 (명시적 기간 설정시)',
+    example: 2024,
+  })
+  @ApiQuery({
+    name: 'startMonth',
+    type: Number,
+    required: false,
+    description: '시작 월 (1~12)',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'endYear',
+    type: Number,
+    required: false,
+    description: '종료 연도',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'endMonth',
+    type: Number,
+    required: false,
+    description: '종료 월 (1~12)',
+    example: 7,
+  })
+  @ApiOkResponse({
+    type: TrendAnalysisEntity,
+    description: '지출 추이 분석 완료',
+  })
+  getTrendAnalysis(
+    @getUser() user: AuthUser,
+    @Query() dto: GetTrendAnalysisDto,
+  ) {
+    return this.expensesService.getTrendAnalysis(user.id, {
+      months: dto.months,
+      period: dto.period,
+      startYear: dto.startYear,
+      startMonth: dto.startMonth,
+      endYear: dto.endYear,
+      endMonth: dto.endMonth,
+    });
   }
 }

@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 
 import { fetchBudgetStatus } from "../../@utils/apis/budget";
-import HydrationProvider from "../../@provider/hydration";
+import HydrationProvider from "../../@provider/query/single.hydration";
 export default async function BudgetLayout({
   children,
 }: {

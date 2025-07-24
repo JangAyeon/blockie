@@ -13,6 +13,7 @@ export {
 
 // Blockie 컴포넌트 export
 export { BlockieFace, BlockieBottom } from "./components/Blockie";
+export { Input } from "./components/Input/Input";
 
 // 유틸리티 함수 export
 export {

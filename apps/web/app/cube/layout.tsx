@@ -1,6 +1,6 @@
 // app/budget/layout.tsx
 import { cookies } from "next/headers";
-import HydrationProvider from "../../@provider/hydration";
+import HydrationProvider from "../../@provider/query/single.hydration";
 import { fetchExpenseStatus } from "../../@utils/apis/expense";
 export default async function CubeLayout({
   children,
