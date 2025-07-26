@@ -13,16 +13,25 @@ export const queryKeys = {
   auth: {
     base: [QUERY_KEYS.AUTH] as const,
   },
-  // user: {
-  //   base: [QUERY_KEYS.USER, QUERY_KEYS.ME] as const,
-  //   detail: (id: string) => [...queryKeys.user.base, "detail", id] as const, // 안 쓰는 거
-  // },
+
   user: {
     base: ["user"] as const,
     profile: () => [...queryKeys.user.base, "profile"] as const,
     budgetHistory: (months?: number) =>
       [...queryKeys.user.base, "budget-history", { months }] as const,
     recentExpenses: () => [...queryKeys.user.base, "recent-expenses"] as const,
+  },
+  budget: {
+    base: ["budget"] as const,
+    status: ({ month, year }: { month: string; year: string }) =>
+      [...queryKeys.budget.base, "budget-status", { month, year }] as const,
+    budgetHistory: (months?: number) =>
+      [...queryKeys.budget.base, "budget-history", { months }] as const,
+  },
+  expense: {
+    base: ["expense"] as const,
+    category: ({ month, year }: { month: string; year: string }) =>
+      [...queryKeys.expense.base, "expense-category", { month, year }] as const,
   },
 };
 export const queryFns = {

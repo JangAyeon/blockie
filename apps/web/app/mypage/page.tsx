@@ -6,7 +6,7 @@ import {
   HeroSection,
   ProfileForm,
 } from "@component/features/user";
-import { useMyPage } from "@hook/api/user/useMyPage";
+import { useMyPage } from "@hook/business/mypage/useMyPage";
 import { useUserEmotion } from "@hook/business/mypage/useUserEmotion";
 
 // 메인 컴포넌트

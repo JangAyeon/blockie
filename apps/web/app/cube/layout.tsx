@@ -1,7 +1,8 @@
 // app/budget/layout.tsx
 import { cookies } from "next/headers";
-import HydrationProvider from "../../@provider/query/single.hydration";
-import { fetchExpenseStatus } from "../../@utils/apis/expense";
+import HydrationProvider from "../../@provider/query/parallel.hydration";
+import { queryKeys } from "@utils/query/query.key";
+import { budgetService } from "@utils/apis/services/budget";
 export default async function CubeLayout({
   children,
 }: {
@@ -18,17 +19,23 @@ export default async function CubeLayout({
   if (!access_token) {
     return <div>No access token</div>;
   }
-
+  const prefetchQueries = [
+    {
+      queryKey: queryKeys.budget.status({ year, month }),
+      queryFn: () => budgetService.getBudgetStatus({ year, month }),
+    },
+    // {
+    //   queryKey: queryKeys.user.budgetHistory(6),
+    //   queryFn: () => userService.getBudgetHistory(6),
+    // },
+    // {
+    //   queryKey: queryKeys.user.recentExpenses(),
+    //   queryFn: () => userService.getRecentExpenses(),
+    // },
+  ];
   return (
     // <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
 
-    <HydrationProvider
-      queryKey={["expense-monthly", year, month, day]}
-      queryFn={() =>
-        fetchExpenseStatus(year, month, day, "monthly", access_token)
-      }
-    >
-      {children}
-    </HydrationProvider>
+    <HydrationProvider queries={prefetchQueries}>{children}</HydrationProvider>
   );
 }

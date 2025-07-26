@@ -1,5 +1,6 @@
-import { User, BudgetHistoryResponse, RecentExpense } from "@type/user";
+import { User, RecentExpense } from "@type/user";
 import { apiClient } from "../api.client";
+import { BudgetHistoryResponse } from "@type/budget";
 
 export const userService = {
   // 내 프로필 조회

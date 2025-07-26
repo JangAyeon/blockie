@@ -6,6 +6,10 @@ import { memo, useEffect, useMemo, useState } from "react";
 import ExpenseCube from "../../@component/ExpenseCube";
 import { toYMDWithString } from "../../@utils/date/YMD";
 import { BlockieFace } from "@repo/ui";
+import { useCube } from "@hook/business/cube/useCube";
+import { MyPageLoading } from "@component/features/user";
+import { ExpenseCategoryItem } from "@type/expense";
+import { categoryConfig } from "@constant/expense.category";
 
 interface UserData {
   name: string;
@@ -183,18 +187,21 @@ const useExpenseData = () => {
 // 블록 컬렉션 컴포넌트
 const BlockCollection = memo<{
   categoryBlocks: CategoryBlock[];
+  categoryInfo: ExpenseCategoryItem[];
   totalBlocks: number;
   maxBlocks: number;
-}>(({ categoryBlocks, totalBlocks, maxBlocks }) => {
+}>(({ categoryBlocks, totalBlocks, maxBlocks, categoryInfo }) => {
   const blocks = useMemo(() => {
     return categoryBlocks.flatMap((category) =>
       Array.from({ length: category.count }, (_, i) => ({
         id: `${category.id}-${i}`,
-        color: category.color,
+        color: categoryConfig[category.name]?.color || "#9CA3AF",
         categoryId: category.id,
       }))
     );
   }, [categoryBlocks]);
+
+  console.log("block", blocks);
 
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative overflow-hidden">
@@ -245,17 +252,19 @@ const BlockCollection = memo<{
 
         {/* 범례 */}
         <div className="flex justify-center flex-wrap gap-4">
-          {categoryBlocks.map((category) => (
+          {categoryInfo.map(({ category, count }) => (
             <div
-              key={category.id}
+              key={category}
               className="flex items-center group cursor-pointer"
             >
               <div
                 className="w-3 h-3 rounded-sm mr-2 shadow-sm group-hover:scale-110 transition-transform"
-                style={{ backgroundColor: category.color }}
+                style={{
+                  backgroundColor: categoryConfig[category]?.color || "#9CA3AF",
+                }}
               />
               <span className="text-xs text-gray-600 font-medium group-hover:text-gray-800 transition-colors">
-                {category.name} ({category.count})
+                {category} ({count})
               </span>
             </div>
           ))}
@@ -310,7 +319,16 @@ export default function ExpenseCubePage() {
   const day = searchParams.get("day")?.padStart(2, "0");
 
   const hasDate = year && month && day;
+  const {
+    budgetQuery: { data: budgetStatus },
+    expenseCategoryQuery: { data: expenseCategory },
+    isLoading,
+    hasError,
+    errors,
+    isSuccess,
+  } = useCube(hasDate ? { year, month } : { year: "", month: "" });
 
+  console.log("expenseCategory", expenseCategory);
   useEffect(() => {
     if (!hasDate) {
       const today = new Date();
@@ -318,6 +336,7 @@ export default function ExpenseCubePage() {
       router.replace(`/cube?year=${year}&month=${month}&day=${day}`);
     }
   }, [router, searchParams, hasDate]);
+  if (isLoading || hasError || !hasDate) return <MyPageLoading />;
   return (
     // <div className="p-6">
     //   <h1 className="mb-4 font-bold text-lg">색칠형 예산 시각화</h1>
@@ -366,24 +385,25 @@ export default function ExpenseCubePage() {
                       이번 달 컬렉션 공간
                     </div>
                     <div className="text-3xl font-bold text-gray-800">
-                      {formatCurrency(userData.monthlyBudget)}
+                      {formatCurrency(budgetStatus?.budget!)}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-sm text-gray-600 mb-1">남은 공간</div>
                   <div className="text-3xl font-bold text-green-600">
-                    {formatCurrency(analytics.remainingBudget)}
+                    {formatCurrency(budgetStatus?.remaining!)}
                   </div>
                   <div className="text-xs text-gray-500">
-                    일 평균 {formatCurrency(analytics.dailyBudget)}
+                    일 평균{" "}
+                    {formatCurrency(budgetStatus?.recommendedDailySpending!)}
                   </div>
                 </div>
               </div>
 
               <ProgressBar
-                value={userData.totalSpent}
-                max={userData.monthlyBudget}
+                value={budgetStatus?.spent!}
+                max={budgetStatus?.budget!}
                 className="mb-4"
               />
 
@@ -409,8 +429,9 @@ export default function ExpenseCubePage() {
           {/* 블록 컬렉션 */}
           <BlockCollection
             categoryBlocks={userData.categoryBlocks}
-            totalBlocks={userData.totalBlocks}
-            maxBlocks={Math.floor(userData.monthlyBudget / 10000)}
+            categoryInfo={expenseCategory?.categories!}
+            totalBlocks={budgetStatus?.spent! / 10000}
+            maxBlocks={Math.floor(budgetStatus?.budget! / 10000)}
           />
 
           {/* 인사이트 카드 */}
@@ -430,9 +451,7 @@ export default function ExpenseCubePage() {
                       가장 많이 지출한 카테고리
                     </span>
                     <span className="font-semibold text-gray-800">
-                      {userData.categoryBlocks.find(
-                        (c) => c.id === analytics.topCategory
-                      )?.name || "-"}
+                      {expenseCategory?.categories[0]?.category}
                     </span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
@@ -441,7 +460,7 @@ export default function ExpenseCubePage() {
                     </span>
                     <span className="font-semibold text-gray-800">
                       {formatCurrency(
-                        Math.floor(userData.totalSpent / new Date().getDate())
+                        Math.floor(budgetStatus?.spent! / new Date().getDate())
                       )}
                     </span>
                   </div>
@@ -451,15 +470,15 @@ export default function ExpenseCubePage() {
                     </span>
                     <span
                       className={`font-semibold ${
-                        (userData.totalSpent / new Date().getDate()) * 31 >
-                        userData.monthlyBudget
+                        (budgetStatus?.spent! / new Date().getDate()) * 31 >
+                        budgetStatus?.budget!
                           ? "text-red-600"
                           : "text-green-600"
                       }`}
                     >
                       {formatCurrency(
                         Math.floor(
-                          (userData.totalSpent / new Date().getDate()) * 31
+                          (budgetStatus?.spent! / new Date().getDate()) * 31
                         )
                       )}
                     </span>

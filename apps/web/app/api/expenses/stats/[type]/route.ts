@@ -14,9 +14,12 @@ export async function GET(
   const { searchParams } = new URL(req.url);
   const date = searchParams.get("date");
   const { type } = await params;
-  console.log("## GET", req.url, type, date);
+
+  const qs = searchParams.toString();
+  console.log("## GET", req.url, type, date, qs);
+
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/stats/${type}?date=${date}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/stats/${type}?${qs}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -28,6 +31,6 @@ export async function GET(
     return NextResponse.json({ message: "인증 실패" }, { status: res.status });
   }
 
-  const user = await res.json();
-  return NextResponse.json(user);
+  const data = await res.json();
+  return NextResponse.json(data);
 }

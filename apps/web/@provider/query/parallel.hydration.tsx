@@ -59,7 +59,7 @@ export default async function HydrationProvider({
   );
 
   const dehydratedState = dehydrate(queryClient);
-
+  console.log("####", dehydratedState.queries);
   return (
     <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
   );

@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { User } from "@type/user";
+import { expenseService } from "@utils/apis/services/expense";
 import { userService } from "@utils/apis/services/user";
 import { queryKeys } from "@utils/query/query.key";
 
@@ -22,5 +23,20 @@ export const useExpenses = (limit = 4) => {
       );
     },
     staleTime: 2 * 60 * 1000, // 2분
+  });
+};
+
+export const useExpensesCategory = ({
+  year,
+  month,
+}: {
+  year: string;
+  month: string;
+}) => {
+  return useQuery({
+    queryKey: queryKeys.expense.category({ year, month }),
+    queryFn: () => expenseService.getCategoryStatus({ year, month }),
+    select: (response) => response,
+    staleTime: 5 * 60 * 1000, // 5분
   });
 };
