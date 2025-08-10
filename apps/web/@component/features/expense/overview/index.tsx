@@ -8,7 +8,6 @@ import { useBudgetStatus } from "@hook/api/budget/useBudget";
 import { BlockieFace, BlockieBottom, Button } from "@repo/ui";
 import { formatWithCurrencySymbol, formatDate } from "@utils/common/formatter";
 import { motion } from "framer-motion";
-import { Doughnut } from "react-chartjs-2";
 import FullLoader from "@component/features/expense/loading/FullLoader";
 import {
   useExpensesCategory,
@@ -130,26 +129,6 @@ const Overview: React.FC<OverviewProps> = ({
     expenseCategory?.categories,
   ]);
 
-  const doughnutData = useMemo(() => {
-    if (!expenseCategory) return { labels: [], datasets: [] };
-    const categories = expenseCategory.categories;
-    const labels = categories.map((item) => item.category);
-    const data = {
-      labels,
-      datasets: [
-        {
-          data: Object.values(categories).map((item) => item.amount),
-          backgroundColor: Object.values(categories).map(
-            (item) => categoryConfig[item.category]?.color || "#9CA3AF"
-          ),
-          borderWidth: 2,
-          hoverOffset: 4,
-        },
-      ],
-    };
-    return data;
-  }, [expenseCategory?.categories]);
-
   if (isLoading) return <FullLoader />;
   return (
     <motion.div
@@ -159,7 +138,7 @@ const Overview: React.FC<OverviewProps> = ({
       initial="initial"
       animate="animate"
       exit="exit"
-      className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+      className="max-w-5xl mx-auto p-4 md:p-6"
     >
       <Card className="lg:col-span-2 relative overflow-hidden">
         {/* 장식적 배경 요소들 */}
@@ -564,126 +543,6 @@ ${categoryConfig[item.category]?.border ?? "border-gray-200"}`}
               </div>
             </motion.div>
           </div>
-        </div>
-      </Card>
-
-      {/* 카테고리별 지출 카드 */}
-      <Card className="relative overflow-hidden">
-        {/* 장식적 배경 */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-purple-100/30 to-pink-100/30 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
-
-        <div className="relative z-10">
-          <div className="flex items-center mb-6">
-            <motion.span
-              className="text-title-1 mr-3"
-              animate={{ rotateY: [0, 180, 360] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              🍩
-            </motion.span>
-            <h3 className="text-title-2 font-semibold text-gray-800">
-              카테고리별 지출
-            </h3>
-          </div>
-
-          {Object.keys(expenseCategory.categories).length > 0 ? (
-            <>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="h-60 mb-6 relative"
-              >
-                <Doughnut
-                  data={doughnutData}
-                  options={{
-                    plugins: {
-                      legend: {
-                        display: false,
-                      },
-                    },
-                    maintainAspectRatio: false,
-                    animation: {
-                      animateRotate: true,
-                      animateScale: true,
-                      duration: 2000,
-                    },
-                  }}
-                />
-              </motion.div>
-
-              <div className="grid grid-cols-1 sm:grid-col-2   lg:grid-cols-1 gap-4">
-                {Object.entries(expenseCategory.categories).map(
-                  ([category, stats], index) => {
-                    console.log("@@@@@", category, stats);
-                    return (
-                      <motion.div
-                        key={category}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
-                        className="flex justify-between items-center p-4 bg-gray-50/80 rounded-xl border border-gray-100/50 hover:bg-white/80 transition-all duration-200 group"
-                      >
-                        <div className="flex items-center">
-                          <motion.div
-                            whileHover={{ scale: 1.2 }}
-                            className="w-4 h-4 rounded-full mr-3 shadow-sm"
-                            style={{
-                              backgroundColor:
-                                categoryConfig[stats.category]?.color ??
-                                "#9CA3AF", // fallback to gray-400
-                            }}
-                          />
-                          <span className="text-body-2 font-medium text-neutral-black group-hover:text-gray-800 transition-colors">
-                            {stats.category}
-                          </span>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-body-2 font-semibold text-gray-800">
-                            {stats.amount.toLocaleString()}원
-                          </div>
-                          <div className="text-xs text-neutral-dark-gray">
-                            {stats.percentage.toFixed(1)}% / {stats.count}건
-                          </div>
-                        </div>
-                      </motion.div>
-                    );
-                  }
-                )}
-              </div>
-            </>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col items-center justify-center h-60 text-neutral-medium-gray"
-            >
-              <motion.div
-                className="flex flex-col items-center mb-6"
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <BlockieFace size={50} emotion="neutral" />
-                <BlockieBottom size={50} />
-              </motion.div>
-              <p className="text-title-3 font-medium">
-                카테고리 데이터가 없습니다
-              </p>
-              <p className="text-body-2 text-center mt-2">
-                지출을 추가하여
-                <br />
-                카테고리별 분석을 확인해보세요
-              </p>
-            </motion.div>
-          )}
         </div>
       </Card>
     </motion.div>
