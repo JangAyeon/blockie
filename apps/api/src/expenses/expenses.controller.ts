@@ -406,7 +406,7 @@ export class ExpensesController {
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('access-token')
-  @Get('trends/analysis')
+  @Get('analysis')
   @ApiOperation({
     summary: '지출 추이 분석',
     description: `지출 패턴의 상세한 트렌드 분석을 제공합니다. 

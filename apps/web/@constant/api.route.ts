@@ -1,13 +1,3 @@
-// export enum ApiRouteEnum {
-//   AUTH = "/auth",
-// }
-
-// export enum AuthRoute {
-//   SIGN_IN = "/signin",
-//   SIGN_UP = "/signup",
-//   SIGN_OUT = "/signout",
-// }
-
 export const ApiRoute = {
   users: {
     BASE: "/users",
@@ -30,6 +20,7 @@ export const ApiRoute = {
     GET_CATEGORY_STATUS: "/expenses/stats/category",
     GET_MONTHLY_STATUS: "/expenses/stats/monthly",
     GET_STREAK: "/expenses/stats/streak",
+    GET_ANALYSIS: "/expenses/analysis",
   },
 } as const;
 
