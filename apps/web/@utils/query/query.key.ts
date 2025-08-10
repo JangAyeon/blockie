@@ -1,6 +1,7 @@
 import { SupabaseSignUpRequest } from "@repo/types";
 
 import { YearMonthDayProps, YearMonthProps } from "@type/date";
+import { getAnalysisProps } from "@type/expense";
 import { signOut, signUp } from "@utils/apis/auth";
 
 export enum QUERY_KEYS {
@@ -78,6 +79,8 @@ export const queryKeys = {
       ] as const,
     streak: () =>
       [...queryKeys.expense.base, EXPENSE_SUB_QUERY.STREAK] as const,
+    analysis: (params: getAnalysisProps) =>
+      [...queryKeys.expense.base, ...Object.values(params)] as const,
   },
 };
 export const queryFns = {
