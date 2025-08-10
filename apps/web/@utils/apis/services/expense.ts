@@ -1,7 +1,9 @@
 import {
+  DeleteExpenseItem,
   ExpenseCategorySummary,
   ExpenseItemListResponse,
   StreakInfoResponse,
+  UpsertExpenseItem,
 } from "@type/expense";
 
 import { YearMonthDayProps, YearMonthProps } from "@type/date";
@@ -29,4 +31,10 @@ export const expenseService = {
     ),
   getStreak: () =>
     apiClient.get<StreakInfoResponse>(`${ApiRoute.expenses.GET_STREAK}`),
+  deleteExpenseItem: ({ id }: DeleteExpenseItem) =>
+    apiClient.delete<void>(`${ApiRoute.expenses.BASE}/${id}`),
+  updateExpenseItem: ({ id, data }: UpsertExpenseItem) =>
+    apiClient.patch<void>(`${ApiRoute.expenses.BASE}/${id}`, data),
+  addExpenseItem: (data: UpsertExpenseItem["data"]) =>
+    apiClient.post<void>(`${ApiRoute.expenses.BASE}`, data),
 };

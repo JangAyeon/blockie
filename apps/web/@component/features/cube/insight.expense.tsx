@@ -2,7 +2,7 @@ import { BlockieFace } from "@repo/ui";
 import { BudgetSummary } from "@type/budget";
 import { ExpenseCategorySummary } from "@type/expense";
 import getUsageEmotion from "@utils/common/getUsageEmotion";
-import { formatWithCurrencySymbol } from "@utils/onboarding/formatter";
+import { formatWithCurrencySymbol } from "@utils/common/formatter";
 
 const InsightExpense = ({
   budgetStatus,

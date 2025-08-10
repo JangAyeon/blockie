@@ -58,3 +58,32 @@ export const categoryConfig: Record<
     icon: "🔖",
   },
 };
+
+export const EXPENSE_TAB_MENU = {
+  STATISTICS: "STATISTICS",
+  LIST: "LIST",
+  OVERVIEW: "OVERVIEW",
+} as const;
+
+export const EXPENSE_PAGE_VARIANTS = {
+  initial: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+  }),
+  animate: {
+    x: 0,
+    opacity: 1,
+    // transition: {
+    //   duration: 0.3,
+    //   ease: "easeOut",
+    // },
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0,
+    // transition: {
+    //   duration: 0.3,
+    //   ease: "easeIn",
+    // },
+  }),
+};

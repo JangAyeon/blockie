@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -23,8 +23,14 @@ export async function PATCH(
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body,
+        body: JSON.stringify(body),
       }
+    );
+    console.log(
+      "^^patch^^",
+      body,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/${id}`,
+      res.ok
     );
 
     if (!res.ok) {
@@ -65,7 +71,12 @@ export async function DELETE(
         },
       }
     );
+    console.log(
+      "^^^delete^",
 
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/${id}`,
+      res.ok
+    );
     if (!res.ok) {
       return NextResponse.json(
         { message: "Failed to create or update budget" },

@@ -86,7 +86,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                 </motion.div>
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                <h2 className="text-title-1 font-bold mb-2">
                   {budgetStatus.year}년 {getMonthName(Number(month))}
                 </h2>
                 <div className="flex flex-row gap-2">

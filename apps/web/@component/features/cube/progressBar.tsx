@@ -1,4 +1,4 @@
-import { formatWithCurrencySymbol } from "@utils/onboarding/formatter";
+import { formatWithCurrencySymbol } from "@utils/common/formatter";
 import { memo, useMemo } from "react";
 
 const ProgressBar = memo<{
