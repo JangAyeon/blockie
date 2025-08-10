@@ -28,7 +28,7 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
             height={32}
           />
           <div>
-            <p>카테고리 비교 분석을 위한 </p>
+            <p>카테고리 추이 분석을 위한 </p>
             <p>데이터가 충분하지 않아요.</p>
           </div>
         </div>
