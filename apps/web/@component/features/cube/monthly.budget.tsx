@@ -1,6 +1,6 @@
 import { BlockieFace } from "@repo/ui";
 
-import { formatWithCurrencySymbol } from "@utils/onboarding/formatter";
+import { formatWithCurrencySymbol } from "@utils/common/formatter";
 import ProgressBar from "@component/features/cube/progressBar";
 
 import { BudgetSummary } from "@type/budget";

@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { FormData } from "@type/onboarding";
-import { formatPhoneNumber } from "@utils/onboarding/formatter";
+import { formatPhoneNumber } from "@utils/common/formatter";
 
 const INITIAL_FORM_DATA: FormData = {
   name: "",

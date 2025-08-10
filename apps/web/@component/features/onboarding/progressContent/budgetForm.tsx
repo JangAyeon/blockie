@@ -1,5 +1,5 @@
 import { calculateBlocks } from "@utils/budget";
-import { formatNumberWithCommas } from "@utils/onboarding/formatter";
+import { formatNumberWithCommas } from "@utils/common/formatter";
 import { FormData } from "@type/onboarding";
 import BlockVisualization from "./blockVisualization";
 import { Input } from "@repo/ui";

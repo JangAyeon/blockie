@@ -50,10 +50,12 @@ export class ExpensesService {
       where: { id: expenseId },
     });
 
-    console.log('##$$$ ', expense);
-
-    if (!expense || expense.userId !== userId) {
-      throw new ForbiddenException('이 지출 항목에 대한 권한이 없습니다.');
+    if (!expense) {
+      throw new ForbiddenException('해당 지출 항목이 존재하지 않습니다.');
+    } else if (expense.userId !== userId) {
+      throw new ForbiddenException(
+        '해당 지출 항목에 대한 삭제 권한이  존재하지 않습니다.',
+      );
     }
 
     return this.prisma.expense.update({

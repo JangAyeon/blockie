@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import Card from "@component/features/budget/card";
+import Card from "@component/common/card";
 
 import { useBudgetHistory } from "@hook/api/budget/useBudget";
 
@@ -30,7 +30,7 @@ const HistorySection = () => {
       className="space-y-6"
     >
       <Card>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center">
           <h2 className="text-title-2  font-semibold">월별 예산 내역</h2>
           <div className="text-body-2 text-neutral-black">
             총 {data.totalMonths}개월 중 {data.monthsWithBudget}개월 예산 설정

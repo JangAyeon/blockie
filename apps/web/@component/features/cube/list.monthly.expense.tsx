@@ -6,7 +6,7 @@ import {
   getCategoryIcon,
 } from "@utils/common/getCategoryConfig";
 import { toYMDWithString } from "@utils/date/YMD";
-import { formatWithCurrencySymbol } from "@utils/onboarding/formatter";
+import { formatWithCurrencySymbol } from "@utils/common/formatter";
 import { useRouter } from "next/navigation";
 
 const ListMonthlyExpense: React.FC<{

@@ -9,7 +9,7 @@ import { getMonthName } from "@utils/budget";
 
 import { useBudgetStatus } from "@hook/api/budget/useBudget";
 import FullLoader from "@component/features/budget/loading/FullLoader";
-import Card from "@component/features/budget/card";
+import Card from "@component/common/card";
 // import SavingsAchievements from "./_savingsAchievements";
 
 interface CurrentBudgetProps {
@@ -86,7 +86,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                 </motion.div>
               </div>
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                <h2 className="text-title-1 font-bold mb-2">
                   {budgetStatus.year}년 {getMonthName(Number(month))}
                 </h2>
                 <div className="flex flex-row gap-2">
@@ -117,7 +117,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     <Button
                       variant={budgetStatus.hasBudget ? "outline" : "primary"}
                       onClick={() => setShowBudgetModal(true)}
-                      className={`shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-sm font-semibold flex items-center bg-white/60 backdrop-blur-sm px-2 py-1.5 rounded-full w-fit border`}
+                      className={`shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-sm font-semibold flex items-center bg-white/60 backdrop-blur-sm px-2 py-1.5 rounded-full w-fit`}
                     >
                       {budgetStatus.hasBudget ? <>예산 수정</> : <>예산 설정</>}
                     </Button>

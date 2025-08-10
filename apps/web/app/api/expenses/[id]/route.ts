@@ -23,8 +23,14 @@ export async function PATCH(
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body,
+        body: JSON.stringify(body),
       }
+    );
+    console.log(
+      "^^patch^^",
+      body,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/${id}`,
+      res.ok
     );
 
     if (!res.ok) {
@@ -39,7 +45,10 @@ export async function PATCH(
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: `Server error ${error}` },
+      { status: 500 }
+    );
   }
 }
 
@@ -65,7 +74,12 @@ export async function DELETE(
         },
       }
     );
+    console.log(
+      "^^^delete^",
 
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/${id}`,
+      res.ok
+    );
     if (!res.ok) {
       return NextResponse.json(
         { message: "Failed to create or update budget" },
@@ -78,6 +92,9 @@ export async function DELETE(
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: `Server error ${error}` },
+      { status: 500 }
+    );
   }
 }

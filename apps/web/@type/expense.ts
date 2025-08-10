@@ -26,6 +26,15 @@ export interface ExpenseItem {
   expenseDate: string; // ISO string
 }
 
+export interface DeleteExpenseItem {
+  id: ExpenseItem["id"];
+}
+
+export interface UpsertExpenseItem {
+  id: ExpenseItem["id"];
+  data: Pick<ExpenseItem, "amount" | "category" | "expenseDate">;
+}
+
 // 전체 응답 구조
 export interface ExpenseItemListResponse {
   total: number;

@@ -1,5 +1,5 @@
 import { Button } from "@repo/ui";
-import Card from "../card";
+import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategoryItem, ExpenseCategorySummary } from "@type/expense";
 interface BudgetOptimizationCardProps {

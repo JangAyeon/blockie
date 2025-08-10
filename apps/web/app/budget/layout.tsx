@@ -15,7 +15,7 @@ export default async function BudgetLayout({
   const today = new Date();
   const year = today.getFullYear().toString();
   const month = (today.getMonth() + 1).toString().padStart(2, "0"); // 월은 0부터 시작하므로 +1 필요
-  const day = today.getDate().toString().padStart(2, "0"); // 일을 2자리로 맞추기 위해 padStart 사용
+  // const day = today.getDate().toString().padStart(2, "0"); // 일을 2자리로 맞추기 위해 padStart 사용
 
   if (!access_token) {
     return <div>No access token</div>;

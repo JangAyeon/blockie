@@ -1,5 +1,5 @@
 import { Radar } from "react-chartjs-2";
-import Card from "../card";
+import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategorySummary } from "@type/expense";
 interface CategoryComparisonCardProps {
