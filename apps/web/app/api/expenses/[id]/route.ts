@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -45,7 +45,10 @@ export async function PATCH(
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: `Server error ${error}` },
+      { status: 500 }
+    );
   }
 }
 
@@ -89,6 +92,9 @@ export async function DELETE(
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { message: `Server error ${error}` },
+      { status: 500 }
+    );
   }
 }
