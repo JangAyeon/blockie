@@ -94,7 +94,7 @@ export interface SpendingAnalysisResponse {
 }
 // 차트 데이터셋 기본 형태
 interface BaseDataset<TData = number[]> {
-  label: string;
+  label?: string;
   data: TData;
 }
 

@@ -1,10 +1,10 @@
-import { CategoryDoughnutDataProps } from "@type/expense";
+import { CategoryDoughnutChartDataProps } from "@type/expense";
 import { motion } from "framer-motion";
 import { FC } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 interface CategoryDoughnutChartProps {
-  data: CategoryDoughnutDataProps;
+  data: CategoryDoughnutChartDataProps;
 }
 
 const DOUGHNUT_OPTIONS = {
