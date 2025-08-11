@@ -92,12 +92,40 @@ export interface SpendingAnalysisResponse {
   startDate: string; // ISO date string
   endDate: string; // ISO date string
 }
-export interface WeeklyBarChartDataProps {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderRadius: number;
-  }[];
+// 차트 데이터셋 기본 형태
+interface BaseDataset<TData = number[]> {
+  label: string;
+  data: TData;
 }
+
+// 공통 차트 데이터 구조
+interface ChartData<TDataset> {
+  labels: string[];
+  datasets: TDataset[];
+}
+
+/* ────────────── 차트별 타입 정의 ────────────── */
+
+// 1. 주간 바 차트
+export interface WeeklyBarDataset extends BaseDataset<number[]> {
+  backgroundColor: string;
+  borderRadius: number;
+}
+export type WeeklyBarChartDataProps = ChartData<WeeklyBarDataset>;
+
+// 2. 월간 라인 차트
+export interface MonthlyLineDataset extends BaseDataset<number[]> {
+  borderColor: string;
+  backgroundColor: string;
+  tension: number;
+  fill: boolean;
+}
+export type MonthlyLineChartDataProps = ChartData<MonthlyLineDataset>;
+
+// 3. 카테고리 도넛 차트
+export interface CategoryDoughnutDataset extends BaseDataset<number[]> {
+  backgroundColor: string[];
+  borderWidth: number;
+  hoverOffset: number;
+}
+export type CategoryDoughnutChartDataProps = ChartData<CategoryDoughnutDataset>;
