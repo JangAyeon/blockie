@@ -92,3 +92,12 @@ export interface SpendingAnalysisResponse {
   startDate: string; // ISO date string
   endDate: string; // ISO date string
 }
+export interface WeeklyBarChartDataProps {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderRadius: number;
+  }[];
+}

@@ -8,10 +8,13 @@ import {
   useExpensesCategory,
   usePeriodExpensesAnalysis,
 } from "@hook/api/expense/useExpense";
+import useWeeklyData from "@hook/business/expense/useWeeklyData";
 import { YearMonthDayProps } from "@type/date";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
+import { WeeklyBarChart } from "./charts/weeklyBar";
+import WeeklyStateCard from "./cards/weeklyStateCard";
 
 interface StatisticsProps extends YearMonthDayProps {
   direction: number;
@@ -27,14 +30,11 @@ const Statistics: React.FC<StatisticsProps> = ({
     year,
     month,
   });
-  const { data: expenseWeekly } = usePeriodExpensesAnalysis({
-    startYear: year,
-    startMonth: month,
-    endYear: year,
-    endMonth: month,
-    months: "1",
-    period: "weekly",
+  const { data: weeklyData, chartData: weeklyBarChartData } = useWeeklyData({
+    year,
+    month,
   });
+
   const { data: expenseMonthly } = usePeriodExpensesAnalysis({
     startYear: year,
     startMonth: month,
@@ -60,23 +60,23 @@ const Statistics: React.FC<StatisticsProps> = ({
     };
     return data;
   }, [expenseCategory?.categories]);
-  const barData = useMemo(() => {
-    if (!expenseWeekly) return { labels: [], datasets: [] };
-    const dataPotins = expenseWeekly.dataPoints;
-    const labels = dataPotins.map((_, idx) => `${idx + 1}주차`);
-    const data = {
-      labels,
-      datasets: [
-        {
-          label: "주간 지출",
-          data: dataPotins.map((item) => item.amount),
-          backgroundColor: "#8DDBA4",
-          borderRadius: 6,
-        },
-      ],
-    };
-    return data;
-  }, [expenseWeekly?.dataPoints]);
+  // const barData = useMemo(() => {
+  //   if (!expenseWeekly) return { labels: [], datasets: [] };
+  //   const dataPotins = expenseWeekly.dataPoints;
+  //   const labels = dataPotins.map((_, idx) => `${idx + 1}주차`);
+  //   const data = {
+  //     labels,
+  //     datasets: [
+  //       {
+  //         label: "주간 지출",
+  //         data: dataPotins.map((item) => item.amount),
+  //         backgroundColor: "#8DDBA4",
+  //         borderRadius: 6,
+  //       },
+  //     ],
+  //   };
+  //   return data;
+  // }, [expenseWeekly?.dataPoints]);
 
   const lineData = useMemo(() => {
     if (!expenseMonthly) return { labels: [], datasets: [] };
@@ -97,15 +97,7 @@ const Statistics: React.FC<StatisticsProps> = ({
     };
     return data;
   }, [expenseMonthly?.dataPoints]);
-  console.log(
-    "expenseWeekly",
-    expenseWeekly?.startDate,
-    expenseWeekly?.endDate,
-    JSON.stringify(expenseWeekly?.dataPoints),
-    expenseWeekly?.averageSpending,
-    expenseWeekly?.insights,
-    expenseWeekly?.recommendations
-  );
+
   console.log(
     "expenseMonthly",
     expenseMonthly?.startDate,
@@ -128,69 +120,16 @@ const Statistics: React.FC<StatisticsProps> = ({
       <Card>
         <h3 className="text-title-3 font-medium mb-4">주간 지출 추이</h3>
         <div className="h-64 mb-4">
-          <Bar
-            data={barData}
-            options={{
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-              scales: {
-                x: {
-                  grid: {
-                    display: false,
-                  },
-                },
-                y: {
-                  grid: {
-                    color: "rgba(0, 0, 0, 0.05)",
-                  },
-                  ticks: {
-                    callback: function (value: any) {
-                      return value.toLocaleString() + "원";
-                    },
-                  },
-                },
-              },
-              maintainAspectRatio: false,
-            }}
+          <WeeklyBarChart data={weeklyBarChartData} />
+        </div>
+        {weeklyData && (
+          <WeeklyStateCard
+            average={weeklyData.averageSpending}
+            max={weeklyData.maxSpending}
+            min={weeklyData.minSpending}
+            comments={[weeklyData.insights, weeklyData.recommendations].flat()}
           />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-50 rounded-lg p-4 col-span-1">
-            <p className="text-body-2 text-blue-700 mb-1">주간 평균</p>
-            <p className="text-title-2 font-bold">
-              {expenseWeekly?.averageSpending}원
-            </p>
-          </div>
-
-          <div className="bg-pink-50 rounded-lg p-4 ">
-            <p className="text-body-2 text-pink-700 mb-1">주간 최대</p>
-            <p className="text-title-2 font-bold">
-              {expenseWeekly?.maxSpending}원
-            </p>
-          </div>
-          <div className="bg-green-50 rounded-lg p-4">
-            <p className="text-body-2 text-green-700 mb-1">주간 최소</p>
-            <p className="text-title-2 font-bold">
-              {expenseWeekly?.minSpending}원
-            </p>
-          </div>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h4 className="text-body-2 font-medium mb-2">주간 추이 분석</h4>
-          <div className="text-body-2 text-neutral-dark-gray">
-            {[expenseWeekly?.insights, expenseWeekly?.recommendations]
-              .flat()
-              .map((item, idx) => (
-                <div key={idx}>* {item}</div>
-              ))}
-            {/* 지난 6개월 동안 평균적으로 안정적인 지출 패턴을 보이고 있습니다.
-            이번 달은 예산 범위 내에서 잘 관리되고 있습니다. */}
-          </div>
-        </div>
+        )}
       </Card>
 
       <Card>
