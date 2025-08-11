@@ -27,5 +27,9 @@ const BAR_OPTIONS = {
   maintainAspectRatio: false,
 };
 export function WeeklyBarChart({ data }: { data: WeeklyBarChartDataProps }) {
-  return <Bar data={data} options={BAR_OPTIONS} />;
+  return (
+    <div className="h-64 mb-4">
+      <Bar data={data} options={BAR_OPTIONS} />
+    </div>
+  );
 }
