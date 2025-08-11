@@ -11,15 +11,7 @@ const useWeeklyData = ({ year, month }: YearMonthProps) => {
     months: "1",
     period: "weekly",
   });
-  console.log(
-    "expenseWeekly",
-    data?.startDate,
-    data?.endDate,
-    JSON.stringify(data?.dataPoints),
-    data?.averageSpending,
-    data?.insights,
-    data?.recommendations
-  );
+
   const chartData = useMemo(() => {
     if (!data) return { labels: [], datasets: [] };
     const labels = data.dataPoints.map((_, idx) => `${idx + 1}주차`);
@@ -35,7 +27,7 @@ const useWeeklyData = ({ year, month }: YearMonthProps) => {
       ],
     };
   }, [data]);
-
+  console.log("expenseWeekly", data, chartData);
   return { data, chartData };
 };
 
