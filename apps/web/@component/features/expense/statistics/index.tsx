@@ -8,41 +8,15 @@ import {
   useExpensesCategory,
   usePeriodExpensesAnalysis,
 } from "@hook/api/expense/useExpense";
+import { YearMonthDayProps } from "@type/date";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Bar, Line, Doughnut } from "react-chartjs-2";
 
-interface StatisticsProps {
+interface StatisticsProps extends YearMonthDayProps {
   direction: number;
-  year: string;
-  month: string;
-  day: string;
 }
-// const barData = {
-//   labels: ["이번 주", "지난 주", "2주 전", "3주 전"],
-//   datasets: [
-//     {
-//       label: "주간 지출",
-//       data: [120000, 95000, 110000, 85000], // Mock 데이터
-//       backgroundColor: "#8DDBA4",
-//       borderRadius: 6,
-//     },
-//   ],
-// };
 
-const lineData = {
-  labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-  datasets: [
-    {
-      label: "월별 지출 추이",
-      data: [280000, 320000, 290000, 350000, 310000, 315000], // Mock 데이터
-      borderColor: "#7DC0F4",
-      backgroundColor: "rgba(125, 192, 244, 0.1)",
-      tension: 0.3,
-      fill: true,
-    },
-  ],
-};
 const Statistics: React.FC<StatisticsProps> = ({
   direction,
   year,
@@ -192,7 +166,7 @@ const Statistics: React.FC<StatisticsProps> = ({
             </p>
           </div>
 
-          <div className="bg-pink-50 rounded-lg p-4">
+          <div className="bg-pink-50 rounded-lg p-4 ">
             <p className="text-body-2 text-pink-700 mb-1">주간 최대</p>
             <p className="text-title-2 font-bold">
               {expenseWeekly?.maxSpending}원
@@ -204,17 +178,17 @@ const Statistics: React.FC<StatisticsProps> = ({
               {expenseWeekly?.minSpending}원
             </p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="text-body-2 font-medium mb-2">주간 추이 분석</h4>
-            <p className="text-body-2 text-neutral-dark-gray">
-              {[expenseWeekly?.insights, expenseWeekly?.recommendations]
-                .flat()
-                .map((item, idx) => (
-                  <div key={idx}>{item}</div>
-                ))}
-              {/* 지난 6개월 동안 평균적으로 안정적인 지출 패턴을 보이고 있습니다.
+        </div>
+        <div className="bg-gray-50 rounded-lg p-4">
+          <h4 className="text-body-2 font-medium mb-2">주간 추이 분석</h4>
+          <div className="text-body-2 text-neutral-dark-gray">
+            {[expenseWeekly?.insights, expenseWeekly?.recommendations]
+              .flat()
+              .map((item, idx) => (
+                <div key={idx}>* {item}</div>
+              ))}
+            {/* 지난 6개월 동안 평균적으로 안정적인 지출 패턴을 보이고 있습니다.
             이번 달은 예산 범위 내에서 잘 관리되고 있습니다. */}
-            </p>
           </div>
         </div>
       </Card>
@@ -252,15 +226,38 @@ const Statistics: React.FC<StatisticsProps> = ({
           />
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-blue-50 rounded-lg p-4 col-span-1">
+            <p className="text-body-2 text-blue-700 mb-1">월간 평균</p>
+            <p className="text-title-2 font-bold">
+              {expenseMonthly?.averageSpending}원
+            </p>
+          </div>
+
+          <div className="bg-pink-50 rounded-lg p-4 ">
+            <p className="text-body-2 text-pink-700 mb-1">주간 최대</p>
+            <p className="text-title-2 font-bold">
+              {expenseMonthly?.maxSpending}원
+            </p>
+          </div>
+          <div className="bg-green-50 rounded-lg p-4">
+            <p className="text-body-2 text-green-700 mb-1">주간 최소</p>
+            <p className="text-title-2 font-bold">
+              {expenseMonthly?.minSpending}원
+            </p>
+          </div>
+        </div>
         <div className="bg-gray-50 rounded-lg p-4">
-          <h4 className="text-body-2 font-medium mb-2">월별 지출 분석</h4>
-          <p className="text-body-2 text-neutral-dark-gray">
+          <h4 className="text-body-2 font-medium mb-2">월간 추이 분석</h4>
+          <div className="text-body-2 text-neutral-dark-gray">
             {[expenseMonthly?.insights, expenseMonthly?.recommendations]
               .flat()
               .map((item, idx) => (
-                <div key={idx}>{item}</div>
+                <div key={idx}>* {item}</div>
               ))}
-          </p>
+            {/* 지난 6개월 동안 평균적으로 안정적인 지출 패턴을 보이고 있습니다.
+            이번 달은 예산 범위 내에서 잘 관리되고 있습니다. */}
+          </div>
         </div>
       </Card>
 
