@@ -2,6 +2,8 @@ import {
   DeleteExpenseItem,
   ExpenseCategorySummary,
   ExpenseItemListResponse,
+  getAnalysisProps,
+  SpendingAnalysisResponse,
   StreakInfoResponse,
   UpsertExpenseItem,
 } from "@type/expense";
@@ -31,6 +33,11 @@ export const expenseService = {
     ),
   getStreak: () =>
     apiClient.get<StreakInfoResponse>(`${ApiRoute.expenses.GET_STREAK}`),
+  getAnalysis: (params: getAnalysisProps) =>
+    apiClient.get<SpendingAnalysisResponse>(
+      `${ApiRoute.expenses.GET_ANALYSIS}`,
+      params
+    ),
   deleteExpenseItem: ({ id }: DeleteExpenseItem) =>
     apiClient.delete<void>(`${ApiRoute.expenses.BASE}/${id}`),
   updateExpenseItem: ({ id, data }: UpsertExpenseItem) =>

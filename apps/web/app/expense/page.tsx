@@ -186,31 +186,6 @@ function ExpenseManagementPage() {
 
   // 차트 데이터 준비
 
-  const barData = {
-    labels: ["이번 주", "지난 주", "2주 전", "3주 전"],
-    datasets: [
-      {
-        label: "주간 지출",
-        data: [120000, 95000, 110000, 85000], // Mock 데이터
-        backgroundColor: "#8DDBA4",
-        borderRadius: 6,
-      },
-    ],
-  };
-
-  const lineData = {
-    labels: ["1월", "2월", "3월", "4월", "5월", "6월"],
-    datasets: [
-      {
-        label: "월별 지출 추이",
-        data: [280000, 320000, 290000, 350000, 310000, 315000], // Mock 데이터
-        borderColor: "#7DC0F4",
-        backgroundColor: "rgba(125, 192, 244, 0.1)",
-        tension: 0.3,
-        fill: true,
-      },
-    ],
-  };
   if (!hasDate) {
     <FullLoader />;
   } else {
@@ -257,9 +232,14 @@ function ExpenseManagementPage() {
           )}
 
           {/* 통계 분석 탭 */}
-          {/* {activeTab === EXPENSE_TAB_MENU.STATISTICS && (
-            <Statistics direction={direction} />
-          )} */}
+          {activeTab === EXPENSE_TAB_MENU.STATISTICS && (
+            <Statistics
+              direction={direction}
+              year={year}
+              month={month}
+              day={day}
+            />
+          )}
         </AnimatePresence>
 
         {/* 지출 추가 모달 */}

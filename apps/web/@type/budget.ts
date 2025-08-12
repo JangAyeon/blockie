@@ -1,7 +1,7 @@
+import { YearMonthNumeric, YearMonthProps } from "./date";
+
 // 예산 상태 타입 정의
-export interface BudgetStatus {
-  year: number;
-  month: number;
+export interface BudgetStatus extends YearMonthNumeric {
   hasBudget: boolean;
   budget: number;
   spent: number;
@@ -9,17 +9,13 @@ export interface BudgetStatus {
 }
 
 // 월별 예산 내역 타입 정의
-export interface BudgetHistory {
-  year: number;
-  month: number;
+export interface BudgetHistory extends YearMonthNumeric {
   budget: number;
   spent: number;
   remaining: number;
 }
 
-export interface BudgetSummary {
-  year: string;
-  month: string;
+export interface BudgetSummary extends YearMonthProps {
   hasBudget: boolean;
   budget: number;
   spent: number;
@@ -41,9 +37,7 @@ export interface BudgetSummary {
   topSpendingAmount: number;
 }
 
-export interface BudgetHistoryItem {
-  year: number;
-  month: number;
+export interface BudgetHistoryItem extends YearMonthNumeric {
   hasBudget: boolean;
   budget: number;
   spent: number;
@@ -61,8 +55,6 @@ export interface BudgetHistoryResponse {
   budgetComplianceRate: number;
 }
 
-export interface MonthlyBudget {
-  year: number;
-  month: number;
+export interface MonthlyBudget extends YearMonthNumeric {
   amount: number;
 }

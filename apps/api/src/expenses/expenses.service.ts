@@ -308,6 +308,8 @@ export class ExpensesService {
       categoryTrends,
       ...prediction,
       ...insights,
+      startDate,
+      endDate,
     };
   }
 

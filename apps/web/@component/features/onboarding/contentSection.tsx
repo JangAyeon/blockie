@@ -1,4 +1,3 @@
-import { ContentSectionProps } from "@type/onboarding";
 import ButtonContainer from "./buttonContainer";
 import ContentContainer from "./contentContainer";
 import { OnboardingSlides } from "@constant/onboarding";
@@ -10,7 +9,7 @@ import { useProgressStepStore } from "@store/useProgressStepStore";
 import { useMyProfile, useUpdateMyProfile } from "@hook/api/user/useUser";
 import { pageUrl } from "@constant/page.route";
 
-const ContentSection: React.FC<ContentSectionProps> = () => {
+const ContentSection = () => {
   const { currentStep, setCurrentStep, goToNext, goToPrevious } =
     useProgressStepStore();
   const { formData, handleInputChange, handlePhoneChange, handleBudgetChange } =

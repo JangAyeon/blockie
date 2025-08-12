@@ -11,7 +11,7 @@ export default async function MyPageLayout({
 }) {
   const cookieStore = await cookies();
   const access_token = cookieStore.get("access_token")?.value ?? null;
-  console.log(cookieStore.getAll());
+  console.log(access_token);
   if (!access_token) {
     return <div>No access token</div>;
   }

@@ -1,6 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { YearMonthProps } from "@type/date";
-import { DeleteExpenseItem, UpsertExpenseItem } from "@type/expense";
+import {
+  DeleteExpenseItem,
+  getAnalysisProps,
+  SpendingAnalysisResponse,
+  UpsertExpenseItem,
+} from "@type/expense";
 import { expenseService } from "@utils/apis/services/expense";
 import { userService } from "@utils/apis/services/user";
 import { queryKeys } from "@utils/query/query.key";
@@ -235,5 +240,24 @@ export const useEditExpenseItem = (options: {
       // 커스텀 에러 콜백 실행
       onError?.(error as Error);
     },
+  });
+};
+export const usePeriodExpensesAnalysis = ({
+  period = "monthly",
+  months = "6",
+  ...options
+}: getAnalysisProps) => {
+  const params = {
+    ...options,
+    period,
+    months,
+  };
+  console.log("zzz", params);
+  return useQuery({
+    queryKey: queryKeys.expense.analysis(params),
+    queryFn: () => expenseService.getAnalysis(params),
+    select: (response: SpendingAnalysisResponse) => response,
+    staleTime: 3 * 60 * 1000, // 기간별 분석은 좀 더 자주 업데이트
+    gcTime: 10 * 60 * 1000,
   });
 };
