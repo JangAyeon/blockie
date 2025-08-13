@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { routing } from "@i18n/routing";
 import { Metadata } from "next";
 import localFont from "next/font/local";
-
+import Providers from "@provider/query/query.client.provider";
+import "./globals.css";
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -35,7 +36,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

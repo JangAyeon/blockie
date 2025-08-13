@@ -10,7 +10,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     : routing.defaultLocale;
   console.log(
     "getRequestConfig",
-    requestLocale,
+    requested,
     locale,
     `../messages/${locale}.json`
   );
