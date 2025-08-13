@@ -1,3 +1,5 @@
+"use client";
+
 import { logger } from "@utils/logger/logger";
 import { EventName } from "@utils/logger/logger.types";
 import { useTranslations } from "next-intl";
