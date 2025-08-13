@@ -15,7 +15,8 @@
       "@provider/*": ["./@provider/*"],
       "@store/*": ["./@store/*"],
       "@utils/*": ["./@utils/*"],
-      "@type/*": ["./@type/*"]
+      "@type/*": ["./@type/*"],
+      "@i18n/*": ["./@i18n/*"]
     }
   },
   "include": [
