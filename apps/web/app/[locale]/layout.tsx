@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import Providers from "@provider/query/query.client.provider";
 import { setRequestLocale } from "next-intl/server";
 import "./globals.css";
+import { RuntimeLogger } from "@utils/logger/runtimeLogger";
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -48,7 +49,10 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <RuntimeLogger />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
