@@ -1,4 +1,6 @@
 import { ApiMethod } from "@constant/api.route";
+import { logger } from "@utils/logger/logger";
+import { EventName } from "@utils/logger/logger.types";
 
 type ApiResponse<T> = {
   data: T;
@@ -18,22 +20,54 @@ class ApiClient {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
+    try {
+      // API 요청 시작 로깅
+      await logger({
+        eventType: EventName.FETCH,
+        message: `API request started: ${options.method || ApiMethod.get} ${url}`,
+        request: {
+          method: options.method || ApiMethod.get,
+          url: url,
+          userAgent: navigator.userAgent,
+          body: options.body?.toString(),
+        },
+      });
+      const response = await fetch(url, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...options.headers,
+        },
+        ...options,
+      });
 
-    const response = await fetch(url, {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
-      ...options,
-    });
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status}`);
+      }
+      const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
+      return data;
+    } catch (error) {
+      // API 에러 로깅
+      await logger({
+        eventType: EventName.API_ERROR,
+        message: `API request failed: ${options.method || ApiMethod.get} ${url}`,
+        error: {
+          name: error instanceof Error ? error.name : "UnknownError",
+          message: error instanceof Error ? error.message : String(error),
+          stack: error instanceof Error ? error.stack : undefined,
+          source: url,
+        },
+        request: {
+          method: options.method || ApiMethod.get,
+          url: url,
+          userAgent: navigator.userAgent,
+          body: options.body?.toString(),
+        },
+      });
+
+      throw error;
     }
-    const data = await response.json();
-
-    return data;
   }
 
   get<T>(endpoint: string, params?: Record<string, any>) {
