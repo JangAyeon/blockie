@@ -39,7 +39,7 @@ export default function ExpenseCubePage() {
     hasDate ? { year, month, day } : { year: "", month: "", day: "" }
   );
 
-  console.log("expenseCategory", expenseCategory);
+  // console.log("expenseCategory", expenseCategory);
   useEffect(() => {
     if (!hasDate) {
       const today = new Date();

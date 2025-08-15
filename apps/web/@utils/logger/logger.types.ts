@@ -60,6 +60,8 @@ export interface LogData {
     message?: string;
     stack?: string;
     source?: string;
+    digest?: string;
+    cause?: string;
   };
   performance?: PerformanceInfo;
   userAgent?: string;

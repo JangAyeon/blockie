@@ -7,29 +7,32 @@ import { notFound } from "next/navigation";
 import { useEffect } from "react";
 // import { useEffect } from "react";
 
-interface ErrorProps {
+interface GlobalErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
+export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
+    // console.error("GlobalError::", error);
+
     logger({
-      eventType: EventName.RUNTIME_ERROR,
+      eventType: EventName.GLOBAL_ERROR,
       userAgent: navigator.userAgent,
       request: {
         url: window.location.href,
         method: ApiMethod.get,
       },
       error: {
-        name: error.name || "unexpected runtime errors under app",
-        message: error.message || "No error message",
-        source: "app/error.tsx",
-        stack: error.stack,
+        name: error.name || "unexpected global runtime errors",
+        message:
+          error.message || "runtime global error parsed to notFound Error",
+        source: "app/global-error.tsx",
+        stack: error.stack, // 🔥 가장 중요! 디버깅에 필수
         digest: error?.digest, // Next.js 특화 정보
         cause: error.cause ? String(error.cause) : undefined,
       },
-      message: `Runtime Error: ${error.name} - ${error.message}`,
+      message: `Global Error: ${error.name} - ${error.message}`,
     });
   }, [error]);
 

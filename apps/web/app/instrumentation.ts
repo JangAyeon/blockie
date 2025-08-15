@@ -44,7 +44,7 @@ function setupGlobalErrorHandlers(
 ): void {
   // 처리되지 않은 예외 캐치
   process.on("uncaughtException", (error: Error) => {
-    console.error("[Instrument] Uncaught Exception:", error);
+    // console.error("[Instrument] Uncaught Exception:", error);
 
     logger({
       eventType: EventName.SERVER_ERROR,
@@ -64,12 +64,12 @@ function setupGlobalErrorHandlers(
 
   // 처리되지 않은 Promise rejection 캐치
   process.on("unhandledRejection", (reason: any, promise: Promise<any>) => {
-    console.error(
-      "[Instrument] Unhandled Rejection at:",
-      promise,
-      "reason:",
-      reason
-    );
+    // console.error(
+    //   "[Instrument] Unhandled Rejection at:",
+    //   promise,
+    //   "reason:",
+    //   reason
+    // );
 
     logger({
       eventType: EventName.SERVER_ERROR,

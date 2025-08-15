@@ -10,7 +10,7 @@ export default function NotFoundPage() {
   const t = useTranslations();
 
   useEffect(() => {
-    console.error("GlobalError::", error);
+    // console.error("GlobalError::", error);
 
     logger({
       eventType: EventName.NOT_FOUND,
@@ -26,7 +26,7 @@ export default function NotFoundPage() {
   return (
     <>
       <h1>{t("HomePage.title")}</h1>
-      <p>apps/web/app/error.tsx</p>
+      <p>apps/web/app/[locale]/not-found.tsx</p>
     </>
   );
 }

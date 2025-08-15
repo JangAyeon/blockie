@@ -16,7 +16,7 @@ export async function GET(
   const { type } = await params;
 
   const qs = searchParams.toString();
-  console.log("## GET", req.url, type, date, qs);
+  // console.log("## GET", req.url, type, date, qs);
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}/expenses/stats/${type}?${qs}`,

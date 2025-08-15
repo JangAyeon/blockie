@@ -4,10 +4,6 @@ import { useEffect } from "react";
 import { logger } from "@utils/logger/logger";
 import { EventName } from "@utils/logger/logger.types";
 
-function getBrowserInfo() {
-  return window.navigator.userAgent;
-}
-
 function setupRuntimeErrorHandlers() {
   if (typeof window !== "undefined") {
     // Reference Error, Type Error 등 런타임 에러 캡처
@@ -26,7 +22,7 @@ function setupRuntimeErrorHandlers() {
           stack: error?.stack,
           source: source,
         },
-        userAgent: getBrowserInfo(),
+        userAgent: window.navigator.userAgent,
       });
     };
 
@@ -42,7 +38,7 @@ function setupRuntimeErrorHandlers() {
           message: error?.message,
           stack: error?.stack,
         },
-        userAgent: getBrowserInfo(),
+        userAgent: window.navigator.userAgent,
       });
     };
   }

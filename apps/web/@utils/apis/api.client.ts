@@ -21,17 +21,6 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
     try {
-      // API 요청 시작 로깅
-      await logger({
-        eventType: EventName.FETCH,
-        message: `API request started: ${options.method || ApiMethod.get} ${url}`,
-        request: {
-          method: options.method || ApiMethod.get,
-          url: url,
-          userAgent: navigator.userAgent,
-          body: options.body?.toString(),
-        },
-      });
       const response = await fetch(url, {
         credentials: "include",
         headers: {
@@ -45,17 +34,29 @@ class ApiClient {
         throw new Error(`API Error: ${response.status}`);
       }
       const data = await response.json();
-
+      await logger({
+        eventType: EventName.FETCH,
+        message: `API Client fetch success`,
+        request: {
+          method: options.method || ApiMethod.get,
+          url: url,
+          userAgent: navigator.userAgent,
+          body: options.body?.toString(),
+        },
+      });
       return data;
     } catch (error) {
       // API 에러 로깅
       await logger({
         eventType: EventName.API_ERROR,
-        message: `API request failed: ${options.method || ApiMethod.get} ${url}`,
+        message: `API Client fetch failed`,
         error: {
-          name: error instanceof Error ? error.name : "UnknownError",
+          name: error instanceof Error ? error.name : EventName.API_ERROR,
           message: error instanceof Error ? error.message : String(error),
-          stack: error instanceof Error ? error.stack : undefined,
+          stack:
+            error instanceof Error
+              ? error.stack
+              : "apps/web/@utils/apis/api.client.ts-59",
           source: url,
         },
         request: {

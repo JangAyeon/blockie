@@ -1,3 +1,5 @@
+"use server";
+
 import { EventName, EventType, LogData, LogLevel } from "./logger.types";
 
 const LOG_LEVELS = {
