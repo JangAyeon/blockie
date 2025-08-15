@@ -4,6 +4,7 @@ import { EventName } from "@utils/logger/logger.types";
 import { notFound } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { redirect } from "@i18n/navigation";
+import { pageUrl } from "@constant/page.route";
 type Params = Promise<{ locale: string }>;
 
 export default async function CatchAllPage({ params }: { params: Params }) {
@@ -15,9 +16,6 @@ export default async function CatchAllPage({ params }: { params: Params }) {
   const access_token = cookieStore.get("access_token")?.value ?? null;
   console.log("access_token", access_token);
   const { locale } = await params;
-  if (!access_token) {
-    redirect({ href: "/signin", locale });
-  }
   await logger({
     eventType: EventName.NOT_FOUND,
     userAgent,
@@ -33,6 +31,10 @@ export default async function CatchAllPage({ params }: { params: Params }) {
       source: `${fullUrl}`,
     },
   });
-
-  return notFound();
+  // 1: 인증되지 않은 사용자 처리 -> 로그인 페이지로
+  if (!access_token) {
+    redirect({ href: pageUrl.signin, locale });
+  } else {
+    return notFound();
+  }
 }

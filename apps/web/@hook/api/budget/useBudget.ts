@@ -20,6 +20,7 @@ export const useBudgetStatus = ({
       ...getExpenseStateWithBudget(response.spent, response.budget),
     }),
     staleTime: 5 * 60 * 1000, // 5분
+    enabled: Boolean(year && month),
   });
 };
 
@@ -29,6 +30,7 @@ export const useBudgetHistory = (months = BUDGET_ITEM_COUNT) => {
     queryFn: () => budgetService.getBudgetHistory(months),
     select: (response) => response,
     staleTime: 10 * 60 * 1000, // 10분
+    enabled: Boolean(months),
   });
 };
 export const useUpdateBudget = ({
