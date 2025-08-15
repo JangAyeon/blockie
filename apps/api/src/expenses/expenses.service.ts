@@ -149,8 +149,8 @@ export class ExpensesService {
     });
 
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    console.log('#######', start, end);
-    console.log(expenses);
+    // console.log('#######', start, end);
+    // console.log(expenses);
     return { total, expenses };
   }
   async getCategoryStats(userId: string, year: number, month: number) {

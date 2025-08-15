@@ -125,7 +125,7 @@ function ExpenseManagementPage() {
       ).toISOString(),
     };
 
-    console.log("handle Add Expense", data);
+    // console.log("handle Add Expense", data);
     addExpenseMutation.mutateAsync(data);
     setNewExpense({
       amount: "",
@@ -142,7 +142,7 @@ function ExpenseManagementPage() {
 
   const handleUpdateExpense = () => {
     if (!selectedExpense) return;
-    console.log("handleUpdateExpense", selectedExpense);
+    // console.log("handleUpdateExpense", selectedExpense);
     const { id, createdAt, userId, ...rest } = selectedExpense;
     updateExpenseMutation.mutateAsync({
       id,
