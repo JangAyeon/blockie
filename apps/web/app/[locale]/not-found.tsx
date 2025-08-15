@@ -3,8 +3,24 @@
 import { logger } from "@utils/logger/logger";
 import { EventName } from "@utils/logger/logger.types";
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import error from "next/error";
 import { useEffect } from "react";
+
+type LocalLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: LocalLayoutProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+
+  return {
+    title: t("NotFound.title"),
+    robots: "noindex, nofollow", // 404 페이지는 인덱싱 방지
+  };
+}
 
 export default function NotFoundPage() {
   const t = useTranslations();

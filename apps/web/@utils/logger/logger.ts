@@ -1,6 +1,7 @@
 "use server";
 
 import { EventName, EventType, LogData, LogLevel } from "./logger.types";
+import { headers } from "next/headers";
 
 const LOG_LEVELS = {
   development: [LogLevel.ERROR, LogLevel.WARN, LogLevel.INFO, LogLevel.DEBUG],
@@ -33,9 +34,13 @@ function shouldLogEvent(eventType: EventType): boolean {
 
 export async function logger(logData: LogData) {
   const currentEnv = process.env.NODE_ENV as keyof typeof LOG_LEVELS;
+  const headerList = await headers();
+  const userAgent = headerList.get("user-agent") || undefined;
+  const isBotTraffic =
+    userAgent?.includes("bot") || userAgent?.includes("crawler");
 
   // 로깅 여부 확인
-  if (!shouldLogEvent(logData.eventType)) {
+  if (!shouldLogEvent(logData.eventType) || isBotTraffic) {
     return;
   }
 
