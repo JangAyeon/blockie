@@ -6,5 +6,12 @@
   "Metadata": {
     "title": "Hello world!",
     "about": "Go to the about page"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you requested does not exist or may have been moved.",
+    "goHome": "Go to Home",
+    "autoRedirect": "{seconds} seconds until automatic redirect to homepage.",
+    "helpText": "If the problem persists, please contact our customer support."
   }
 }
