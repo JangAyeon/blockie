@@ -4,12 +4,9 @@ import { EventName } from "@utils/logger/logger.types";
 import { notFound } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { redirect } from "@i18n/navigation";
-type LocalLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-};
+type Params = Promise<{ locale: string }>;
 
-export default async function CatchAllPage({ params }: LocalLayoutProps) {
+export default async function CatchAllPage({ params }: { params: Params }) {
   // 404 페이지 진입 로그
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || undefined;
@@ -37,5 +34,5 @@ export default async function CatchAllPage({ params }: LocalLayoutProps) {
     },
   });
 
-  notFound();
+  return notFound();
 }

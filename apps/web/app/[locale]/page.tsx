@@ -2,7 +2,6 @@ import { redirect } from "@i18n/navigation";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 type LocalLayoutProps = {
-  children: React.ReactNode;
   params: Promise<{ locale: string }>;
 };
 const LocaleRootPage = async ({ params }: LocalLayoutProps) => {
