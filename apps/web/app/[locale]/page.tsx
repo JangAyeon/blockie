@@ -1,6 +1,7 @@
+import { pageUrl } from "@constant/page.route";
 import { redirect } from "@i18n/navigation";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+
 type LocalLayoutProps = {
   params: Promise<{ locale: string }>;
 };
@@ -10,9 +11,10 @@ const LocaleRootPage = async ({ params }: LocalLayoutProps) => {
   console.log("access_token", access_token);
   const { locale } = await params;
   if (!access_token) {
-    redirect({ href: "/signin", locale });
+    redirect({ href: pageUrl.signin, locale });
+  } else {
+    redirect({ href: pageUrl.cube, locale });
   }
-  return notFound();
 };
 
 export default LocaleRootPage;
