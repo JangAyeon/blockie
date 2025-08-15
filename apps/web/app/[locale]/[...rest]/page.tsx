@@ -2,13 +2,25 @@ import { ApiMethod } from "@constant/api.route";
 import { logger } from "@utils/logger/logger";
 import { EventName } from "@utils/logger/logger.types";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { redirect } from "@i18n/navigation";
+type LocalLayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+};
 
-export default async function CatchAllPage() {
+export default async function CatchAllPage({ params }: LocalLayoutProps) {
   // 404 페이지 진입 로그
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || undefined;
   const fullUrl = headerList.get("referer") || "";
+  const cookieStore = await cookies();
+  const access_token = cookieStore.get("access_token")?.value ?? null;
+  console.log("access_token", access_token);
+  const { locale } = await params;
+  if (!access_token) {
+    redirect({ href: "/signin", locale });
+  }
   await logger({
     eventType: EventName.NOT_FOUND,
     userAgent,
