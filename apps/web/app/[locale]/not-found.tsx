@@ -3,6 +3,7 @@
 import { pageUrl } from "@constant/page.route";
 import { usePathname, useRouter } from "@i18n/navigation";
 import { Button } from "@repo/ui";
+import { LocaleLayoutProps } from "@type/layout";
 import { logger } from "@utils/logger/logger";
 import { EventName } from "@utils/logger/logger.types";
 import { useTranslations } from "next-intl";
@@ -10,12 +11,12 @@ import { getTranslations } from "next-intl/server";
 import error from "next/error";
 import { useEffect, useState } from "react";
 
-type LocalLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-};
+// type LocalLayoutProps = {
+//   children: React.ReactNode;
+//   params: Promise<{ locale: string }>;
+// };
 
-export async function generateMetadata({ params }: LocalLayoutProps) {
+export async function generateMetadata({ params }: LocaleLayoutProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
 

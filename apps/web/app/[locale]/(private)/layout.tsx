@@ -1,14 +1,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { pageUrl } from "@constant/page.route";
+import { LocaleLayoutProps } from "@type/layout";
 
 export default async function PrivateLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}) {
+}: LocaleLayoutProps) {
   const cookieStore = await cookies();
   const access_token = cookieStore.get("access_token")?.value;
   const { locale } = await params;

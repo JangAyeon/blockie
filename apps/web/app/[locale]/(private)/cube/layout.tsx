@@ -3,11 +3,8 @@
 import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
-export default async function CubeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { LayoutProps } from "@type/layout";
+export default async function CubeLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
 

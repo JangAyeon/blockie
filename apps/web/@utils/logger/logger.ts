@@ -1,5 +1,6 @@
 "use server";
 
+import { ApiMethod } from "@constant/api.route";
 import { EventName, EventType, LogData, LogLevel } from "./logger.types";
 import { headers } from "next/headers";
 
@@ -71,16 +72,50 @@ Trace: ${logData.error.stack}`
 
   // 타임스탬프 [로그레벨] 로깅 메시지 [로그트레이스] {메타데이터} 형태로 출력
   const logMessage = `${timestamp} [${logLevel.toUpperCase()}] ${logData.message}${trace}`;
-
+  const logMetaData = {
+    timestamp,
+    logLevel: logLevel.toUpperCase(),
+    logTrace: `${logData.message}${trace}`,
+  };
   // 로그 레벨에 따른 출력
   switch (logLevel) {
     case LogLevel.ERROR:
+      await fetch(`${process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: ApiMethod.post,
+        body: JSON.stringify({
+          ...logMetaData,
+          ...metadata,
+        }),
+      });
       console.error(logMessage, metadata);
       break;
     case LogLevel.WARN:
+      await fetch(`${process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: ApiMethod.post,
+        body: JSON.stringify({
+          ...logMetaData,
+          ...metadata,
+        }),
+      });
       console.warn(logMessage, metadata);
       break;
     case LogLevel.INFO:
+      await fetch(`${process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: ApiMethod.post,
+        body: JSON.stringify({
+          ...logMetaData,
+          ...metadata,
+        }),
+      });
       console.info(logMessage, metadata);
       break;
     case LogLevel.DEBUG:
@@ -89,22 +124,4 @@ Trace: ${logData.error.stack}`
     default:
       console.log(logMessage, metadata);
   }
-
-  // === 기존 디버깅용 로그들 (주석 처리) ===
-  // const allowedLevels = LOG_LEVELS[currentEnv] || LOG_LEVELS.production;
-  // console.log("================ logging ======================");
-  // console.info("🔍 NODE_ENV: ", process.env.NODE_ENV);
-  // console.info("🔍 allowedLevels: ", allowedLevels);
-  // console.info("🔍 shouldLog: ", shouldLogEvent(logData.eventType));
-  // shouldLogEvent(logData.eventType) && console.info("🔍 logData: ", logData);
-  // console.log("==============================================");
-
-  // 예시용 fetch (주의: 절대 경로 필요하거나 내부 DB 연동 추천)
-  // await fetch("https://your-api-endpoint.com/api/log-error", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(logData),
-  // });
 }

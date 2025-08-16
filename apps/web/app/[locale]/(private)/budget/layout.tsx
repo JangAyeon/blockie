@@ -4,11 +4,8 @@
 import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
-export default async function BudgetLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import { LayoutProps } from "@type/layout";
+export default async function BudgetLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
 

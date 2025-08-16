@@ -1,13 +1,10 @@
 // app/budget/layout.tsx
 // import { cookies } from "next/headers";
 import HydrationProvider from "@provider/query/parallel.hydration";
+import { LayoutProps } from "@type/layout";
 import { expenseService } from "@utils/apis/services/expense";
 import { queryKeys } from "@utils/query/query.key";
-export default async function ExpenseLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function ExpenseLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
 
