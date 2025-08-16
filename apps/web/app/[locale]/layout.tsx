@@ -7,6 +7,7 @@ import Providers from "@provider/query/query.client.provider";
 import { setRequestLocale } from "next-intl/server";
 import "./globals.css";
 import { RuntimeLogger } from "@utils/logger/runtimeLogger";
+import { LocaleLayoutProps, LocaleParams } from "@type/layout";
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -16,12 +17,7 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
-type LocalLayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-};
-
-export async function generateMetadata({ params }: LocalLayoutProps) {
+export async function generateMetadata({ params }: LocaleParams) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
 
@@ -37,7 +33,7 @@ export function generateStaticParams() {
 export default async function LocaleLayout({
   children,
   params,
-}: LocalLayoutProps) {
+}: LocaleLayoutProps) {
   // locale 검증
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {

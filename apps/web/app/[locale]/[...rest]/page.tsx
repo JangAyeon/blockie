@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 import { cookies, headers } from "next/headers";
 import { redirect } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
-type Params = Promise<{ locale: string }>;
+import { LocaleParams } from "@type/layout";
 
-export default async function CatchAllPage({ params }: { params: Params }) {
+export default async function CatchAllPage({ params }: LocaleParams) {
   // 404 페이지 진입 로그
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || undefined;
