@@ -68,7 +68,7 @@ const ContentSection = () => {
       alert(
         `환영합니다! Blockie와 함께 시작해보세요 🎉 ${{ ...formData, email: data?.email }}`
       );
-      router.push(`${pageUrl.mypage}`);
+      router.push(`${pageUrl.cube}`);
     } else {
       goToNext();
     }
