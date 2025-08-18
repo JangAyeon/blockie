@@ -1,32 +1,45 @@
-FROM node:lts-alpine AS pruner
-
+FROM node:alpine AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
+# Set working directory
 WORKDIR /app
 RUN npm install -g turbo
 COPY . .
 RUN turbo prune --scope=web --docker
-
-FROM node:lts-alpine AS installer
-
+ 
+# Add lockfile and package.json's of isolated subworkspace
+FROM node:alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+RUN npm install -g turbo
 WORKDIR /app
-COPY --from=pruner /app/out/json .
-COPY --from=pruner /app/out/package-lock.json ./package-lock.json
-COPY --from=pruner /app/turbo.json ./turbo.json
-RUN npm ci
-
-FROM node:lts-alpine AS builder
-ARG TURBO_TEAM
-ENV TURBO_TEAM=$TURBO_TEAM
-ARG TURBO_TOKEN
-ENV TURBO_TOKEN=$TURBO_TOKEN
+ 
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/json/package.json ./package.json
+COPY --from=builder /app/out/json/package-lock.json ./package-lock.json
+RUN npm install
+ 
+# Build the project
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+RUN turbo run build --filter=web...
+ 
+FROM node:alpine AS runner
 WORKDIR /app
-COPY --from=installer /app/ .
-COPY --from=pruner /app/out/full .
-RUN npm run build
-
-FROM node:lts-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app/ .
-WORKDIR /app/apps/web
-
-CMD ["node", "start"]
+ 
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+USER nextjs
+ 
+COPY --from=installer /app/apps/web/next.config.js .
+COPY --from=installer /app/apps/web/package.json .
+ 
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+ 
+CMD node apps/web/server.js

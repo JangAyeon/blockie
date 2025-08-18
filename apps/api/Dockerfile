@@ -18,6 +18,7 @@ RUN npm ci
 
 # 3. Build the application
 FROM node:lts-alpine AS builder
+
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=pruner /app/out/full .
@@ -27,7 +28,33 @@ RUN npm run build
 FROM node:lts-alpine AS runner
 
 WORKDIR /app
-ENV NODE_ENV=production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=$NODE_ENV
+RUN echo $NODE_ENV
+
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+RUN echo $DATABASE_URL
+
+ARG DIRECT_URL
+ENV DIRECT_URL=$DIRECT_URL
+RUN echo $DIRECT_URL
+
+ARG SUPABASE_JWT_SECRET
+ENV SUPABASE_JWT_SECRET=$SUPABASE_JWT_SECRET
+RUN echo $SUPABASE_JWT_SECRET
+
+ARG SUPABASE_URL
+ENV SUPABASE_URL=$SUPABASE_URL
+RUN echo $SUPABASE_URL
+
+ARG SUPABASE_ANON_KEY
+ENV SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
+RUN echo $SUPABASE_ANON_KEY
+
+
 COPY --from=builder /app/ .
 
 CMD ["node", "apps/api/dist/main"]
+

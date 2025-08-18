@@ -5,6 +5,7 @@ const withNextIntl = createNextIntlPlugin("./@i18n/request.ts");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@repo/ui"],
+  output: "standalone",
 };
 
 module.exports = withNextIntl(nextConfig);
