@@ -749,7 +749,7 @@ export class ExpensesService {
     }
 
     // 날짜별로 기록이 있는 날들을 Set으로 만들기 (중복 제거)
-    const recordDates = new Set<string>(
+    const recordDates = new Set(
       expenses.map((expense) =>
         format(new Date(expense.expenseDate), 'yyyy-MM-dd'),
       ),
