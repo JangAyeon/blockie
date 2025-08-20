@@ -8,7 +8,9 @@ import { useCube } from "@hook/business/cube/useCube";
 import { MyPageLoading } from "@component/features/user";
 import MonthlyBudget from "@component/features/cube/monthly.budget";
 import InsightExpense from "@component/features/cube/insight.expense";
-import BlockExpense from "@component/features/cube/block.monthly.expense";
+// import BlockExpense from "@component/features/cube/block.monthly.expense";
+// import BlockTotalExpense from "@component/features/cube/block.total.expense";
+import BlockCombineExpense from "@component/features/cube/block.combine.expense";
 import ListMonthlyExpense from "@component/features/cube/list.monthly.expense";
 import { toYMDWithString } from "@utils/date/YMD";
 import StreakCard from "@component/features/cube/streak.expense";
@@ -67,12 +69,26 @@ export default function ExpenseCubePage() {
 
           {/* 블록 컬렉션 */}
           {expenses!.expenses.length > 0 && budgetStatus!.hasBudget ? (
-            <BlockExpense
-              expensesInfo={expenses?.expenses!}
-              categoryInfo={expenseCategory?.categories!}
-              totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
-              maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
-            />
+            <div>
+              {/* <BlockExpense
+                expensesInfo={expenses?.expenses!}
+                categoryInfo={expenseCategory?.categories!}
+                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
+                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
+              />
+              <BlockTotalExpense
+                expensesInfo={expenses?.expenses!}
+                categoryInfo={expenseCategory?.categories!}
+                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
+                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
+              /> */}
+              <BlockCombineExpense
+                expensesInfo={expenses?.expenses!}
+                categoryInfo={expenseCategory?.categories!}
+                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
+                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
+              />
+            </div>
           ) : (
             <EmptyBlockExpense
               hasBudget={budgetStatus?.hasBudget!}
