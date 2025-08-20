@@ -3,11 +3,12 @@ import ContentContainer from "./contentContainer";
 import { OnboardingSlides } from "@constant/onboarding";
 // import { useUserProfile, useUpdateUserProfile } from "@hook/useAuth";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useUpsertBudget } from "@hook/useBudget";
+// import { useUpsertBudget } from "@hook/useBudget";
 import { useOnboardingForm } from "@hook/business/onboarding/useOnboardingForm";
 import { useProgressStepStore } from "@store/useProgressStepStore";
 import { useMyProfile, useUpdateMyProfile } from "@hook/api/user/useUser";
 import { pageUrl } from "@constant/page.route";
+import { useUpdateBudget } from "@hook/api/budget/useBudget";
 
 const ContentSection = () => {
   const { currentStep, setCurrentStep, goToNext, goToPrevious } =
@@ -31,7 +32,11 @@ const ContentSection = () => {
   const month = parseInt(
     searchParams.get("month") ?? (today.getMonth() + 1).toString()
   );
-  const budgetMutation = useUpsertBudget(year, month);
+  const mutateBudget = useUpdateBudget({
+    year: Number(year),
+    month: Number(month),
+  });
+  // const budgetMutation = useUpsertBudget(year, month);
   //   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
   //     const { name, value } = e.target;
   //     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -59,7 +64,11 @@ const ContentSection = () => {
       try {
         const res = await Promise.all([
           updateMutation.mutate(userInfoForm),
-          budgetMutation.mutate(Number(monthlyBudget)),
+          mutateBudget.mutateAsync({
+            year: Number(year),
+            month: Number(month),
+            amount: Number(monthlyBudget),
+          }),
         ]);
         console.log(res);
       } catch (err) {

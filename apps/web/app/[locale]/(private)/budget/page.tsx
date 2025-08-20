@@ -62,11 +62,10 @@ export default function BudgetPage() {
   const [showBudgetModal, setShowBudgetModal] = useState(false);
   const { activeTab, changeTab, direction } = useBudgetTab();
   // const [budgetStatus, setBudgetStatus] = useState<BudgetStatus | null>(null);
-  const mutateBudget = useUpdateBudget(
-    hasDate
-      ? { year: Number(year), month: Number(month) }
-      : { year: 0, month: 0 }
-  );
+  const mutateBudget = useUpdateBudget({
+    year: Number(year),
+    month: Number(month),
+  });
 
   const [newBudget, setNewBudget] = useState("");
   const [budgetAdvisor, setBudgetAdvisor] = useState(false);
