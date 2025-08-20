@@ -15,6 +15,9 @@ import { useMemo, useState } from "react";
 import FullLoader from "../loading/FullLoader";
 import Image from "next/image";
 import { ExpenseItem } from "@type/expense";
+import { useRouter } from "@i18n/navigation";
+import { pageUrl } from "@constant/page.route";
+import { handleDateChangeBtn } from "@utils/expense";
 interface ExpenseItemListProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,7 +48,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
     year,
     month,
   });
-
+  const router = useRouter();
   const filteredExpenses = useMemo(() => {
     if (!monthlyExpense?.expenses) return [];
 
@@ -91,10 +94,41 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
       <Card>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <div className="w-full flex flex-row items-center justify-between">
-            <h2 className="text-title-1 font-semibold">
+            <div className="text-title-1 font-semibold flex flex-row gap-2">
               {" "}
-              📅 {year}년 {month}월 지출 내역
-            </h2>
+              <button
+                onClick={() =>
+                  handleDateChangeBtn(
+                    pageUrl.expense,
+                    "prev",
+                    year,
+                    month,
+                    router
+                  )
+                }
+              >
+                {" "}
+                ◁
+              </button>
+              <div>
+                📅 {year}년 {month}월{" "}
+              </div>
+              <button
+                onClick={() =>
+                  handleDateChangeBtn(
+                    pageUrl.expense,
+                    "next",
+                    year,
+                    month,
+                    router
+                  )
+                }
+              >
+                {" "}
+                ▷
+              </button>
+            </div>
+
             <div className="flex flex-row gap-2">
               <div className="py-1.5 px-3 text-body-2  text-emerald-600 font-medium bg-emerald-100/60 rounded-full">
                 총 {filteredExpenses.length}건의 지출
@@ -122,7 +156,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
 
         {/* 필터 섹션 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div>
+          {/* <div>
             <label className="block text-body-2 font-medium text-neutral-black mb-2">
               기간
             </label>
@@ -136,7 +170,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
               <option value="week">최근 7일</option>
               <option value="month">이번 달</option>
             </select>
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-body-2 font-medium text-neutral-black mb-2">
