@@ -20,7 +20,7 @@ const BlockVisualization: React.FC<BlockVisualizationProps> = ({
         className="text-sm font-medium mb-3 text-neutral-black"
         // style={{ color: colors.black }}
       >
-        {totalBlocks}개의 블록이 쌓일 수 있어요! 개의 블록이 쌓일 수 있어요!
+        {totalBlocks}개의 블록이 쌓일 수 있어요!
       </div>
 
       {totalBlocks && (
@@ -33,7 +33,7 @@ const BlockVisualization: React.FC<BlockVisualizationProps> = ({
               className="w-8 h-8 rounded-sm mb-1 bg-blockie-pink"
               // style={{ backgroundColor: colors.yellow }}
             >
-              {i}
+              {/* {i} */}
             </div>
           ))}
         </div>

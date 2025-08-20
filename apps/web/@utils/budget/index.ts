@@ -1,8 +1,9 @@
+import { MIN_BUDGET_BLOCK } from "@constant/budget";
 import { BudgetHistoryItem } from "@type/budget";
 
 export const BUDGET_CONFIG = {
   MAX_BLOCKS: 100,
-  DIVIDER: 1000,
+  DIVIDER: MIN_BUDGET_BLOCK,
 } as const;
 
 export const calculateBlocks = (budgetAmount: string) => {
