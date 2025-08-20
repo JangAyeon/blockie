@@ -15,7 +15,9 @@ import {
 } from "@hook/api/expense/useExpense";
 import { useMemo } from "react";
 import Image from "next/image";
-
+import { useRouter } from "@i18n/navigation";
+import { pageUrl } from "@constant/page.route";
+import { handleDateChangeBtn } from "@utils/expense";
 interface OverviewProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,6 +33,7 @@ const Overview: React.FC<OverviewProps> = ({
   month,
   day,
 }) => {
+  const router = useRouter();
   const { data: budgetStatus, isLoading: isBudgetLoading } = useBudgetStatus({
     year,
     month,
@@ -189,15 +192,46 @@ const Overview: React.FC<OverviewProps> = ({
                 </motion.div>
               </div>
 
-              <div>
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-title-1 font-bold text-neutral-black mb-2"
-                >
-                  {budgetStatus.year}년 {budgetStatus.month}월 지출
-                </motion.h2>
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-3 items-center">
+                  <button
+                    onClick={() =>
+                      handleDateChangeBtn(
+                        pageUrl.expense,
+                        "prev",
+                        year,
+                        month,
+                        router
+                      )
+                    }
+                  >
+                    {" "}
+                    ◁
+                  </button>
+                  <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-title-1 font-bold text-neutral-black "
+                  >
+                    {budgetStatus.year}년 {budgetStatus.month}월
+                  </motion.h2>
+                  <button
+                    onClick={() =>
+                      handleDateChangeBtn(
+                        pageUrl.expense,
+                        "next",
+                        year,
+                        month,
+                        router
+                      )
+                    }
+                  >
+                    {" "}
+                    ▷
+                  </button>
+                </div>
+
                 <div className="flex flex-row gap-2">
                   {budgetStatus.hasBudget ? (
                     <motion.p

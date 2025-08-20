@@ -10,6 +10,9 @@ import { getMonthName } from "@utils/budget";
 import { useBudgetStatus } from "@hook/api/budget/useBudget";
 import FullLoader from "@component/features/budget/loading/FullLoader";
 import Card from "@component/common/card";
+import { useRouter } from "@i18n/navigation";
+import { pageUrl } from "@constant/page.route";
+import { handleDateChangeBtn } from "@utils/expense";
 // import SavingsAchievements from "./_savingsAchievements";
 
 interface CurrentBudgetProps {
@@ -26,6 +29,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
   year,
   month,
 }) => {
+  const router = useRouter();
   const now = new Date();
 
   const { data: budgetStatus, isSuccess } = useBudgetStatus({ year, month });
@@ -85,10 +89,41 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                   </span>
                 </motion.div>
               </div>
-              <div>
-                <h2 className="text-title-1 font-bold mb-2">
-                  {budgetStatus.year}년 {getMonthName(Number(month))}
-                </h2>
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-2">
+                  <button
+                    onClick={() =>
+                      handleDateChangeBtn(
+                        pageUrl.budget,
+                        "prev",
+                        year,
+                        month,
+                        router
+                      )
+                    }
+                  >
+                    {" "}
+                    ◁
+                  </button>
+                  <h2 className="text-title-1 font-bold">
+                    {budgetStatus.year}년 {getMonthName(Number(month))}
+                  </h2>
+                  <button
+                    onClick={() =>
+                      handleDateChangeBtn(
+                        pageUrl.budget,
+                        "next",
+                        year,
+                        month,
+                        router
+                      )
+                    }
+                  >
+                    {" "}
+                    ▷
+                  </button>
+                </div>
+
                 <div className="flex flex-row gap-2">
                   {budgetStatus.hasBudget ? (
                     <motion.p
