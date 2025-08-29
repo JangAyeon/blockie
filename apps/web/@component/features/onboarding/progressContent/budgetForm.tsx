@@ -29,11 +29,11 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             type="text"
             id="monthlyBudget"
             name="monthlyBudget"
-            value={formatNumberWithCommas(formData.monthlyBudget)}
+            value={formatNumberWithCommas(formData.monthlyBudget) || 0}
             onChange={onBudgetChange}
             size="lg"
             placeholder="500,000"
-            helperText="한 달 동안 사용할 예산을 입력해주세요."
+            // helperText="한 달 동안 사용할 예산을 입력해주세요."
             required
           />
         </div>

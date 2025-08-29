@@ -11,20 +11,21 @@ const BlockVisualization: React.FC<BlockVisualizationProps> = ({
   blockData,
 }) => {
   const { totalBlocks, actualBlocks, restBlocks, isOverflow } = blockData;
+
   return (
     <div
       className="flex flex-col gap-2 p-4 rounded-xl   bg-neutral-off-white"
       // style={{ backgroundColor: colors.offWhite }}
     >
       <div
-        className="text-sm font-medium mb-3 text-neutral-black"
+        className="text-sm font-medium text-neutral-black"
         // style={{ color: colors.black }}
       >
-        {totalBlocks}개의 블록이 쌓일 수 있어요!
+        {totalBlocks || 0}개의 블록이 쌓입니다!
       </div>
 
-      {totalBlocks && (
-        <div className="flex flex-wrap items-start justify-center space-x-1 max-h-96 overflow-y-scroll bg-neutral-off-white">
+      {totalBlocks > 0 && (
+        <div className="flex flex-wrap items-start justify-start space-x-1 max-h-96 overflow-y-scroll bg-neutral-off-white">
           {Array.from({
             length: actualBlocks,
           }).map((_, i) => (

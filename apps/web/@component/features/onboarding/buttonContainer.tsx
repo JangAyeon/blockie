@@ -12,7 +12,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
   const currentlideData = OnboardingSlides[currentStep];
   return (
     <>
-      <div className="w-full space-x-6 flex flex-row items-end justify-between ">
+      <div className="w-full space-y-6 flex flex-col items-end justify-between ">
         {canGoBack() && (
           <Button
             type="submit"

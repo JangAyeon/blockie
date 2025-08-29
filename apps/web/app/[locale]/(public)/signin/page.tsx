@@ -8,7 +8,7 @@ import AuthHeader from "@component/common/auth.header";
 
 const SigninPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white gap-16">
+    <div className="min-h-screen flex flex-col gap-16 ">
       <AuthHeader type="signin" />
 
       <main className="flex-1 flex flex-col place-items-center px-4 md:px-6">
