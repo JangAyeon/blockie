@@ -23,6 +23,7 @@ export interface ContentContainerProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handlePhoneChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleBudgetChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg: string;
 }
 
 export interface ButtonContainerProps {

@@ -36,7 +36,6 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({
           maxLength={13}
           size="lg"
           required
-          helperText="안전한 서비스 이용을 위해 필요해요"
         />
       </div>
     </div>

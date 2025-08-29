@@ -10,13 +10,14 @@ const INITIAL_FORM_DATA: FormData = {
 
 export const useOnboardingForm = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
-
+  const [errorMsg, setErrorMsg] = useState("");
   const updateFormData = useCallback((updates: Partial<FormData>) => {
     setFormData((prev) => ({ ...prev, ...updates }));
   }, []);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setErrorMsg("");
       const { name, value } = e.target;
       updateFormData({ [name]: value });
     },
@@ -25,6 +26,7 @@ export const useOnboardingForm = () => {
 
   const handlePhoneChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setErrorMsg("");
       const formatted = formatPhoneNumber(e.target.value);
       updateFormData({ phone: formatted });
     },
@@ -33,6 +35,7 @@ export const useOnboardingForm = () => {
 
   const handleBudgetChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      setErrorMsg("");
       const rawValue = e.target.value.replace(/,/g, "");
       updateFormData({ monthlyBudget: rawValue });
     },
@@ -41,9 +44,11 @@ export const useOnboardingForm = () => {
 
   return {
     formData,
+    errorMsg,
     updateFormData,
     handleInputChange,
     handlePhoneChange,
     handleBudgetChange,
+    setErrorMsg,
   };
 };

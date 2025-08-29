@@ -9,18 +9,22 @@ import { useProgressStepStore } from "@store/useProgressStepStore";
 import { useMyProfile, useUpdateMyProfile } from "@hook/api/user/useUser";
 import { pageUrl } from "@constant/page.route";
 import { useUpdateBudget } from "@hook/api/budget/useBudget";
+import { useState } from "react";
 
 const ContentSection = () => {
   const { currentStep, setCurrentStep, goToNext, goToPrevious } =
     useProgressStepStore();
-  const { formData, handleInputChange, handlePhoneChange, handleBudgetChange } =
-    useOnboardingForm();
-  //   const [formData, setFormData] = useState<FormData>({
-  //     name: "",
-  //     phone: "",
-  //     monthlyBudget: "500000",
-  //   });
+  const {
+    formData,
+    errorMsg,
+    handleInputChange,
+    handlePhoneChange,
+    handleBudgetChange,
+    setErrorMsg,
+  } = useOnboardingForm();
+
   const { data, isLoading, isError } = useMyProfile();
+
   const updateMutation = useUpdateMyProfile();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -36,21 +40,6 @@ const ContentSection = () => {
     year: Number(year),
     month: Number(month),
   });
-  // const budgetMutation = useUpsertBudget(year, month);
-  //   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //     const { name, value } = e.target;
-  //     setFormData((prev) => ({ ...prev, [name]: value }));
-  //   };
-
-  //   const handleBudgetChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //     const rawValue = e.target.value.replace(/,/g, "");
-  //     setFormData((prev) => ({ ...prev, monthlyBudget: rawValue }));
-  //   };
-
-  //   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //     const formatted = formatPhoneNumber(e.target.value);
-  //     setFormData((prev) => ({ ...prev, phone: formatted }));
-  //   };
 
   const handleNext = async () => {
     const nextStep = currentStep + 1;
@@ -79,6 +68,13 @@ const ContentSection = () => {
       );
       router.push(`${pageUrl.cube}`);
     } else {
+      if (currentStep == 3 && (!formData.name || !formData.phone)) {
+        setErrorMsg("올바른 이름과 핸드폰 번호를 입력해주세요");
+        return;
+      } else if (currentStep == 4 && !formData.monthlyBudget) {
+        setErrorMsg("올바른 예산을 설정 해주세요");
+        return;
+      }
       goToNext();
     }
   };
@@ -90,13 +86,16 @@ const ContentSection = () => {
   //   const canGoBack = currentStep > 0;
   return (
     <>
-      <ContentContainer
-        // currentStep={currentStep}
-        formData={formData}
-        handleInputChange={handleInputChange}
-        handlePhoneChange={handlePhoneChange}
-        handleBudgetChange={handleBudgetChange}
-      />
+      <div>
+        <ContentContainer
+          formData={formData}
+          handleInputChange={handleInputChange}
+          handlePhoneChange={handlePhoneChange}
+          handleBudgetChange={handleBudgetChange}
+          errorMsg={errorMsg}
+        />
+      </div>
+
       <ButtonContainer
         // currentStep={currentStep}
         handleBack={handleBack}

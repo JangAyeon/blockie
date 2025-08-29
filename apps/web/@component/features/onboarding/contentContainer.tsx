@@ -12,12 +12,17 @@ const ContentContainer = ({
   handleInputChange,
   handlePhoneChange,
   handleBudgetChange,
+  errorMsg,
   // setCurrentStep,
 }: ContentContainerProps) => {
   const { currentStep, setCurrentStep, goToNext, goToPrevious } =
     useProgressStepStore();
+
+  const hasContent = currentStep == 3 || currentStep == 4;
+  console.log("###", currentStep);
+
   return (
-    <section className="w-full flex flex-col items-center text-center flex-1 justify-start gap-10 py-8">
+    <section className="w-full flex flex-col items-center text-center justify-start gap-10 py-8">
       <div className="flex flex-col justify-center items-center gap-3">
         {/* 아이콘 + 해당 단계 안내 텍스트 영역 */}
         <StepInfo />
@@ -30,19 +35,27 @@ const ContentContainer = ({
       </div>
 
       {/* 동적 콘텐츠 영역 - 고정 높이로 레이아웃 안정화 */}
-      <div className="w-full flex-1 ">
-        {currentStep === 3 && (
-          <UserInfoForm
-            formData={formData}
-            onInputChange={handleInputChange}
-            onPhoneChange={handlePhoneChange}
-          />
-        )}
+      {hasContent && (
+        <div className="w-full flex-1  space-y-3">
+          {currentStep === 3 && (
+            <UserInfoForm
+              formData={formData}
+              onInputChange={handleInputChange}
+              onPhoneChange={handlePhoneChange}
+            />
+          )}
 
-        {currentStep === 4 && (
-          <BudgetForm formData={formData} onBudgetChange={handleBudgetChange} />
-        )}
-      </div>
+          {currentStep === 4 && (
+            <BudgetForm
+              formData={formData}
+              onBudgetChange={handleBudgetChange}
+            />
+          )}
+          {errorMsg && (
+            <div className="text-start text-error">* {errorMsg}</div>
+          )}
+        </div>
+      )}
     </section>
   );
 };
