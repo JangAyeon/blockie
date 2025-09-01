@@ -13,6 +13,7 @@
     "build:web": "turbo build --filter=web",
     "start:api": "npm --workspace=api run start:prod",
     "start:web": "npm --workspace=web run start",
+    "dev:stock": "turbo dev --filter=stock",
     "dev:web": "turbo dev --filter=web",
     "dev:ui": "turbo dev --filter=@repo/ui",
     "storybook": "turbo storybook --filter=@repo/ui"
@@ -34,6 +35,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@nestjs/config": "^4.0.2",
     "@tailwindcss/cli": "^4.1.11",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.10",
