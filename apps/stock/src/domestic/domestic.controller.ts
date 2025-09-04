@@ -85,7 +85,7 @@ export class DomesticController {
   @ApiQuery({
     name: 'inqr_start_dt',
     description:
-      '조회 시작일자(HHMMSS): "123000" 입력 시 12시 30분 이전부터 1분 간격으로 조회',
+      '조회 시작일자(HHMMSS): 오전 10시에 113000 입력 시에 오전 10시~11시30분 사이의 데이터가 오전 10시 값으로 조회됨',
     example: '090000',
   })
   async getTimeChart(
