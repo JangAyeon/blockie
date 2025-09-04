@@ -9,6 +9,7 @@ export interface ExpenseBlock {
   color: string;
   categoryId?: string;
   fill: number; // 0 < fill <= 1
+  isEmpty?: boolean; // 빈 블록 여부
 }
 
 interface BlockMonthlyExpenseProps {
@@ -20,9 +21,26 @@ interface BlockMonthlyExpenseProps {
 
 // 단일 색상 (예: 파란색 계열)
 const UNIFIED_COLOR = "#7DC0F4"; // blue-500
+const EMPTY_BLOCK_COLOR = "#F3F4F6"; // gray-100 빈 블록 색상
 
-// 통합 블록 생성 함수
-const getUnifiedBlocks = (expensesInfo: RecentExpense[]): ExpenseBlock[] => {
+// 빈 블록 생성 함수
+const generateEmptyBlocks = (
+  startIndex: number,
+  count: number
+): ExpenseBlock[] => {
+  return Array.from({ length: count }, (_, i) => ({
+    id: `empty-${startIndex + i}`,
+    color: EMPTY_BLOCK_COLOR,
+    fill: 1,
+    isEmpty: true,
+  }));
+};
+
+// 통합 블록 생성 함수 (빈 블록 포함)
+const getUnifiedBlocks = (
+  expensesInfo: RecentExpense[],
+  maxBlocks: number
+): ExpenseBlock[] => {
   const totalAmount = expensesInfo.reduce(
     (sum, expense) => sum + expense.amount,
     0
@@ -47,6 +65,12 @@ const getUnifiedBlocks = (expensesInfo: RecentExpense[]): ExpenseBlock[] => {
       color: UNIFIED_COLOR,
       fill: remainder / MIN_BUDGET_BLOCK,
     });
+  }
+
+  // 빈 블록 추가
+  const emptyBlockCount = maxBlocks - blocks.length;
+  if (emptyBlockCount > 0) {
+    blocks.push(...generateEmptyBlocks(blocks.length, emptyBlockCount));
   }
 
   return blocks;
@@ -130,10 +154,22 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
       return getResidualBlocksByCategory(expensesInfo);
     }, [expensesInfo]);
 
-    // 통합 블록들
+    // 카테고리별 블록들 + 빈 블록들
+    const categoryBlocks = useMemo(() => {
+      const filledBlocks = [...fullBlocks, ...residualBlocks];
+      const emptyBlockCount = maxBlocks - filledBlocks.length;
+      if (emptyBlockCount > 0) {
+        filledBlocks.push(
+          ...generateEmptyBlocks(filledBlocks.length, emptyBlockCount)
+        );
+      }
+      return filledBlocks;
+    }, [fullBlocks, residualBlocks, maxBlocks]);
+
+    // 통합 블록들 (빈 블록 포함)
     const unifiedBlocks = useMemo(() => {
-      return getUnifiedBlocks(expensesInfo);
-    }, [expensesInfo]);
+      return getUnifiedBlocks(expensesInfo, maxBlocks);
+    }, [expensesInfo, maxBlocks]);
 
     // 총 지출 금액 계산
     const totalExpense = useMemo(() => {
@@ -141,9 +177,9 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
     }, [expensesInfo]);
 
     // 현재 표시할 블록들
-    const displayBlocks = showByCategory
-      ? [...fullBlocks, ...residualBlocks]
-      : unifiedBlocks;
+    const displayBlocks = showByCategory ? categoryBlocks : unifiedBlocks;
+
+    console.log(displayBlocks);
 
     return (
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative">
@@ -203,22 +239,38 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
               {displayBlocks.map((block, index) => (
                 <div
                   key={`${showByCategory ? "category" : "unified"}-${block.id}`}
-                  className="text-black w-8 h-8 rounded-sm shadow-sm relative overflow-hidden transform transition-all duration-200 hover:scale-110 hover:shadow-md cursor-pointer hover:z-10"
+                  className={`text-black w-8 h-8 rounded-sm relative overflow-hidden transform transition-all duration-200 cursor-pointer hover:z-10 ${
+                    block.isEmpty
+                      ? "shadow-inner border border-gray-200 hover:border-gray-300"
+                      : "shadow-sm hover:scale-110 hover:shadow-md"
+                  }`}
                   data-id={index + 1}
                   title={
-                    showByCategory && block.categoryId
-                      ? `${block.categoryId}`
-                      : "전체 지출"
+                    block.isEmpty
+                      ? "사용 가능한 공간"
+                      : showByCategory && block.categoryId
+                        ? `${block.categoryId}`
+                        : "전체 지출"
                   }
                 >
                   <div
-                    className="h-full"
+                    className={`h-full ${block.isEmpty ? "opacity-60" : ""}`}
                     style={{
                       width: `${block.fill * 100}%`,
                       backgroundColor: block.color,
                       transition: "width 0.3s ease",
                     }}
                   />
+                  {/* 빈 블록에 점선 패턴 추가 (선택사항) */}
+                  {block.isEmpty && (
+                    <div
+                      className="absolute inset-0 opacity-30"
+                      style={{
+                        backgroundImage:
+                          "repeating-linear-gradient(45deg, transparent, transparent 2px, #D1D5DB 2px, #D1D5DB 4px)",
+                      }}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -228,22 +280,34 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
           <div className="flex justify-center flex-wrap gap-4">
             {showByCategory ? (
               // 카테고리별 범례
-              categoryInfo.map(({ category, count }) => (
-                <div
-                  key={category}
-                  className="flex items-center group cursor-pointer"
-                >
+              <>
+                {categoryInfo.map(({ category, count }) => (
                   <div
-                    className="w-3 h-3 rounded-sm mr-2 shadow-sm group-hover:scale-110 transition-transform"
-                    style={{
-                      backgroundColor: getCategoryColor(category),
-                    }}
+                    key={category}
+                    className="flex items-center group cursor-pointer"
+                  >
+                    <div
+                      className="w-3 h-3 rounded-sm mr-2 shadow-sm group-hover:scale-110 transition-transform"
+                      style={{
+                        backgroundColor: getCategoryColor(category),
+                      }}
+                    />
+                    <span className="text-xs text-gray-600 font-medium group-hover:text-gray-800 transition-colors">
+                      {category} ({count}건)
+                    </span>
+                  </div>
+                ))}
+                {/* 빈 블록 범례 */}
+                <div className="flex items-center group cursor-pointer">
+                  <div
+                    className="w-3 h-3 rounded-sm mr-2 shadow-inner border border-gray-200 group-hover:scale-110 transition-transform"
+                    style={{ backgroundColor: EMPTY_BLOCK_COLOR, opacity: 0.6 }}
                   />
-                  <span className="text-xs text-gray-600 font-medium group-hover:text-gray-800 transition-colors">
-                    {category} ({count}건)
+                  <span className="text-xs text-gray-500 font-medium group-hover:text-gray-700 transition-colors">
+                    사용 가능 ({maxBlocks - totalBlocks}칸)
                   </span>
                 </div>
-              ))
+              </>
             ) : (
               // 통합 범례
               <>
@@ -256,6 +320,15 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
                   />
                   <span className="text-xs text-gray-600 font-medium group-hover:text-gray-800 transition-colors">
                     전체 지출: {totalExpense.toLocaleString()}원
+                  </span>
+                </div>
+                <div className="flex items-center group cursor-pointer">
+                  <div
+                    className="w-3 h-3 rounded-sm mr-2 shadow-inner border border-gray-200 group-hover:scale-110 transition-transform"
+                    style={{ backgroundColor: EMPTY_BLOCK_COLOR, opacity: 0.6 }}
+                  />
+                  <span className="text-xs text-gray-500 font-medium group-hover:text-gray-700 transition-colors">
+                    사용 가능 ({maxBlocks - totalBlocks}칸)
                   </span>
                 </div>
                 <div className="text-xs text-gray-500">
