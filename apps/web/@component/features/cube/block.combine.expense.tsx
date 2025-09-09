@@ -208,18 +208,26 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
               </div>
 
               {/* 남은 공간 표시 */}
-              <div className="text-sm px-3 py-1.5 rounded-full bg-gray-50 text-gray-900 font-medium">
-                남은 공간: {maxBlocks - totalBlocks}칸
+              <div className="max-md:hidden">
+                <Detail
+                  maxBlocks={maxBlocks}
+                  totalBlocks={totalBlocks}
+                  showByCategory={showByCategory}
+                />
+              </div>
+
+              {/* <div className="max-sm:hidden text-sm px-3 py-1.5 rounded-full bg-gray-50 text-gray-900 font-medium">
+                남은 공간: 대략 {Math.ceil(maxBlocks - totalBlocks)}칸
               </div>
               <div
-                className={`text-sm px-3 py-1.5 rounded-full font-medium ${
+                className={`max-sm:hidden text-sm px-3 py-1.5 rounded-full font-medium ${
                   showByCategory
                     ? "bg-yellow-100 text-yellow-800"
                     : "bg-blue-100 text-blue-800"
                 }`}
               >
                 {totalBlocks}/{maxBlocks} 블록
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -277,10 +285,10 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
           </div>
 
           {/* 범례 - 조건부 렌더링 */}
-          <div className="flex justify-center flex-wrap gap-4">
+          <div className="flex flex-col gap-4 items-center">
             {showByCategory ? (
               // 카테고리별 범례
-              <>
+              <div className="flex justify-center flex-wrap gap-4">
                 {categoryInfo.map(({ category, count }) => (
                   <div
                     key={category}
@@ -304,13 +312,13 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
                     style={{ backgroundColor: EMPTY_BLOCK_COLOR, opacity: 0.6 }}
                   />
                   <span className="text-xs text-gray-500 font-medium group-hover:text-gray-700 transition-colors">
-                    사용 가능 ({maxBlocks - totalBlocks}칸)
+                    사용 가능 (대략 {Math.ceil(maxBlocks - totalBlocks)}칸)
                   </span>
                 </div>
-              </>
+              </div>
             ) : (
               // 통합 범례
-              <>
+              <div className="flex justify-center flex-wrap gap-4">
                 <div className="flex items-center group cursor-pointer">
                   <div
                     className="w-3 h-3 rounded-sm mr-2 shadow-sm group-hover:scale-110 transition-transform"
@@ -328,14 +336,30 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
                     style={{ backgroundColor: EMPTY_BLOCK_COLOR, opacity: 0.6 }}
                   />
                   <span className="text-xs text-gray-500 font-medium group-hover:text-gray-700 transition-colors">
-                    사용 가능 ({maxBlocks - totalBlocks}칸)
+                    사용 가능 (대략 {Math.ceil(maxBlocks - totalBlocks)}칸)
                   </span>
                 </div>
-                <div className="text-xs text-gray-500">
-                  총 {categoryInfo.reduce((sum, cat) => sum + cat.count, 0)}건
+                <div className="flex items-center group cursor-pointer">
+                  <div
+                    className="w-3 h-3 rounded-sm mr-2 shadow-sm group-hover:scale-110 transition-transform"
+                    style={{
+                      backgroundColor: UNIFIED_COLOR,
+                      opacity: 0.6,
+                    }}
+                  />
+                  <span className="text-xs text-gray-500">
+                    총 {categoryInfo.reduce((sum, cat) => sum + cat.count, 0)}건
+                  </span>
                 </div>
-              </>
+              </div>
             )}
+            <div className="md:hidden">
+              <Detail
+                maxBlocks={maxBlocks}
+                totalBlocks={totalBlocks}
+                showByCategory={showByCategory}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -344,5 +368,32 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
 );
 
 BlockMonthlyExpense.displayName = "BlockMonthlyExpense";
+
+const Detail = ({
+  maxBlocks,
+  totalBlocks,
+  showByCategory,
+}: {
+  maxBlocks: number;
+  totalBlocks: number;
+  showByCategory: boolean;
+}) => {
+  return (
+    <div className="flex flex-row gap-2">
+      <div className="text-sm px-3 py-1.5 rounded-full bg-gray-50 text-gray-900 font-medium">
+        남은 공간: 대략 {Math.ceil(maxBlocks - totalBlocks)}칸
+      </div>
+      <div
+        className={`text-sm px-3 py-1.5 rounded-full font-medium ${
+          showByCategory
+            ? "bg-yellow-100 text-yellow-800"
+            : "bg-blue-100 text-blue-800"
+        }`}
+      >
+        {totalBlocks}/{maxBlocks} 블록
+      </div>
+    </div>
+  );
+};
 
 export default BlockMonthlyExpense;

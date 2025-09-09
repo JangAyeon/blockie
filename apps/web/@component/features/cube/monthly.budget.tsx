@@ -16,22 +16,22 @@ const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100/40 to-purple-100/40 rounded-full -translate-y-16 translate-x-16 blur-2xl" />
       <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-green-100/40 to-blue-100/40 rounded-full translate-y-12 -translate-x-12 blur-xl" />
 
-      <div className="relative z-10">
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-3">
+      <div className="relative z-10 flex gap-4 flex-col">
+        <div className="flex  max-sm:flex-col sm:flex-row justify-between items-center gap-6">
+          <div className="w-full  flex flex-row items-center gap-4">
             <BlockieFace size={48} emotion={usageEmotion} />
-            <div>
-              <div className="text-sm text-gray-600 mb-1">
+            <div className="w-full">
+              <div className="w-fit text-sm text-gray-600 mb-1">
                 이번 달 컬렉션 공간
               </div>
-              <div className="text-3xl font-bold text-gray-800">
+              <div className="text-2xl font-bold text-gray-800">
                 {formatWithCurrencySymbol(budgetStatus?.budget!)}
               </div>
             </div>
           </div>
-          <div className="text-right">
+          <div className="w-full flex flex-col justify-end text-right">
             <div className="text-sm text-gray-600 mb-1">남은 공간</div>
-            <div className="text-3xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-green-600">
               {formatWithCurrencySymbol(budgetStatus?.remaining!)}
             </div>
             <div className="text-xs text-gray-500">
@@ -43,11 +43,7 @@ const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
           </div>
         </div>
 
-        <ProgressBar
-          value={budgetStatus?.spent!}
-          max={budgetStatus?.budget!}
-          className="mb-4"
-        />
+        <ProgressBar value={budgetStatus?.spent!} max={budgetStatus?.budget!} />
 
         {/* 상태별 메시지 */}
         <div

@@ -29,6 +29,7 @@ export interface ContentContainerProps {
 export interface ButtonContainerProps {
   handleNext: () => void;
   handleBack: () => void;
+  isLoading: boolean;
 }
 
 export type Emotion = "happy" | "neutral" | "sad";

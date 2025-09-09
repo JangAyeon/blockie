@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 import { useEffect } from "react";
 
 import { useCube } from "@hook/business/cube/useCube";
@@ -50,6 +50,7 @@ export default function ExpenseCubePage() {
     }
   }, [router, searchParams, hasDate]);
   if (isLoading || hasError || !hasDate) return <MyPageLoading />;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 w-full">
       <main className="max-w-5xl mx-auto px-4 py-8">
@@ -57,7 +58,7 @@ export default function ExpenseCubePage() {
         <main className="p-6 space-y-6">
           {/* 연속 기록 배지 */}
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 relative overflow-hidden group hover:shadow-md transition-shadow">
-            <StreakCard streak={streak!} />
+            <StreakCard streak={streak!} year={year} month={month} day={day} />
           </div>
 
           {/* 예산 카드 */}

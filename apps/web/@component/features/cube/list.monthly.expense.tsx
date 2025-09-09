@@ -7,7 +7,7 @@ import {
 } from "@utils/common/getCategoryConfig";
 import { toYMDWithString } from "@utils/date/YMD";
 import { formatWithCurrencySymbol } from "@utils/common/formatter";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 
 const ListMonthlyExpense: React.FC<{
   expensesInfo: RecentExpense[];

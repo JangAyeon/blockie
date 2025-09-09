@@ -66,7 +66,7 @@ const SignupForm: React.FC<SignupFormProps> = ({}) => {
         loading={isLoading}
         className="h-14 text-button"
       >
-        회원가입
+        {isLoading ? "회원가입 중..." : "회원가입"}
       </Button>
     </form>
   );

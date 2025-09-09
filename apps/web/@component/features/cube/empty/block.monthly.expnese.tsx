@@ -1,7 +1,7 @@
 import { MIN_BUDGET_BLOCK } from "@constant/budget";
 import { pageUrl } from "@constant/page.route";
-import { useRouter } from "next/navigation";
-
+import { useRouter } from "@i18n/navigation";
+import Image from "next/image";
 // Empty State 컴포넌트
 const EmptyBlockMonthlyExpense = ({
   maxBlocks,
@@ -87,26 +87,21 @@ const EmptyBlockMonthlyExpense = ({
 
         {/* 도움말 섹션 */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-100">
-          <div className="flex items-start space-x-3">
-            <div className="flex-shrink-0 p-1 bg-blue-100 rounded-full mt-0.5">
-              <svg
-                className="w-4 h-4 text-blue-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          <div className="flex flex-col items-start gap-3">
+            <div className="flex flex-row gap-2 justify-center items-center">
+              <div className="w-fit p-1 bg-blue-100 rounded-full mt-0.5">
+                <Image
+                  src="/cube/info.svg"
+                  alt="info icon"
+                  width={20}
+                  height={20}
                 />
-              </svg>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-800 mb-1">
+              </div>
+              <h4 className="text-sm font-medium text-gray-800">
                 블록 컬렉션이란?
               </h4>
+            </div>
+            <div>
               <p className="text-xs text-gray-600 leading-relaxed">
                 지출 금액을 {(MIN_BUDGET_BLOCK || 10000).toLocaleString()}원
                 단위의 블록으로 나타내어, 카테고리별 지출 패턴을 직관적으로

@@ -5,6 +5,7 @@ import { queryKeys } from "@utils/query/query.key";
 import HydrationProvider from "@provider/query/parallel.hydration";
 import { userService } from "@utils/apis/services/user";
 import { LayoutProps } from "@type/layout";
+import FloatButton from "@component/features/user/float.button";
 export default async function MyPageLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
@@ -34,6 +35,7 @@ export default async function MyPageLayout({ children }: LayoutProps) {
     >
       {/* <div>토큰: {access_token}</div> */}
       {children}
+      <FloatButton />
     </HydrationProvider>
   );
 }
