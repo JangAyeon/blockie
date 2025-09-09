@@ -6,6 +6,7 @@ import { ButtonContainerProps } from "@type/onboarding";
 const ButtonContainer: React.FC<ButtonContainerProps> = ({
   handleBack,
   handleNext,
+  isLoading,
 }) => {
   const { currentStep, canGoBack } = useProgressStepStore();
   const prevSlideData = OnboardingSlides[currentStep - 1];
@@ -34,11 +35,16 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
           fullWidth
           size="lg"
           color={currentlideData?.buttonColor}
-          loading={false}
+          loading={isLoading}
           onClick={handleNext}
           className="text-button "
+          disabled={isLoading}
         >
-          다음으로
+          {isLoading
+            ? "로딩 중..."
+            : currentStep === OnboardingSlides.length - 1
+              ? "저장하기"
+              : "다음으로"}
         </Button>
       </div>
     </>

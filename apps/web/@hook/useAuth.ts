@@ -1,7 +1,7 @@
 // hooks/useLogout.ts
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { signIn, signOut, signUp } from "../@utils/apis/auth";
 import { queryFns, queryKeys } from "../@utils/query/query.key";

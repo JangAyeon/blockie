@@ -61,13 +61,12 @@ export function useSigninForm(): UseSigninFormReturn {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    setIsLoading(true);
     // 폼 유효성 검사
     if (!validateAllFields()) {
       return;
     }
 
-    setIsLoading(true);
     setErrors({});
 
     try {

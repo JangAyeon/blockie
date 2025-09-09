@@ -2,7 +2,8 @@ import ButtonContainer from "./buttonContainer";
 import ContentContainer from "./contentContainer";
 import { OnboardingSlides } from "@constant/onboarding";
 // import { useUserProfile, useUpdateUserProfile } from "@hook/useAuth";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 // import { useUpsertBudget } from "@hook/useBudget";
 import { useOnboardingForm } from "@hook/business/onboarding/useOnboardingForm";
 import { useProgressStepStore } from "@store/useProgressStepStore";
@@ -63,9 +64,7 @@ const ContentSection = () => {
       } catch (err) {
         console.error("업데이트 중 에러", err);
       }
-      alert(
-        `환영합니다! Blockie와 함께 시작해보세요 🎉 ${{ ...formData, email: data?.email }}`
-      );
+      alert(`환영합니다! Blockie와 함께 시작해보세요 🎉`);
       router.push(`${pageUrl.cube}`);
     } else {
       if (currentStep == 3 && (!formData.name || !formData.phone)) {
@@ -97,7 +96,7 @@ const ContentSection = () => {
       </div>
 
       <ButtonContainer
-        // currentStep={currentStep}
+        isLoading={isLoading}
         handleBack={handleBack}
         handleNext={handleNext}
       />

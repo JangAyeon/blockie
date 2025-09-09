@@ -23,7 +23,8 @@ import Overview from "@component/features/expense/overview";
 import ExpenseItemList from "@component/features/expense/itemlist";
 import Statistics from "@component/features/expense/statistics";
 import Footer from "@component/features/expense/footer";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 
 import { pageUrl } from "@constant/page.route";
 import { toYMDWithString } from "@utils/date/YMD";

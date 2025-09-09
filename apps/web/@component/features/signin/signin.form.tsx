@@ -1,4 +1,5 @@
 "use client";
+
 import { useSigninForm } from "@hook/business/signin";
 import { Button, Input } from "@repo/ui";
 import { validateForm } from "@utils/auth";
@@ -73,7 +74,7 @@ const SigninForm = () => {
         loading={isLoading}
         className="h-14 text-button"
       >
-        로그인
+        {isLoading ? "로그인 중..." : "로그인"}
       </Button>
     </form>
   );

@@ -1,7 +1,8 @@
 "use client";
 
 import { pageUrl } from "@constant/page.route";
-import { usePathname, useRouter } from "@i18n/navigation";
+import { usePathname } from "@i18n/navigation";
+import { useRouter } from "@i18n/navigation";
 import { Button } from "@repo/ui";
 import { LocaleLayoutProps } from "@type/layout";
 import { logger } from "@utils/logger/logger";

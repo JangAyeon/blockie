@@ -1,6 +1,6 @@
 import { pageUrl } from "@constant/page.route";
 import { BlockieFace } from "@repo/ui";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 
 // 예산 미설정 Empty State 컴포넌트
 const EmptyMonthlyBudget = () => {

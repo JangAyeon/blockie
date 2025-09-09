@@ -51,7 +51,8 @@ export class DomesticController {
   @Get('daily/:ticker')
   @ApiOperation({
     summary: '주식 차트 데이터 조회',
-    description: '최근 30거래일(D), 30주(W), 30개월(M)의 과거 가격 데이터 제공',
+    description:
+      'https://apiportal.koreainvestment.com/apiservice-apiservice?/uapi/domestic-stock/v1/quotations/inquire-daily-price',
   })
   @ApiParam({
     name: 'ticker',
@@ -70,6 +71,49 @@ export class DomesticController {
     @Query('period') period: DailyChartPeriod = 'D',
   ) {
     return this.domesticService.getDailyChart(token, ticker, period);
+  }
+
+  @Get('trade-view/:ticker')
+  @ApiOperation({
+    summary: '국내주식기간별시세(일/주/월/년)[v1_국내주식-016]',
+    description:
+      'https://apiportal.koreainvestment.com/apiservice-apiservice?/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice',
+  })
+  @ApiParam({
+    name: 'ticker',
+    description: '종목코드 (6자리)',
+    example: '005930',
+  })
+  @ApiQuery({
+    name: 'startDate',
+    description: '조회 시작일자',
+    example: '20000101',
+  })
+  @ApiQuery({
+    name: 'endDate',
+    description: '조회 종료일자 (최대 100개)',
+    example: '20281231',
+  })
+  @ApiQuery({
+    name: 'period',
+    description: '조회 단위 (일/주/월)',
+    enum: ['D', 'W', 'M'], // 하드코딩 가능
+    example: 'D',
+  })
+  async getTradeChart(
+    @GetToken() token: string,
+    @Param('ticker') ticker: string,
+    @Query('period') period: DailyChartPeriod = 'D',
+    @Query('startDate') startDate: string,
+    @Query('endDate') endDate: string,
+  ) {
+    return this.domesticService.getTradeChart(
+      token,
+      ticker,
+      startDate,
+      endDate,
+      period,
+    );
   }
   @Get('time/:ticker')
   @ApiOperation({

@@ -1,8 +1,12 @@
 import { calculateBlocks } from "@utils/budget";
-import { formatNumberWithCommas } from "@utils/common/formatter";
+import {
+  formatNumberWithCommas,
+  getCurrencySymbol,
+} from "@utils/common/formatter";
 import { FormData } from "@type/onboarding";
 import BlockVisualization from "./blockVisualization";
 import { Input } from "@repo/ui";
+import { useLocale } from "next-intl";
 
 interface BudgetFormProps {
   formData: FormData;
@@ -14,13 +18,13 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   onBudgetChange,
 }) => {
   const blockData = calculateBlocks(formData.monthlyBudget);
-
+  const locale = useLocale();
   return (
     <div className="text-left w-full mx-auto">
       <div className="space-y-4">
         <div className="relative">
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-medium-gray">
-            ₩
+          <div className="absolute left-4 top-12 transform -translate-y-1/2 text-neutral-medium-gray">
+            {getCurrencySymbol(locale)}
           </div>
 
           <Input
@@ -29,7 +33,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             type="text"
             id="monthlyBudget"
             name="monthlyBudget"
-            value={formatNumberWithCommas(formData.monthlyBudget) || 0}
+            value={formatNumberWithCommas(formData.monthlyBudget)}
             onChange={onBudgetChange}
             size="lg"
             placeholder="500,000"

@@ -5,6 +5,7 @@ import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
 import { LayoutProps } from "@type/layout";
+import FloatButton from "@component/features/budget/float.button";
 export default async function BudgetLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
@@ -24,6 +25,10 @@ export default async function BudgetLayout({ children }: LayoutProps) {
     },
   ];
   return (
-    <HydrationProvider queries={prefetchQueries}>{children}</HydrationProvider>
+    <HydrationProvider queries={prefetchQueries}>
+      {children}
+
+      <FloatButton />
+    </HydrationProvider>
   );
 }

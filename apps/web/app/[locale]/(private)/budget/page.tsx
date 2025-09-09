@@ -18,7 +18,8 @@ import {
 
 import useBudgetTab from "@hook/business/budget/useBudgetTab";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@i18n/navigation";
 import { toYMDWithString } from "@utils/date/YMD";
 
 import { pageUrl } from "@constant/page.route";

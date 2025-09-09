@@ -4,6 +4,7 @@ import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
 import { LayoutProps } from "@type/layout";
+import FloatButton from "@component/features/cube/float.button";
 export default async function CubeLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;
@@ -33,6 +34,10 @@ export default async function CubeLayout({ children }: LayoutProps) {
   return (
     // <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
 
-    <HydrationProvider queries={prefetchQueries}>{children}</HydrationProvider>
+    <HydrationProvider queries={prefetchQueries}>
+      {children}
+      {/* 플로팅 버튼들 */}
+      <FloatButton />
+    </HydrationProvider>
   );
 }

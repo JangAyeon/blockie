@@ -1,6 +1,6 @@
 import { pageUrl } from "@constant/page.route";
-import { useRouter } from "next/navigation";
-
+import { useRouter } from "@i18n/navigation";
+import Image from "next/image";
 // Empty State 컴포넌트
 const EmptyMonthlyExpense = () => {
   const router = useRouter();
@@ -9,9 +9,6 @@ const EmptyMonthlyExpense = () => {
       {/* 헤더 */}
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-bold text-gray-800">최근 지출</h2>
-        <div className="px-3 py-1.5 text-sm font-medium rounded-full bg-blue-50 text-blue-600">
-          새로운 시작
-        </div>
       </div>
 
       {/* Empty State 메인 카드 */}
@@ -80,60 +77,73 @@ const EmptyMonthlyExpense = () => {
         {/* 도움말 카드 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
           {/* 팁 1 */}
-          <div className="p-4 rounded-lg border border-green-100 bg-gradient-to-br from-green-50 to-emerald-50">
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 p-1.5 rounded-full bg-green-100">
-                <svg
-                  className="w-4 h-4 text-green-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
+          <div className="p-2 rounded-lg border border-green-100 bg-gradient-to-br from-green-50 to-emerald-50">
+            <div className="flex flex-col items-start gap-3">
+              <div className="flex flex-row gap-2 justify-center items-center">
+                <div className="w-fit p-1.5 rounded-full bg-green-100">
+                  {/* <svg
+                    className="w-3 h-3 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg> */}
+                  <Image
+                    src="/cube/lightning.svg"
+                    alt="lightning icon"
+                    width={16}
+                    height={16}
                   />
-                </svg>
-              </div>
-              <div>
-                <h4 className="mb-1 text-sm font-medium text-gray-800">
+                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-gray-800">
                   빠른 입력
                 </h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  카테고리별로 간편하게 지출을 기록할 수 있어요
-                </p>
               </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                카테고리별로 간편하게 지출을 기록할 수 있어요
+              </p>
             </div>
           </div>
 
           {/* 팁 2 */}
-          <div className="p-4 rounded-lg border border-purple-100 bg-gradient-to-br from-purple-50 to-blue-50">
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 p-1.5 rounded-full bg-purple-100">
-                <svg
-                  className="w-4 h-4 text-purple-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          <div className="p-2 rounded-lg border border-purple-100 bg-gradient-to-br from-purple-50 to-blue-50">
+            <div className="flex flex-col items-start gap-3">
+              <div className="flex flex-row gap-2 justify-center items-center">
+                <div className="w-fit p-1.5 rounded-full bg-purple-100">
+                  {/* <svg
+                    className="w-3 h-3 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    />
+                  </svg> */}
+                  <Image
+                    src="/cube/lightBulb.svg"
+                    alt="lightBulb icon"
+                    width={16}
+                    height={16}
                   />
-                </svg>
-              </div>
-              <div>
-                <h4 className="mb-1 text-sm font-medium text-gray-800">
+                </div>
+                <h4 className="text-xs sm:text-sm font-medium text-gray-800">
                   시각적 분석
                 </h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  블록으로 지출 패턴을 한눈에 확인해보세요
-                </p>
               </div>
+
+              <p className="text-xs text-gray-600 leading-relaxed">
+                블록으로 지출 패턴을 한눈에 확인해보세요
+              </p>
             </div>
           </div>
         </div>
