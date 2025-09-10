@@ -34,13 +34,21 @@ export class TestWebsocketGateway
   server: Server;
 
   private readonly logger = new Logger(TestWebsocketGateway.name);
+  private connectedUsers = new Set<string>();
 
   handleConnection(client: Socket) {
     this.logger.log(`클라이언트 연결됨: ${client.id}`);
+
+    this.connectedUsers.add(client.id);
+
+    // 모든 클라이언트에게 온라인 사용자 수 전송
+    this.server.emit('userCount', this.connectedUsers.size);
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log(`클라이언트 연결 해제됨: ${client.id}`);
+    this.connectedUsers.delete(client.id);
+    this.server.emit('userCount', this.connectedUsers.size);
   }
 
   @SubscribeMessage('sendMessage')

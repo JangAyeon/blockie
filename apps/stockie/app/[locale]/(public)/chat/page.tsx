@@ -15,7 +15,7 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("");
   const [username, setUsername] = useState("");
   const [isTyping, setIsTyping] = useState("");
-
+  const [userCount, setUserCount] = useState(0);
   useEffect(() => {
     if (!socket) return;
 
@@ -23,7 +23,9 @@ export default function Chat() {
     socket.on("receiveMessage", (data: Message) => {
       setMessages((prev) => [...prev, data]);
     });
-
+    socket.on("userCount", (count) => {
+      setUserCount(count);
+    });
     // 타이핑 상태 받기
     socket.on("userTyping", (data: { user: string; isTyping: boolean }) => {
       if (data.isTyping) {
@@ -36,6 +38,7 @@ export default function Chat() {
     return () => {
       socket.off("receiveMessage");
       socket.off("userTyping");
+      socket.off("userCount");
     };
   }, [socket]);
 
@@ -82,7 +85,8 @@ export default function Chat() {
       <div className="mb-4">
         <h1 className="text-2xl font-bold">실시간 채팅</h1>
         <div className="text-sm text-gray-600">
-          상태: {isConnected ? "🟢 연결됨" : "🔴 연결 안됨"} | 사용자:{" "}
+          온라인: {userCount}명 | 상태:{" "}
+          {isConnected ? "🟢 연결됨" : "🔴 연결 안됨"}
           {username}
         </div>
       </div>
@@ -97,7 +101,7 @@ export default function Chat() {
               <span className="font-semibold text-blue-600">{msg.user}:</span>
               <span className="ml-2">{msg.message}</span>
               <span className="text-xs text-gray-400 ml-2">
-                {new Date(msg.timestamp).toLocaleTimeString()}
+                {formatTime(msg.timestamp)}
               </span>
             </div>
           ))
@@ -136,3 +140,19 @@ export default function Chat() {
     </div>
   );
 }
+// 시간을 읽기 쉽게 포맷팅하는 함수
+const formatTime = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffInMinutes = Math.floor(
+    (now.getTime() - date.getTime()) / (1000 * 60)
+  );
+
+  if (diffInMinutes < 1) return "방금 전";
+  if (diffInMinutes < 60) return `${diffInMinutes}분 전`;
+
+  return date.toLocaleTimeString("ko-KR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
