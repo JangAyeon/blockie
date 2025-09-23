@@ -37,5 +37,6 @@ export default async function CatchAllPage({ params }: LocaleParams) {
   // } else {
   //   return notFound();
   // }
-  redirect({ href: "/", locale });
+  // redirect({ href: "/stock", locale });
+  return <>[...rest] 페이지</>;
 }
