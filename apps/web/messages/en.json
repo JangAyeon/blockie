@@ -13,5 +13,48 @@
     "goHome": "Go to Home",
     "autoRedirect": "{seconds} seconds until automatic redirect to homepage.",
     "helpText": "If the problem persists, please contact our customer support."
+  },
+  "Auth": {
+    "signin": {
+      "title": "Don't have an account?",
+      "togoPageName": "Sign Up",
+      "headerTitle": "Sign In",
+      "togoUrl": "/signin",
+      "welcomeTitle": "Let's get started with Blocky!",
+      "welcomeSubTitle": "Your first step to fun expense management"
+    },
+    "signup": {
+      "title": "Already have an account?",
+      "togoPageName": "Sign In",
+      "togoUrl": "/signup",
+      "headerTitle": "Sign Up",
+      "welcomeTitle": "Nice to see you again!",
+      "welcomeSubTitle": "Log in and start building blocks!"
+    }
+  },
+  "email": {
+    "label": "Email",
+    "remember": "Remember email"
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Enter your password",
+    "confirm": "Confirm Password"
+  },
+  "confirmPassword": "Confirm Password",
+  "signIn": {
+    "label": "Sign In",
+    "loading": "Signing in..."
+  },
+  "signUp": {
+    "label": "Sign Up",
+    "loading": "Signing up..."
+  },
+  "expense": {
+    "management": "Expense Management",
+    "description": "Create healthy spending habits with smart expense management",
+    "status": "Expense Status",
+    "history": "Expense History",
+    "statistics": "Statistical Analysis"
   }
 }

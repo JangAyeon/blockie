@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { pageUrl } from "@constant/page.route";
 import { LocaleLayoutProps } from "@type/layout";
+import LanguageSwitcher from "@component/common/lang.switcher";
 
 export default async function PrivateLayout({
   children,
@@ -16,5 +17,11 @@ export default async function PrivateLayout({
     redirect(`/${locale}${pageUrl.signin}`);
   }
 
-  return <> {children}</>;
+  return (
+    <>
+      {" "}
+      {children}
+      <LanguageSwitcher />
+    </>
+  );
 }

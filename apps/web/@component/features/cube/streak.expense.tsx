@@ -51,18 +51,18 @@ const StreakCard: React.FC<{
           </div>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col gap-2">
           {/* 메인 텍스트 */}
-          <div>
+          <div className="flex flex-row gap-2 items-center">
             <button
               onClick={() =>
                 handleDateChangeBtn(pageUrl.cube, "prev", year, month, router)
               }
             >
               {" "}
-              ▷
+              ◁
             </button>
-            <div className="flex items-center  gap-2 mb-1">
+            <div className="flex items-center  gap-2 ">
               <h3 className="font-bold text-lg text-gray-800">
                 {streak.currentStreak}일 연속 기록 중!
               </h3>
@@ -77,17 +77,15 @@ const StreakCard: React.FC<{
             </button>
           </div>
 
-          <div className="mb-2">
-            <div className="flex justify-between items-center mb-1">
-              <div>
-                <div className="text-xs text-gray-500 mb-1">
-                  다음 보상까지 남은 일수{" "}
-                  <span
-                    className={`text-xs font-bold bg-gradient-to-r ${getStreakLevel(streak.streakLevel).color} bg-clip-text text-transparent`}
-                  >
-                    {streak.daysToNextReward}
-                  </span>
-                </div>
+          <div className="flex flex-col gap-1">
+            <div className="flex justify-between items-center">
+              <div className="text-xs text-gray-500 ">
+                다음 보상까지 남은 일수{" "}
+                <span
+                  className={`text-xs font-bold bg-gradient-to-r ${getStreakLevel(streak.streakLevel).color} bg-clip-text text-transparent`}
+                >
+                  {streak.daysToNextReward}
+                </span>
               </div>
 
               <span className="text-xs text-gray-600 font-medium">

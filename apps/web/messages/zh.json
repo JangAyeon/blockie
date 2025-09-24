@@ -1,0 +1,61 @@
+{
+  "HomePage": {
+    "title": "您好！",
+    "about": "前往介绍页面"
+  },
+  "Metadata": {
+    "title": "您好！",
+    "about": "前往介绍页面"
+  },
+  "NotFound": {
+    "title": "找不到页面",
+    "description": "您请求的页面不存在或可能已被移动。",
+    "goHome": "返回首页",
+    "autoRedirect": "{seconds}秒后自动跳转到首页。",
+    "helpText": "如果问题持续存在，请联系我们的客服。"
+  },
+  "Auth": {
+    "signin": {
+      "title": "还没有账户？",
+      "togoPageName": "注册",
+      "togoUrl": "/signin",
+      "headerTitle": "登录",
+      "welcomeTitle": "让我们一起开始使用Blocky！",
+      "welcomeSubTitle": "有趣消费管理的第一步"
+    },
+    "signup": {
+      "title": "已经有账户了？",
+      "togoPageName": "登录",
+      "headerTitle": "注册",
+      "togoUrl": "/signup",
+      "welcomeTitle": "很高兴再次见到您！",
+      "welcomeSubTitle": "登录开始搭建积木吧！"
+    }
+  },
+
+  "email": {
+    "label": "邮箱",
+    "remember": "记住邮箱"
+  },
+  "password": {
+    "label": "密码",
+    "placeholder": "请输入密码",
+    "confirm": "确认密码"
+  },
+  "confirmPassword": "确认密码",
+  "signIn": {
+    "label": "登录",
+    "loading": "登录中..."
+  },
+  "signUp": {
+    "label": "注册",
+    "loading": "注册中..."
+  },
+  "expense": {
+    "management": "支出管理",
+    "description": "通过智能支出管理养成健康的消费习惯",
+    "status": "支出状况",
+    "history": "支出记录",
+    "statistics": "统计分析"
+  }
+}

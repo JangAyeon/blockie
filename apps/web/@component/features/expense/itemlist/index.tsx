@@ -93,7 +93,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
     >
       <Card>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
-          <div className="w-full flex flex-row items-center justify-between">
+          <div className="w-full flex flex-row items-start max-sm:flex-col md:justify-between gap-3">
             <div className="text-title-1 font-semibold flex flex-row gap-2">
               {" "}
               <button
@@ -129,7 +129,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
               </button>
             </div>
 
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-2 items-center">
               <div className="py-1.5 px-3 text-body-2  text-emerald-600 font-medium bg-emerald-100/60 rounded-full">
                 총 {filteredExpenses.length}건의 지출
               </div>
@@ -155,7 +155,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
         </div>
 
         {/* 필터 섹션 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="">
           {/* <div>
             <label className="block text-body-2 font-medium text-neutral-black mb-2">
               기간

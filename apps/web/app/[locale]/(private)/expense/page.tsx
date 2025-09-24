@@ -35,6 +35,7 @@ import {
   useEditExpenseItem,
 } from "@hook/api/expense/useExpense";
 import { ExpenseItem } from "@type/expense";
+import { useTranslations } from "next-intl";
 
 // Chart.js 등록
 ChartJS.register(
@@ -57,7 +58,7 @@ function ExpenseManagementPage() {
 
   const hasDate = year && month && day;
   const { activeTab, changeTab, direction } = useExpenseTab();
-
+  const t = useTranslations("expense");
   const deleteExpenseMutation = useDeleteExpenseItem({
     showToast: true,
     onSuccess: () => {
@@ -198,9 +199,9 @@ function ExpenseManagementPage() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h1 className="text-3xl font-bold text-center">지출 관리</h1>
+          <h1 className="text-3xl font-bold text-center">{t("management")}</h1>
           <p className="text-center text-neutral-dark-gray mt-2">
-            스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요
+            {t("description")}
           </p>
         </motion.div>
 
