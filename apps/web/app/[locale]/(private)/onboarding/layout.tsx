@@ -1,7 +1,7 @@
 import { LayoutProps } from "@type/layout";
 import React from "react";
 
-export default async function SignInLayout({ children }: LayoutProps) {
+export default async function OnBoardingLayout({ children }: LayoutProps) {
   //   const cookieStore = await cookies();
   //   const access_token = cookieStore.get("access_token")?.value ?? null;
   //   console.log(cookieStore.getAll());

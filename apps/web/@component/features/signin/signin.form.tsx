@@ -3,10 +3,12 @@
 import { useSigninForm } from "@hook/business/signin";
 import { Button, Input } from "@repo/ui";
 import { validateForm } from "@utils/auth";
+import { useTranslations } from "next-intl";
 
 const SigninForm = () => {
   const { formData, errors, isLoading, handleInputChange, handleSubmit } =
     useSigninForm();
+  const t = useTranslations();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -19,7 +21,7 @@ const SigninForm = () => {
 
       <div className="space-y-4">
         <Input
-          label="이메일"
+          label={t("email.label")}
           type="email"
           name="email"
           value={formData.email}
@@ -38,12 +40,12 @@ const SigninForm = () => {
             </button> */}
 
         <Input
-          label="비밀번호"
+          label={t("password.label")}
           type="password"
           name="password"
           value={formData.password}
           onChange={handleInputChange}
-          placeholder="비밀번호를 입력하세요"
+          placeholder={t("password.placeholder")}
           size="lg"
           error={errors.password}
           required
@@ -62,7 +64,7 @@ const SigninForm = () => {
             htmlFor="rememberEmail"
             className="ml-2 text-body-2 text-neutral-dark-gray"
           >
-            이메일 기억하기
+            {t("email.remember")}
           </label>
         </div>
       </div>
@@ -74,7 +76,7 @@ const SigninForm = () => {
         loading={isLoading}
         className="h-14 text-button"
       >
-        {isLoading ? "로그인 중..." : "로그인"}
+        {isLoading ? t("signIn.loading") : t("signIn.label")}
       </Button>
     </form>
   );

@@ -13,5 +13,48 @@
     "goHome": "홈으로 이동",
     "autoRedirect": "{seconds}초 후 자동으로 홈으로 이동합니다.",
     "helpText": "문제가 계속되면 고객센터로 문의해 주세요."
+  },
+  "Auth": {
+    "signin": {
+      "title": "계정이 없으신가요?",
+      "togoPageName": "회원가입",
+      "togoUrl": "/signin",
+      "headerTitle": "로그인",
+      "welcomeTitle": "블로키와 함께 시작해요!",
+      "welcomeSubTitle": "재미있는 소비 관리의 첫 걸음"
+    },
+    "signup": {
+      "title": "이미 계정이 있으신가요?",
+      "togoPageName": "로그인",
+      "headerTitle": "회원가입",
+      "togoUrl": "/signup",
+      "welcomeTitle": "다시 만나서 반가워요!",
+      "welcomeSubTitle": "로그인하고 블록을 쌓아볼까요?"
+    }
+  },
+  "email": {
+    "label": "이메일",
+    "remember": "이메일 기억하기"
+  },
+  "password": {
+    "label": "비밀번호",
+    "placeholder": "비밀번호를 입력하세요",
+    "confirm": "비밀번호 확인"
+  },
+  "confirmPassword": "비밀번호 확인",
+  "signIn": {
+    "label": "로그인",
+    "loading": "로그인 중..."
+  },
+  "signUp": {
+    "label": "회원가입",
+    "loading": "회원가입 중..."
+  },
+  "expense": {
+    "management": "지출 관리",
+    "description": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요",
+    "status": "지출 현황",
+    "history": "지출 내역",
+    "statistics": "통계 분석"
   }
 }

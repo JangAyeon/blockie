@@ -327,7 +327,7 @@ const Overview: React.FC<OverviewProps> = ({
                 <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-white/20 rounded-full blur-xl"></div>
 
                 <div className="relative z-10">
-                  <div className="flex items-center justify-start mb-4">
+                  <div className="flex items-center justify-center mb-3">
                     <motion.span
                       className="text-title-1 mr-3"
                       animate={{ rotateY: [0, 360] }}
