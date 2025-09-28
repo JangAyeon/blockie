@@ -446,7 +446,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.5 }}
-                      className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-amber-200/50 shadow-lg"
+                      className="flex flex-col items-center bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-amber-200/50 shadow-lg"
                     >
                       <div className="flex items-center justify-center mb-3">
                         <span className="text-2xl mr-2">💰</span>
@@ -460,8 +460,11 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full text-sm font-medium hover:shadow-lg transition-all duration-200"
-                        onClick={() => setBudgetAdvisor(true)}
+                        className="text-sm font-semibold text-amber-600 flex items-center bg-amber-50/80 backdrop-blur-sm px-2 py-1.5 rounded-full border w-fit border-amber-200"
+                        onClick={() => {
+                          setShowBudgetModal(true);
+                          setBudgetAdvisor(true);
+                        }}
                       >
                         <span className="mr-2">🎯</span>
                         내게 맞는 예산 추천받기

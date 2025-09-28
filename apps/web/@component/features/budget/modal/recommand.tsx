@@ -48,20 +48,21 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
-      className="bg-blue-50 rounded-lg p-4 mb-4"
+      className="bg-blue-50 rounded-lg p-4 flex flex-col gap-y-3 "
     >
-      <h3 className="text-body-2 font-medium text-blue-700 mb-3">
+      <h3 className="text-body-2 font-medium text-blue-700">
         📊 추천 예산 금액
       </h3>
 
-      <div className="space-y-2">
+      <div className="flex flex-col gap-y-2">
         {recommendedBudgets.map((budget) => (
           <div key={budget.label} className="flex items-center justify-between">
             <span className="text-body-2 text-neutral-dark-gray">
               {budget.label}
             </span>
             <Button
-              variant="outline"
+              variant="ghost"
+              color="blockie-blue"
               size="sm"
               onClick={() => onSelectAmount(budget.amount)}
               className={`text-xs ${budget.isHighlighted ? "bg-blue-100" : ""}`}
@@ -72,7 +73,7 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
         ))}
       </div>
 
-      <p className="text-xs text-blue-600 mt-3">
+      <p className="text-xs text-info">
         💡 현재 지출 패턴을 기반으로 한 추천 예산입니다
       </p>
     </motion.div>
