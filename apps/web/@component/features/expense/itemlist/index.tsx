@@ -94,7 +94,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
       <Card>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <div className="w-full flex flex-row items-start max-sm:flex-col md:justify-between gap-3">
-            <div className="text-title-1 font-semibold flex flex-row gap-2">
+            <div className=" flex flex-row gap-2">
               {" "}
               <button
                 onClick={() =>
@@ -110,7 +110,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
                 {" "}
                 ◁
               </button>
-              <div>
+              <div className="text-title-1 text-neutral-black">
                 📅 {year}년 {month}월{" "}
               </div>
               <button
@@ -156,22 +156,6 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
 
         {/* 필터 섹션 */}
         <div className="">
-          {/* <div>
-            <label className="block text-body-2 font-medium text-neutral-black mb-2">
-              기간
-            </label>
-            <select
-              value={selectedPeriod}
-              onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-            >
-              <option value="all">전체</option>
-              <option value="today">오늘</option>
-              <option value="week">최근 7일</option>
-              <option value="month">이번 달</option>
-            </select>
-          </div> */}
-
           <div>
             <label className="block text-body-2 font-medium text-neutral-black mb-2">
               카테고리

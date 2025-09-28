@@ -2,6 +2,7 @@ import { Button } from "@repo/ui";
 import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategoryItem, ExpenseCategorySummary } from "@type/expense";
+import CategoryFeedback from "./category.feedback";
 interface BudgetOptimizationCardProps {
   recommendedBudget: string;
   expenseCategory: ExpenseCategorySummary;
@@ -70,29 +71,7 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
         </div>
 
         <div className="bg-gray-50 rounded-lg p-4">
-          <h4 className="text-sm font-medium mb-2">절약 팁</h4>
-          <ul className="text-sm space-y-2">
-            <li className="flex items-start">
-              <span className="text-green-500 mr-2">•</span>
-              <span>
-                식비: 집에서 식사를 준비하면 외식 비용의 약 50%를 절약할 수
-                있습니다.
-              </span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-500 mr-2">•</span>
-              <span>
-                쇼핑: 필요한 물건은 세일 기간에 구매하여 약 20% 절약 가능합니다.
-              </span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-500 mr-2">•</span>
-              <span>
-                교통: 대중교통 정기권을 활용하면 최대 30%까지 교통비를 줄일 수
-                있습니다.
-              </span>
-            </li>
-          </ul>
+          <CategoryFeedback />
         </div>
       </div>
 
