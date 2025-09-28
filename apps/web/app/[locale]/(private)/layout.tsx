@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { pageUrl } from "@constant/page.route";
 import { LocaleLayoutProps } from "@type/layout";
 import LanguageSwitcher from "@component/common/lang.switcher";
+import MenuSwitcher from "@component/common/menu.switcher";
+import { Suspense } from "react";
 
 export default async function PrivateLayout({
   children,
@@ -21,7 +23,10 @@ export default async function PrivateLayout({
     <>
       {" "}
       {children}
-      <LanguageSwitcher />
+      <Suspense fallback={null}>
+        <LanguageSwitcher />
+        <MenuSwitcher />
+      </Suspense>
     </>
   );
 }

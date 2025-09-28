@@ -36,6 +36,14 @@ import {
 } from "@hook/api/expense/useExpense";
 import { ExpenseItem } from "@type/expense";
 import { useTranslations } from "next-intl";
+import AddExpenseModal from "@component/features/expense/modal/add.expense.modal";
+import EditExpenseModal from "@component/features/expense/modal/edit.expense.modal";
+
+export interface ExpenseProps {
+  amount: string;
+  category: string;
+  expenseDate: string | undefined;
+}
 
 // Chart.js 등록
 ChartJS.register(
@@ -95,7 +103,7 @@ function ExpenseManagementPage() {
     null
   );
 
-  const [newExpense, setNewExpense] = useState({
+  const [newExpense, setNewExpense] = useState<ExpenseProps>({
     amount: "",
     category: "",
     expenseDate: new Date().toISOString().split("T")[0],
@@ -155,32 +163,6 @@ function ExpenseManagementPage() {
         ).toISOString(),
       },
     });
-    // const originalExpen = expenses.find((e) => e.id === editingExpense.id);
-    // const updatedExpenses = expenses.map((expense) =>
-    //   expense.id === editingExpense.id
-    //     ? {
-    //         ...expense,
-    //         amount: parseInt(editingExpense.amount.toString()),
-    //         category: editingExpense.category,
-    //         expenseDate: new Date(
-    //           editingExpense.expenseDate +
-    //             "T" +
-    //             new Date().toTimeString().split(" ")[0]
-    //         ).toISOString(),
-    //       }
-    //     : expense
-    // );
-
-    // setExpenses(updatedExpenses);
-
-    // // 예산 업데이트
-    // const amountDiff =
-    //   parseInt(`${editingExpense.amount}`) - (originalExpense?.amount || 0);
-    // setBudget((prev) => ({
-    //   ...prev,
-    //   spent: prev.spent + amountDiff,
-    //   remaining: prev.budget - (prev.spent + amountDiff),
-    // }));
 
     setSelectedExpense(null);
   };
@@ -245,215 +227,19 @@ function ExpenseManagementPage() {
         </AnimatePresence>
 
         {/* 지출 추가 모달 */}
-        <AnimatePresence>
-          {showAddForm && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-              onClick={() => setShowAddForm(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h3 className="text-title-2 font-semibold mb-4">
-                  새 지출 추가
-                </h3>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      금액
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={newExpense.amount}
-                        onChange={(e) =>
-                          setNewExpense({
-                            ...newExpense,
-                            amount: e.target.value,
-                          })
-                        }
-                        className="w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-                        placeholder="예: 15000"
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-neutral-dark-gray">원</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      카테고리
-                    </label>
-                    <select
-                      value={newExpense.category}
-                      onChange={(e) =>
-                        setNewExpense({
-                          ...newExpense,
-                          category: e.target.value,
-                        })
-                      }
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-                    >
-                      <option value="">카테고리 선택</option>
-                      <option value="월별 고정 지출">고정 지출</option>
-                      <option value="월별 변동 지출">월별 변동 지출</option>
-                      <option value="비정기 지출">비정기 지출</option>
-                      <option value="기타">기타</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      지출 날짜
-                    </label>
-                    <input
-                      type="date"
-                      value={newExpense.expenseDate}
-                      onChange={(e) =>
-                        setNewExpense({
-                          ...newExpense,
-                          expenseDate: e.target.value,
-                        })
-                      }
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mt-6">
-                  <button
-                    onClick={() => setShowAddForm(false)}
-                    className="flex-1 px-4 py-3 border border-gray-300 text-neutral-black rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    취소
-                  </button>
-                  <button
-                    onClick={handleAddExpense}
-                    disabled={!newExpense.amount || !newExpense.category}
-                    className="flex-1 px-4 py-3 bg-blockie-yellow text-neutral-black rounded-lg font-medium hover:shadow-md hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    추가
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <AddExpenseModal
+          modalConfig={{ showAddForm, setShowAddForm }}
+          expenseConfig={{ newExpense, setNewExpense, handleAddExpense }}
+        />
 
         {/* 지출 수정 모달 */}
-        <AnimatePresence>
-          {selectedExpense && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-              onClick={() => setSelectedExpense(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ type: "spring", damping: 20, stiffness: 300 }}
-                className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <h3 className="text-title-2 font-semibold mb-4">지출 수정</h3>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      금액
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={selectedExpense.amount}
-                        onChange={(e) =>
-                          setSelectedExpense({
-                            ...selectedExpense,
-                            amount: Number(e.target.value),
-                          })
-                        }
-                        className="w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
-                        placeholder="예: 15000"
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                        <span className="text-neutral-dark-gray">원</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      카테고리
-                    </label>
-                    <select
-                      value={selectedExpense.category}
-                      onChange={(e) =>
-                        setSelectedExpense({
-                          ...selectedExpense,
-                          category: e.target.value,
-                        })
-                      }
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
-                    >
-                      <option value="월별 고정 지출">고정 지출</option>
-                      <option value="월별 변동 지출">월별 변동 지출</option>
-                      <option value="비정기 지출">비정기 지출</option>
-                      <option value="기타">기타</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                      지출 날짜
-                    </label>
-                    <input
-                      type="date"
-                      value={selectedExpense.expenseDate}
-                      onChange={(e) =>
-                        setSelectedExpense({
-                          ...selectedExpense,
-                          expenseDate: e.target.value,
-                        })
-                      }
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mt-6">
-                  <button
-                    onClick={() => setSelectedExpense(null)}
-                    className="flex-1 px-4 py-3 border border-gray-300 text-neutral-black rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    취소
-                  </button>
-                  <button
-                    onClick={handleUpdateExpense}
-                    disabled={
-                      !selectedExpense.amount || !selectedExpense.category
-                    }
-                    className="flex-1 px-4 py-3 bg-blockie-blue text-white rounded-lg font-medium hover:shadow-md hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    수정
-                  </button>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <EditExpenseModal
+          selectedExpenseConfig={{
+            selectedExpense,
+            setSelectedExpense,
+            handleUpdateExpense,
+          }}
+        />
 
         <Footer />
       </div>
