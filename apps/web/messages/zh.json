@@ -20,7 +20,7 @@
       "togoPageName": "注册",
       "togoUrl": "/signin",
       "headerTitle": "登录",
-      "welcomeTitle": "让我们一起开始使用Blocky！",
+      "welcomeTitle": "让我们一起开始使用Blockie！",
       "welcomeSubTitle": "有趣消费管理的第一步"
     },
     "signup": {
@@ -57,5 +57,83 @@
     "status": "支出状况",
     "history": "支出记录",
     "statistics": "统计分析"
+  },
+
+  "cube": {
+    "budget": {
+      "collectionSpace": "本月收藏空间",
+      "remainingSpace": "剩余空间",
+      "dailyAverage": "日均 {amount}",
+      "warningMessage": "预算使用率较高，请尝试减少支出！",
+      "cautionMessage": "您已使用超过70%的预算，请注意！",
+      "successMessage": "您的预算管理做得很棒！",
+      "used": "已使用: {amount}",
+      "empty": {
+        "title": "本月收藏空间",
+        "notSet": "未设置",
+        "setupRequired": "需要设置",
+        "mainMessage": "设置您的月度预算",
+        "description": "设置预算后，您可以系统地管理支出并以积木形式可视化",
+        "setupButton": "设置预算",
+        "tipTitle": "预算设置提示",
+        "tipDescription": "建议将收入的50-70%用于生活费，20-30%用于储蓄。刚开始可以设置得宽松一些，然后逐步调整。"
+      }
+    },
+    "streak": {
+      "todayCompleted": "今日完成",
+      "consecutiveDays": "连续记录{days}天！",
+      "daysToNextReward": "距离下次奖励剩余天数",
+      "motivationMessage": "坚持记录，特别奖励等着您",
+      "startedFrom": "从{date}开始 (总计记录{totalDays}天)",
+      "maxRecord": "最高: {days}天",
+      "level": "{level} 等级",
+      "rewardSoon": "奖励即将到来！",
+      "onStreak": "连续中"
+    },
+    "block": {
+      "title": "本月积木收藏",
+      "unified": "统一",
+      "byCategory": "按类别",
+      "availableSpace": "可用空间",
+      "totalExpense": "总支出",
+      "categoryCount": "{category} ({count}项)",
+      "availableSlots": "可用 (约{slots}个位置)",
+      "totalExpenseAmount": "总支出: {amount}韩元",
+      "totalItems": "总计{count}项",
+      "remainingSpaceDetail": "剩余空间: 约{slots}个位置",
+      "blockRatio": "{used}/{total} 积木",
+      "empty": {
+        "title": "本月积木收藏",
+        "slotsReady": "{count}个位置已准备",
+        "setBudget": "设置预算",
+        "mainMessage": "记录您的第一笔支出！",
+        "description": "添加支出后，将以漂亮的积木形式可视化，一目了然",
+        "addExpenseButton": "添加支出",
+        "helpTitle": "什么是积木收藏？",
+        "helpDescription": "将支出金额以{amount}韩元为单位的积木表示，可以直观地查看各类别的支出模式的功能。"
+      }
+    },
+    "insight": {
+      "title": "智能洞察",
+      "topCategory": "支出最多的类别",
+      "dailyAverage": "本月日均支出",
+      "projectedMonthEnd": "预计月末支出"
+    },
+    "expense": {
+      "title": "最近支出",
+      "viewAll": "查看全部",
+      "blocks": "{count} 积木",
+      "viewMoreExpenses": "查看更多支出记录",
+      "empty": {
+        "title": "最近支出",
+        "mainMessage": "还没有支出记录",
+        "description": "记录第一笔支出，开始智能理财管理",
+        "addExpenseButton": "记录第一笔支出",
+        "quickInputTitle": "快速输入",
+        "quickInputDescription": "可以按类别轻松记录支出",
+        "visualAnalysisTitle": "可视化分析",
+        "visualAnalysisDescription": "通过积木一目了然地查看支出模式"
+      }
+    }
   }
 }

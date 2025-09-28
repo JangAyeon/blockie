@@ -56,5 +56,84 @@
     "status": "지출 현황",
     "history": "지출 내역",
     "statistics": "통계 분석"
+  },
+
+  "cube": {
+    "budget": {
+      "collectionSpace": "이번 달 컬렉션 공간",
+      "remainingSpace": "남은 공간",
+      "dailyAverage": "일 평균 {amount}",
+      "warningMessage": "예산 사용률이 높습니다. 지출을 줄여보세요!",
+      "cautionMessage": "예산의 70% 이상을 사용했습니다. 주의하세요!",
+      "successMessage": "훌륭한 예산 관리를 하고 계시네요!",
+      "used": "사용: {amount}",
+      "empty": {
+        "title": "이번 달 컬렉션 공간",
+        "notSet": "미설정",
+        "setupRequired": "설정 필요",
+        "mainMessage": "월간 예산을 설정해보세요",
+        "description": "예산을 설정하면 지출을 체계적으로 관리하고 블록으로 시각화할 수 있어요",
+        "setupButton": "예산 설정하기",
+        "tipTitle": "예산 설정 팁",
+        "tipDescription": "수입의 50-70%를 생활비로, 20-30%를 저축으로 설정하는 것을 추천합니다. 처음에는 여유롭게 설정하고 점차 조정해보세요."
+      }
+    },
+    "streak": {
+      "todayCompleted": "오늘 완료",
+      "consecutiveDays": "{days}일 연속 기록 중!",
+      "daysToNextReward": "다음 보상까지 남은 일수",
+      "motivationMessage": "꾸준히 기록하면 특별한 보상이 기다려요",
+      "startedFrom": "{date}부터 시작 (총 {totalDays}일 기록)",
+      "maxRecord": "최고: {days}일",
+      "level": "{level} 레벨",
+      "rewardSoon": "보상 임박!",
+      "onStreak": "연속 중"
+    },
+    "block": {
+      "title": "이번 달 블록 컬렉션",
+      "unified": "통합",
+      "byCategory": "카테고리별",
+      "availableSpace": "사용 가능한 공간",
+      "totalExpense": "전체 지출",
+      "categoryCount": "{category} ({count}건)",
+      "availableSlots": "사용 가능 (대략 {slots}칸)",
+      "totalExpenseAmount": "전체 지출: {amount}원",
+      "totalItems": "총 {count}건",
+      "remainingSpaceDetail": "남은 공간: 대략 {slots}칸",
+      "blockRatio": "{used}/{total} 블록",
+      "empty": {
+        "title": "이번 달 블록 컬렉션",
+        "slotsReady": "{count}칸 준비됨",
+        "setBudget": "예산 설정하기",
+        "mainMessage": "첫 번째 지출을 기록해보세요!",
+        "description": "지출을 추가하면 예쁜 블록으로 시각화되어 한 눈에 볼 수 있어요",
+        "addExpenseButton": "지출 추가하기",
+        "helpTitle": "블록 컬렉션이란?",
+        "helpDescription": "지출 금액을 {amount}원 단위의 블록으로 나타내어, 카테고리별 지출 패턴을 직관적으로 확인할 수 있는 기능입니다."
+      }
+    },
+    "insight": {
+      "title": "스마트 인사이트",
+      "topCategory": "가장 많이 지출한 카테고리",
+      "dailyAverage": "이번 달 평균 일일 지출",
+      "projectedMonthEnd": "예상 월말 지출"
+    },
+
+    "expense": {
+      "title": "최근 지출",
+      "viewAll": "전체보기",
+      "blocks": "{count} 블록",
+      "viewMoreExpenses": "더 많은 지출 내역 보기",
+      "empty": {
+        "title": "최근 지출",
+        "mainMessage": "아직 지출 내역이 없어요",
+        "description": "첫 번째 지출을 기록하고 스마트한 가계부 관리를 시작해보세요",
+        "addExpenseButton": "첫 지출 기록하기",
+        "quickInputTitle": "빠른 입력",
+        "quickInputDescription": "카테고리별로 간편하게 지출을 기록할 수 있어요",
+        "visualAnalysisTitle": "시각적 분석",
+        "visualAnalysisDescription": "블록으로 지출 패턴을 한눈에 확인해보세요"
+      }
+    }
   }
 }

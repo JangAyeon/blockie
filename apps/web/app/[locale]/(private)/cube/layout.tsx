@@ -4,8 +4,8 @@ import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
 import { LayoutProps } from "@type/layout";
-import FloatButton from "@component/features/cube/float.button";
-import LanguageSwitcher from "@component/common/lang.switcher";
+import FloatButton from "@component/common/float.button";
+
 export default async function CubeLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
   // const access_token = cookieStore.get("access_token")?.value ?? null;

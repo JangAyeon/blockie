@@ -3,14 +3,16 @@ import { BudgetSummary } from "@type/budget";
 import { ExpenseCategorySummary } from "@type/expense";
 import getUsageEmotion from "@utils/common/getUsageEmotion";
 import { formatWithCurrencySymbol } from "@utils/common/formatter";
+import { useTranslations } from "next-intl";
 
-const InsightExpense = ({
+const InsightContainer = ({
   budgetStatus,
   expenseCategory,
 }: {
   budgetStatus: BudgetSummary;
   expenseCategory: ExpenseCategorySummary;
 }) => {
+  const t = useTranslations("cube.insight");
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-10 translate-x-10" />
@@ -24,22 +26,18 @@ const InsightExpense = ({
                 budget: budgetStatus!.budget,
               })}
             />
-            스마트 인사이트
+            {t("title")}
           </h3>
 
           <div className="space-y-3">
             <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-600">
-                가장 많이 지출한 카테고리
-              </span>
+              <span className="text-sm text-gray-600">{t("topCategory")}</span>
               <span className="font-semibold text-gray-800">
                 {expenseCategory?.categories[0]?.category}
               </span>
             </div>
             <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-600">
-                이번 달 평균 일일 지출
-              </span>
+              <span className="text-sm text-gray-600">{t("dailyAverage")}</span>
               <span className="font-semibold text-gray-800">
                 {formatWithCurrencySymbol(
                   Math.floor(budgetStatus?.spent! / new Date().getDate())
@@ -47,7 +45,9 @@ const InsightExpense = ({
               </span>
             </div>
             <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-              <span className="text-sm text-gray-600">예상 월말 지출</span>
+              <span className="text-sm text-gray-600">
+                {t("projectedMonthEnd")}
+              </span>
               <span
                 className={`font-semibold ${
                   (budgetStatus?.spent! / new Date().getDate()) * 31 >
@@ -68,4 +68,4 @@ const InsightExpense = ({
   );
 };
 
-export default InsightExpense;
+export default InsightContainer;

@@ -1,14 +1,19 @@
 import { pageUrl } from "@constant/page.route";
 import { useRouter } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 // Empty State 컴포넌트
-const EmptyMonthlyExpense = () => {
+const EmptyExpense = () => {
   const router = useRouter();
+  const t = useTranslations("cube.expense.empty");
   return (
     <div className="space-y-4">
       {/* 헤더 */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-bold text-gray-800">최근 지출</h2>
+        <h2 className="text-lg font-bold text-gray-800">
+          {/* 최근 지출 */}
+          {t("title")}
+        </h2>
       </div>
 
       {/* Empty State 메인 카드 */}
@@ -46,10 +51,12 @@ const EmptyMonthlyExpense = () => {
 
           {/* 메시지 */}
           <h3 className="mb-2 text-lg font-semibold text-gray-700">
-            아직 지출 내역이 없어요
+            {/* 아직 지출 내역이 없어요 */}
+            {t("mainMessage")}
           </h3>
           <p className="mb-6 text-sm text-gray-500 max-w-sm mx-auto leading-relaxed">
-            첫 번째 지출을 기록하고 스마트한 가계부 관리를 시작해보세요
+            {/* 첫 번째 지출을 기록하고 스마트한 가계부 관리를 시작해보세요 */}
+            {t("description")}
           </p>
 
           {/* 버튼 */}
@@ -70,7 +77,8 @@ const EmptyMonthlyExpense = () => {
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
-            첫 지출 기록하기
+            {/* 첫 지출 기록하기 */}
+            {t("addExpenseButton")}
           </button>
         </div>
 
@@ -81,19 +89,6 @@ const EmptyMonthlyExpense = () => {
             <div className="flex flex-col items-start gap-3">
               <div className="flex flex-row gap-2 justify-center items-center">
                 <div className="w-fit p-1.5 rounded-full bg-green-100">
-                  {/* <svg
-                    className="w-3 h-3 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg> */}
                   <Image
                     src="/cube/lightning.svg"
                     alt="lightning icon"
@@ -102,11 +97,13 @@ const EmptyMonthlyExpense = () => {
                   />
                 </div>
                 <h4 className="text-xs sm:text-sm font-medium text-gray-800">
-                  빠른 입력
+                  {/* 빠른 입력 */}
+                  {t("quickInputTitle")}
                 </h4>
               </div>
               <p className="text-xs text-gray-600 leading-relaxed">
-                카테고리별로 간편하게 지출을 기록할 수 있어요
+                {/* 카테고리별로 간편하게 지출을 기록할 수 있어요 */}
+                {t("quickInputDescription")}
               </p>
             </div>
           </div>
@@ -116,19 +113,6 @@ const EmptyMonthlyExpense = () => {
             <div className="flex flex-col items-start gap-3">
               <div className="flex flex-row gap-2 justify-center items-center">
                 <div className="w-fit p-1.5 rounded-full bg-purple-100">
-                  {/* <svg
-                    className="w-3 h-3 text-purple-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    />
-                  </svg> */}
                   <Image
                     src="/cube/lightBulb.svg"
                     alt="lightBulb icon"
@@ -137,12 +121,14 @@ const EmptyMonthlyExpense = () => {
                   />
                 </div>
                 <h4 className="text-xs sm:text-sm font-medium text-gray-800">
-                  시각적 분석
+                  {/* 시각적 분석 */}
+                  {t("visualAnalysisTitle")}
                 </h4>
               </div>
 
               <p className="text-xs text-gray-600 leading-relaxed">
-                블록으로 지출 패턴을 한눈에 확인해보세요
+                {/* 블록으로 지출 패턴을 한눈에 확인해보세요 */}
+                {t("visualAnalysisDescription")}
               </p>
             </div>
           </div>
@@ -152,4 +138,4 @@ const EmptyMonthlyExpense = () => {
   );
 };
 
-export default EmptyMonthlyExpense;
+export default EmptyExpense;

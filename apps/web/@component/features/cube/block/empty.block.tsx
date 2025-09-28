@@ -1,9 +1,10 @@
 import { MIN_BUDGET_BLOCK } from "@constant/budget";
 import { pageUrl } from "@constant/page.route";
 import { useRouter } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 // Empty State 컴포넌트
-const EmptyBlockMonthlyExpense = ({
+const EmptyBlockExpense = ({
   maxBlocks,
   hasBudget,
 }: {
@@ -11,6 +12,7 @@ const EmptyBlockMonthlyExpense = ({
   hasBudget: boolean;
 }) => {
   const router = useRouter();
+  const t = useTranslations("cube.block.empty");
   return (
     <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 relative overflow-hidden">
       {/* 배경 장식 */}
@@ -20,18 +22,21 @@ const EmptyBlockMonthlyExpense = ({
       <div className="relative z-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="font-bold text-lg text-gray-800">
-            이번 달 블록 컬렉션
+            {/* 이번 달 블록 컬렉션 */}
+            {t("title")}
           </h2>
           {hasBudget ? (
             <div className="text-sm px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 font-medium">
-              {maxBlocks}칸 준비됨
+              {/* {maxBlocks}칸 준비됨 */}
+              {t("slotsReady", { count: maxBlocks })}
             </div>
           ) : (
             <button
               onClick={() => router.push(`${pageUrl.budget}`)}
               className="text-sm px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 font-medium"
             >
-              예산 설정하기
+              {/* 예산 설정하기 */}
+              {t("setBudget")}
             </button>
           )}
         </div>
@@ -69,10 +74,12 @@ const EmptyBlockMonthlyExpense = ({
 
             {/* 메인 메시지 */}
             <h3 className="text-lg font-semibold text-gray-700 mb-2">
-              첫 번째 지출을 기록해보세요!
+              {/* 첫 번째 지출을 기록해보세요! */}
+              {t("mainMessage")}
             </h3>
             <p className="text-sm text-gray-500 mb-4  leading-relaxed">
-              지출을 추가하면 예쁜 블록으로 시각화되어 한 눈에 볼 수 있어요
+              {/* 지출을 추가하면 예쁜 블록으로 시각화되어 한 눈에 볼 수 있어요 */}
+              {t("description")}
             </p>
 
             {/* 액션 버튼 */}
@@ -80,7 +87,8 @@ const EmptyBlockMonthlyExpense = ({
               onClick={() => router.push(`${pageUrl.expense}`)}
               className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md"
             >
-              지출 추가하기
+              {/* 지출 추가하기 */}
+              {t("addExpenseButton")}
             </button>
           </div>
         </div>
@@ -98,14 +106,18 @@ const EmptyBlockMonthlyExpense = ({
                 />
               </div>
               <h4 className="text-sm font-medium text-gray-800">
-                블록 컬렉션이란?
+                {/* 블록 컬렉션이란? */}
+                {t("helpTitle")}
               </h4>
             </div>
             <div>
               <p className="text-xs text-gray-600 leading-relaxed">
-                지출 금액을 {(MIN_BUDGET_BLOCK || 10000).toLocaleString()}원
+                {/* 지출 금액을 {(MIN_BUDGET_BLOCK || 10000).toLocaleString()}원
                 단위의 블록으로 나타내어, 카테고리별 지출 패턴을 직관적으로
-                확인할 수 있는 기능입니다.
+                확인할 수 있는 기능입니다. */}
+                {t("helpDescription", {
+                  amount: (MIN_BUDGET_BLOCK || 10000).toLocaleString(),
+                })}
               </p>
             </div>
           </div>
@@ -115,6 +127,6 @@ const EmptyBlockMonthlyExpense = ({
   );
 };
 
-EmptyBlockMonthlyExpense.displayName = "EmptyBlockMonthlyExpense";
+EmptyBlockExpense.displayName = "EmptyBlockMonthlyExpense";
 
-export default EmptyBlockMonthlyExpense;
+export default EmptyBlockExpense;

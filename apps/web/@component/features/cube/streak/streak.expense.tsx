@@ -7,6 +7,7 @@ import {
 import { handleDateChangeBtn } from "@utils/expense";
 import { useRouter } from "@i18n/navigation";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const StreakCard: React.FC<{
   streak: StreakInfoResponse;
@@ -14,24 +15,14 @@ const StreakCard: React.FC<{
   month: string;
   day: string;
 }> = ({ streak, year, month, day }) => {
-  // 샘플 데이터
-  // const streak = {
-  //   currentStreak: 12,
-  //   maxStreak: 18,
-  //   daysToNextReward: 2,
-  //   nextRewardTarget: 14,
-  //   hasRecordToday: true,
-  //   streakLevel: "silver",
-  //   totalRecordDays: 45,
-  //   streakStartDate: "2025-07-16",
-  // };
   const router = useRouter();
+  const t = useTranslations("cube.streak");
   return (
     <div>
       {/* 오늘 기록 완료 배지 */}
       {streak.hasRecordToday && (
         <div className="absolute top-3 right-3 bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full font-medium">
-          ✓ 오늘 완료
+          {/* ✓ 오늘 완료*/}✓ {t("todayCompleted")}
         </div>
       )}
 
@@ -64,7 +55,8 @@ const StreakCard: React.FC<{
             </button>
             <div className="flex items-center  gap-2 ">
               <h3 className="font-bold text-lg text-gray-800">
-                {streak.currentStreak}일 연속 기록 중!
+                {/*  {streak.currentStreak}일 연속 기록 중! */}
+                {t("consecutiveDays", { days: streak.currentStreak })}
               </h3>
             </div>
             <button
@@ -79,8 +71,9 @@ const StreakCard: React.FC<{
 
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center">
-              <div className="text-xs text-gray-500 ">
-                다음 보상까지 남은 일수{" "}
+              <div className="flex flex-row gap-1 text-xs text-gray-500 ">
+                {/*다음 보상까지 남은 일수{" "}*/}
+                <span>{t("daysToNextReward")}</span>
                 <span
                   className={`text-xs font-bold bg-gradient-to-r ${getStreakLevel(streak.streakLevel).color} bg-clip-text text-transparent`}
                 >
@@ -108,7 +101,8 @@ const StreakCard: React.FC<{
           </div>
 
           <p className="text-sm text-gray-600">
-            꾸준히 기록하면 특별한 보상이 기다려요
+            {/*꾸준히 기록하면 특별한 보상이 기다려요*/}
+            {t("motivationMessage")}
           </p>
         </div>
       </div>
@@ -118,27 +112,37 @@ const StreakCard: React.FC<{
       <div className="mt-4 pt-3 border-t border-gray-100">
         <div className="flex sm:items-center justify-between max-sm:flex-col max-sm:items-start gap-3">
           <span className="text-xs text-gray-500">
-            {new Date(streak.streakStartDate || new Date()).toLocaleDateString(
+            {/*  {new Date(streak.streakStartDate || new Date()).toLocaleDateString(
               "ko-KR"
             )}
-            부터 시작 (총 {streak.totalRecordDays}일 기록)
+            부터 시작 (총 {streak.totalRecordDays}일 기록)*/}
+            {t("startedFrom", {
+              date: new Date(
+                streak.streakStartDate || new Date()
+              ).toLocaleDateString("ko-KR"),
+              totalDays: streak.totalRecordDays,
+            })}
           </span>
           <div className="flex flex-row gap-2 justify-center">
             <span className="text-xs text-gray-500 bg-gray-100  px-2 py-1 rounded-full font-medium">
-              최고: {streak.maxStreak}일
+              {/* 최고: {streak.maxStreak}일 */}
+              {t("maxRecord", { days: streak.maxStreak })}
             </span>
             <div className="flex items-center gap-3">
               <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-medium">
-                {streak.streakLevel.toUpperCase()} 레벨
+                {/* {streak.streakLevel.toUpperCase()} 레벨 */}
+                {t("level", { level: streak.streakLevel.toUpperCase() })}
               </span>
             </div>
             {streak.daysToNextReward <= 3 ? (
               <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-medium animate-pulse">
-                🎁 보상 임박!
+                {/* 🎁 보상 임박! */}
+                🎁 {t("rewardSoon")}
               </span>
             ) : (
               <span className="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full font-medium">
-                🔥 연속 중
+                {/* 🔥 연속 중 */}
+                🔥 {t("onStreak")}
               </span>
             )}
           </div>

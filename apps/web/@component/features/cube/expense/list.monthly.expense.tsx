@@ -8,20 +8,22 @@ import {
 import { toYMDWithString } from "@utils/date/YMD";
 import { formatWithCurrencySymbol } from "@utils/common/formatter";
 import { useRouter } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 
-const ListMonthlyExpense: React.FC<{
+const ListExpense: React.FC<{
   expensesInfo: RecentExpense[];
 }> = ({ expensesInfo }) => {
   const router = useRouter();
+  const t = useTranslations("cube.expense");
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-lg text-gray-800">최근 지출</h2>
+        <h2 className="font-bold text-lg text-gray-800">{t("title")}</h2>
         <button
           className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline transition-colors"
           onClick={() => router.push(`${pageUrl.expense}`)}
         >
-          전체보기
+          {t("viewAll")}
         </button>
       </div>
 
@@ -59,7 +61,10 @@ const ListMonthlyExpense: React.FC<{
                   {formatWithCurrencySymbol(expense.amount)}
                 </div>
                 <div className="text-xs text-gray-400">
-                  {Math.ceil(expense.amount / MIN_BUDGET_BLOCK)} 블록
+                  {/* {Math.ceil(expense.amount / MIN_BUDGET_BLOCK)} 블록 */}
+                  {t("blocks", {
+                    count: Math.ceil(expense.amount / MIN_BUDGET_BLOCK),
+                  })}
                 </div>
               </div>
             </div>
@@ -71,10 +76,14 @@ const ListMonthlyExpense: React.FC<{
         onClick={() => router.push(`${pageUrl.expense}`)}
         className="w-full p-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-200"
       >
-        <span className="text-sm font-medium">더 많은 지출 내역 보기</span>
+        <span className="text-sm font-medium">
+          {/* 더 많은 지출 내역 보기 */}
+
+          {t("viewMoreExpenses")}
+        </span>
       </button>
     </div>
   );
 };
 
-export default ListMonthlyExpense;
+export default ListExpense;
