@@ -56,5 +56,83 @@
     "status": "Expense Status",
     "history": "Expense History",
     "statistics": "Statistical Analysis"
+  },
+
+  "cube": {
+    "streak": {
+      "todayCompleted": "Today Completed",
+      "consecutiveDays": "{days} consecutive days recorded!",
+      "daysToNextReward": "Days to next reward",
+      "motivationMessage": "Keep recording consistently for special rewards",
+      "startedFrom": "Started from {date} (Total {totalDays} days recorded)",
+      "maxRecord": "Best: {days} days",
+      "level": "{level} Level",
+      "rewardSoon": "Reward Coming Soon!",
+      "onStreak": "On Streak"
+    },
+    "budget": {
+      "collectionSpace": "This Month's Collection Space",
+      "remainingSpace": "Remaining Space",
+      "dailyAverage": "Daily average {amount}",
+      "warningMessage": "Budget usage is high. Try to reduce spending!",
+      "cautionMessage": "You've used over 70% of your budget. Be careful!",
+      "successMessage": "You're doing great with budget management!",
+      "used": "Used: {amount}",
+      "empty": {
+        "title": "This Month's Collection Space",
+        "notSet": "Not Set",
+        "setupRequired": "Setup Required",
+        "mainMessage": "Set up your monthly budget",
+        "description": "Setting a budget allows you to systematically manage expenses and visualize them as blocks",
+        "setupButton": "Set Budget",
+        "tipTitle": "Budget Setting Tips",
+        "tipDescription": "We recommend allocating 50-70% of your income for living expenses and 20-30% for savings. Start with a comfortable amount and adjust gradually."
+      }
+    },
+    "block": {
+      "title": "This Month's Block Collection",
+      "unified": "Unified",
+      "byCategory": "By Category",
+      "availableSpace": "Available Space",
+      "totalExpense": "Total Expense",
+      "categoryCount": "{category} ({count} items)",
+      "availableSlots": "Available (approx. {slots} slots)",
+      "totalExpenseAmount": "Total Expense: {amount} won",
+      "totalItems": "Total {count} items",
+      "remainingSpaceDetail": "Remaining Space: approx. {slots} slots",
+      "blockRatio": "{used}/{total} blocks",
+      "empty": {
+        "title": "This Month's Block Collection",
+        "slotsReady": "{count} slots ready",
+        "setBudget": "Set Budget",
+        "mainMessage": "Record your first expense!",
+        "description": "When you add expenses, they'll be visualized as pretty blocks for easy viewing",
+        "addExpenseButton": "Add Expense",
+        "helpTitle": "What is Block Collection?",
+        "helpDescription": "A feature that represents expense amounts as blocks in units of {amount} won, allowing you to intuitively check spending patterns by category."
+      }
+    },
+    "insight": {
+      "title": "Smart Insights",
+      "topCategory": "Highest spending category",
+      "dailyAverage": "Average daily spending this month",
+      "projectedMonthEnd": "Projected month-end spending"
+    },
+    "expense": {
+      "title": "Recent Expenses",
+      "viewAll": "View All",
+      "blocks": "{count} blocks",
+      "viewMoreExpenses": "View more expense records",
+      "empty": {
+        "title": "Recent Expenses",
+        "mainMessage": "No expense records yet",
+        "description": "Record your first expense and start smart budget management",
+        "addExpenseButton": "Record First Expense",
+        "quickInputTitle": "Quick Input",
+        "quickInputDescription": "Easily record expenses by category",
+        "visualAnalysisTitle": "Visual Analysis",
+        "visualAnalysisDescription": "Check your spending patterns at a glance with blocks"
+      }
+    }
   }
 }

@@ -6,19 +6,18 @@ import { useEffect } from "react";
 
 import { useCube } from "@hook/business/cube/useCube";
 import { MyPageLoading } from "@component/features/user";
-import MonthlyBudget from "@component/features/cube/monthly.budget";
-import InsightExpense from "@component/features/cube/insight.expense";
-// import BlockExpense from "@component/features/cube/block.monthly.expense";
-// import BlockTotalExpense from "@component/features/cube/block.total.expense";
-import BlockCombineExpense from "@component/features/cube/block.combine.expense";
-import ListMonthlyExpense from "@component/features/cube/list.monthly.expense";
+
+import ListMonthlyExpense from "@component/features/cube/expense/list.monthly.expense";
 import { toYMDWithString } from "@utils/date/YMD";
-import StreakCard from "@component/features/cube/streak.expense";
-import { MIN_BUDGET_BLOCK } from "@constant/budget";
-import EmptyBlockExpense from "@component/features/cube/empty/block.monthly.expnese";
-import EmptyMonthlyExpense from "@component/features/cube/empty/list.monthly.expense";
-import EmptyMonthlyBudget from "@component/features/cube/empty/monthly.budget.expense";
+
+import EmptyMonthlyExpense from "@component/features/cube/expense/list.monthly.empty";
+
 import { pageUrl } from "@constant/page.route";
+import StreakContainer from "@component/features/cube/streak/container";
+import BudgetContainer from "@component/features/cube/budget/container";
+import BlockContainer from "@component/features/cube/block/contianer";
+import InsightContainer from "@component/features/cube/insight/container";
+import ExpenseContainer from "@component/features/cube/expense/container";
 
 export default function ExpenseCubePage() {
   const router = useRouter();
@@ -57,58 +56,26 @@ export default function ExpenseCubePage() {
         {" "}
         <main className="p-6 space-y-6">
           {/* 연속 기록 배지 */}
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 relative overflow-hidden group hover:shadow-md transition-shadow">
-            <StreakCard streak={streak!} year={year} month={month} day={day} />
-          </div>
+          <StreakContainer streak={streak} dateInfo={{ year, month, day }} />
 
           {/* 예산 카드 */}
-          {budgetStatus!.hasBudget ? (
-            <MonthlyBudget budgetStatus={budgetStatus!} />
-          ) : (
-            <EmptyMonthlyBudget />
-          )}
+          <BudgetContainer budgetStatus={budgetStatus} />
 
           {/* 블록 컬렉션 */}
-          {expenses!.expenses.length > 0 && budgetStatus!.hasBudget ? (
-            <div>
-              {/* <BlockExpense
-                expensesInfo={expenses?.expenses!}
-                categoryInfo={expenseCategory?.categories!}
-                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
-                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
-              />
-              <BlockTotalExpense
-                expensesInfo={expenses?.expenses!}
-                categoryInfo={expenseCategory?.categories!}
-                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
-                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
-              /> */}
-              <BlockCombineExpense
-                expensesInfo={expenses?.expenses!}
-                categoryInfo={expenseCategory?.categories!}
-                totalBlocks={budgetStatus?.spent! / MIN_BUDGET_BLOCK}
-                maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
-              />
-            </div>
-          ) : (
-            <EmptyBlockExpense
-              hasBudget={budgetStatus?.hasBudget!}
-              maxBlocks={Math.floor(budgetStatus?.budget! / MIN_BUDGET_BLOCK)}
-            />
-          )}
+          <BlockContainer
+            expenses={expenses}
+            budgetStatus={budgetStatus}
+            expenseCategory={expenseCategory}
+          />
 
           {/* 인사이트 카드 */}
-          <InsightExpense
+          <InsightContainer
             budgetStatus={budgetStatus!}
             expenseCategory={expenseCategory!}
           />
 
           {/* 최근 지출 목록 */}
-          {expenses!.expenses.length > 0 ? (
-            <ListMonthlyExpense expensesInfo={expenses?.expenses!} />
-          ) : (
-            <EmptyMonthlyExpense />
-          )}
+          <ExpenseContainer expenses={expenses} />
         </main>
       </main>
     </div>

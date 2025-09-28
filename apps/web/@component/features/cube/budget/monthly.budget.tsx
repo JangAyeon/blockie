@@ -1,12 +1,14 @@
 import { BlockieFace } from "@repo/ui";
 
 import { formatWithCurrencySymbol } from "@utils/common/formatter";
-import ProgressBar from "@component/features/cube/progressBar";
+import ProgressBar from "@component/features/cube/budget/progressBar";
 
 import { BudgetSummary } from "@type/budget";
 import getUsageEmotion from "@utils/common/getUsageEmotion";
+import { useTranslations } from "next-intl";
 
 const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
+  const t = useTranslations("cube.budget");
   const usageEmotion = getUsageEmotion({
     spent: budgetStatus.spent,
     budget: budgetStatus.budget,
@@ -22,7 +24,8 @@ const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
             <BlockieFace size={48} emotion={usageEmotion} />
             <div className="w-full">
               <div className="w-fit text-sm text-gray-600 mb-1">
-                이번 달 컬렉션 공간
+                {/* 이번 달 컬렉션 공간 */}
+                {t("collectionSpace")}
               </div>
               <div className="text-2xl font-bold text-gray-800">
                 {formatWithCurrencySymbol(budgetStatus?.budget!)}
@@ -30,15 +33,23 @@ const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
             </div>
           </div>
           <div className="w-full flex flex-col justify-end text-right">
-            <div className="text-sm text-gray-600 mb-1">남은 공간</div>
+            <div className="text-sm text-gray-600 mb-1">
+              {" "}
+              {t("remainingSpace")}
+            </div>
             <div className="text-2xl font-bold text-green-600">
               {formatWithCurrencySymbol(budgetStatus?.remaining!)}
             </div>
             <div className="text-xs text-gray-500">
-              일 평균{" "}
+              {/* 일 평균{" "}
               {formatWithCurrencySymbol(
                 budgetStatus?.recommendedDailySpending!
-              )}
+              )} */}
+              {t("dailyAverage", {
+                amount: formatWithCurrencySymbol(
+                  budgetStatus?.recommendedDailySpending!
+                ),
+              })}
             </div>
           </div>
         </div>
@@ -55,11 +66,14 @@ const MonthlyBudget = ({ budgetStatus }: { budgetStatus: BudgetSummary }) => {
                 : "bg-green-50 text-green-700"
           }`}
         >
-          {usageEmotion === "sad"
-            ? "⚠️ 예산 사용률이 높습니다. 지출을 줄여보세요!"
-            : usageEmotion === "neutral"
-              ? "⚡ 예산의 70% 이상을 사용했습니다. 주의하세요!"
-              : "✅ 훌륭한 예산 관리를 하고 계시네요!"}
+          {
+            usageEmotion === "sad"
+              ? `⚠️ ${t("warningMessage")}`
+              : //  "⚠️ 예산 사용률이 높습니다. 지출을 줄여보세요!"
+                usageEmotion === "neutral"
+                ? `⚡ ${t("cautionMessage")}` //  "⚡ 예산의 70% 이상을 사용했습니다. 주의하세요!"
+                : `✅ ${t("successMessage")}` // "✅ 훌륭한 예산 관리를 하고 계시네요!"
+          }
         </div>
       </div>
     </div>

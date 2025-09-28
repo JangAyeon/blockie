@@ -1,10 +1,12 @@
 import { pageUrl } from "@constant/page.route";
 import { BlockieFace } from "@repo/ui";
 import { useRouter } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 
 // 예산 미설정 Empty State 컴포넌트
 const EmptyMonthlyBudget = () => {
   const router = useRouter();
+  const t = useTranslations("cube.budget.empty");
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative overflow-hidden">
       {/* 배경 장식 */}
@@ -18,13 +20,18 @@ const EmptyMonthlyBudget = () => {
             <BlockieFace size={48} emotion="happy" />
             <div>
               <div className="text-sm text-gray-600 mb-1">
-                이번 달 컬렉션 공간
+                {/* 이번 달 컬렉션 공간 */}
+                {t("title")}
               </div>
-              <div className="text-3xl font-bold text-gray-400">미설정</div>
+              <div className="text-3xl font-bold text-gray-400">
+                {" "}
+                {t("notSet")}
+              </div>
             </div>
           </div>
           <div className="px-3 py-1.5 rounded-full bg-orange-100 text-orange-700 text-sm font-medium">
-            설정 필요
+            {/* 설정 필요 */}
+            {t("setupRequired")}
           </div>
         </div>
 
@@ -57,11 +64,13 @@ const EmptyMonthlyBudget = () => {
             </div>
 
             <h3 className="text-lg font-semibold text-gray-700 mb-2">
-              월간 예산을 설정해보세요
+              {/* 월간 예산을 설정해보세요 */}
+              {t("mainMessage")}
             </h3>
             <p className="text-sm text-gray-500 mb-4  mx-auto leading-relaxed">
-              예산을 설정하면 지출을 체계적으로 관리하고 블록으로 시각화할 수
-              있어요
+              {/* 예산을 설정하면 지출을 체계적으로 관리하고 블록으로 시각화할 수
+              있어요 */}
+              {t("description")}
             </p>
 
             {/* 액션 버튼 */}
@@ -82,7 +91,8 @@ const EmptyMonthlyBudget = () => {
                   d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                 />
               </svg>
-              예산 설정하기
+              {/* 예산 설정하기 */}
+              {t("setupButton")}
             </button>
           </div>
         </div>
@@ -107,12 +117,11 @@ const EmptyMonthlyBudget = () => {
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-800 mb-1">
-                💡 예산 설정 팁
+                {/* 💡 예산 설정 팁 */}
+                {t("tipTitle")}
               </h4>
               <p className="text-xs text-gray-600 leading-relaxed">
-                <strong>수입의 50-70%</strong>를 생활비로,{" "}
-                <strong>20-30%</strong>를 저축으로 설정하는 것을 추천합니다.
-                처음에는 여유롭게 설정하고 점차 조정해보세요.
+                {t("tipDescription")}
               </p>
             </div>
           </div>
