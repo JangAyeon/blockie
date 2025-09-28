@@ -305,12 +305,9 @@ function ExpenseManagementPage() {
                       className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
                     >
                       <option value="">카테고리 선택</option>
-                      <option value="식비">식비</option>
-                      <option value="교통비">교통비</option>
-                      <option value="의료비">의료비</option>
-                      <option value="쇼핑">쇼핑</option>
-                      <option value="카페">카페</option>
-                      <option value="생활용품">생활용품</option>
+                      <option value="월별 고정 지출">고정 지출</option>
+                      <option value="월별 변동 지출">월별 변동 지출</option>
+                      <option value="비정기 지출">비정기 지출</option>
                       <option value="기타">기타</option>
                     </select>
                   </div>
@@ -411,13 +408,9 @@ function ExpenseManagementPage() {
                       }
                       className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
                     >
-                      <option value="">카테고리 선택</option>
-                      <option value="식비">식비</option>
-                      <option value="교통비">교통비</option>
-                      <option value="의료비">의료비</option>
-                      <option value="쇼핑">쇼핑</option>
-                      <option value="카페">카페</option>
-                      <option value="생활용품">생활용품</option>
+                      <option value="월별 고정 지출">고정 지출</option>
+                      <option value="월별 변동 지출">월별 변동 지출</option>
+                      <option value="비정기 지출">비정기 지출</option>
                       <option value="기타">기타</option>
                     </select>
                   </div>

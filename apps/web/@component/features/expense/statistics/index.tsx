@@ -4,7 +4,7 @@ import { EXPENSE_TAB_MENU, EXPENSE_PAGE_VARIANTS } from "@constant/expense";
 import useWeeklyData from "@hook/business/expense/useWeeklyData";
 import { YearMonthDayProps } from "@type/date";
 import { motion } from "framer-motion";
-
+import Image from "next/image";
 import { WeeklyBarChart } from "./charts/weeklyBar";
 import WeeklyStateCard from "./cards/weeklyStateCard";
 import useMonthlyData from "@hook/business/expense/useMonthlyData";
@@ -42,27 +42,6 @@ const Statistics: React.FC<StatisticsProps> = ({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* <Card className=" !flex !flex-row !gap-2 !w-fit">
-        <button
-          onClick={() =>
-            handleDateChangeBtn(pageUrl.expense, "prev", year, month, router)
-          }
-        >
-          {" "}
-          ◁
-        </button>
-        <div className="!text-title-1 !font-semibold">
-          📅 {year}년 {month}월
-        </div>
-        <button
-          onClick={() =>
-            handleDateChangeBtn(pageUrl.expense, "next", year, month, router)
-          }
-        >
-          {" "}
-          ▷
-        </button>
-      </Card> */}
       <motion.div
         key={EXPENSE_TAB_MENU.STATISTICS}
         custom={direction}
@@ -73,6 +52,42 @@ const Statistics: React.FC<StatisticsProps> = ({
         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
       >
         <Card>
+          <div className="w-full flex flex-row items-start max-sm:flex-col md:justify-between gap-3">
+            <div className=" flex flex-row gap-2">
+              {" "}
+              <button
+                onClick={() =>
+                  handleDateChangeBtn(
+                    pageUrl.expense,
+                    "prev",
+                    year,
+                    month,
+                    router
+                  )
+                }
+              >
+                {" "}
+                ◁
+              </button>
+              <div className="text-title-1 text-neutral-black">
+                📅 {year}년 {month}월{" "}
+              </div>
+              <button
+                onClick={() =>
+                  handleDateChangeBtn(
+                    pageUrl.expense,
+                    "next",
+                    year,
+                    month,
+                    router
+                  )
+                }
+              >
+                {" "}
+                ▷
+              </button>
+            </div>
+          </div>
           <h3 className="text-title-3 font-medium mb-4">주간 지출 추이</h3>
           <WeeklyBarChart data={weeklyBarData} />
 
@@ -110,8 +125,26 @@ const Statistics: React.FC<StatisticsProps> = ({
           <h3 className="text-title-3 font-medium mb-4">
             카테고리별 상세 분석
           </h3>
-          <CategoryDoughnutChart data={categoryDoughnutData} />
-          {categoryData && <CategoryStateCard data={categoryData} />}
+
+          {categoryData && categoryDoughnutData ? (
+            <div>
+              <CategoryDoughnutChart data={categoryDoughnutData} />
+              <CategoryStateCard data={categoryData} />
+            </div>
+          ) : (
+            <div className="flex flex-col h-full gap-2 items-center justify-center  text-neutral-medium-gray">
+              <Image
+                src="/common/noMonthListed.svg"
+                alt="plus icon"
+                width={32}
+                height={32}
+              />
+              <div>
+                <p>카테고리 상세 분석을 위한 </p>
+                <p>데이터가 충분하지 않아요.</p>
+              </div>
+            </div>
+          )}
         </Card>
       </motion.div>
     </div>

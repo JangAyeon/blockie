@@ -1,5 +1,6 @@
+import { Button, Input } from "@repo/ui";
 import { BudgetSummary } from "@type/budget";
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, ChangeEvent } from "react";
 
 interface BudgetInputSectionProps {
   budgetStatus: BudgetSummary;
@@ -7,6 +8,8 @@ interface BudgetInputSectionProps {
   setBudgetAmount: Dispatch<SetStateAction<string>>;
   isSubmitting: boolean;
   hasSpentAmount: boolean;
+  showAdvisor: boolean;
+  onToggleAdvisor: () => void;
 }
 
 const BudgetInputSection: FC<BudgetInputSectionProps> = ({
@@ -15,12 +18,14 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
   setBudgetAmount,
   isSubmitting,
   hasSpentAmount,
+  showAdvisor,
+  onToggleAdvisor,
 }) => {
   return (
-    <>
+    <div className="flex flex-col gap-y-4">
       {/* 현재 지출 정보 */}
       {hasSpentAmount && (
-        <div className="p-3 bg-gray-50 rounded-lg mb-4">
+        <div className="p-3 bg-gray-50 rounded-lg">
           <p className="text-body-2 text-neutral-black">
             현재 지출 금액:{" "}
             <span className="font-medium text-error">
@@ -31,28 +36,42 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
       )}
 
       {/* 예산 입력 */}
-      <div className="mb-4">
-        <label className="block text-body-2 font-medium text-neutral-black mb-2">
-          예산 금액
-        </label>
+      <div className="flex flex-col gap-y-2">
+        <div className="flex items-center justify-between ">
+          <label className="block text-body-2 font-medium text-neutral-black ">
+            예산 금액
+          </label>
+          {hasSpentAmount && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={onToggleAdvisor}
+              className={showAdvisor ? "bg-blue-50" : ""}
+            >
+              💡 추천 {showAdvisor ? "끄기" : "받기"}
+            </Button>
+          )}
+        </div>
+
         <div className="relative">
-          <input
+          <Input
+            // label={t("email.label")}
             type="text"
-            className="appearance-none w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-            placeholder="금액을 입력하세요"
+            name="text"
             value={budgetAmount}
-            onChange={(e) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setBudgetAmount(e.target.value.replace(/[^0-9]/g, ""))
             }
+            placeholder="금액을 입력하세요"
             disabled={isSubmitting}
-            autoFocus
+            required
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <span className="text-neutral-medium-gray">원</span>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

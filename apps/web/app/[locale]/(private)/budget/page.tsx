@@ -69,7 +69,7 @@ export default function BudgetPage() {
   });
 
   const [newBudget, setNewBudget] = useState("");
-  const [budgetAdvisor, setBudgetAdvisor] = useState(false);
+  const [showBudgetAdvisor, setShowBudgetAdvisor] = useState(false);
 
   useEffect(() => {
     // url에 날짜가 없으면 오늘 날짜로 리다이렉트
@@ -132,7 +132,7 @@ export default function BudgetPage() {
           <CurrentBudget
             direction={direction}
             setShowBudgetModal={setShowBudgetModal}
-            setBudgetAdvisor={setBudgetAdvisor}
+            setBudgetAdvisor={setShowBudgetAdvisor}
             year={year}
             month={month}
           />
@@ -159,6 +159,8 @@ export default function BudgetPage() {
             month={Number(month)}
             onSave={handleBudgetSave}
             onClose={() => setShowBudgetModal(false)}
+            showBudgetAdvisor={showBudgetAdvisor}
+            setShowBudgetAdvisor={setShowBudgetAdvisor}
           />
         )}
       </AnimatePresence>

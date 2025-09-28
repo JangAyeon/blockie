@@ -2,6 +2,7 @@ import { Radar } from "react-chartjs-2";
 import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategorySummary } from "@type/expense";
+
 interface CategoryComparisonCardProps {
   expenseCategory: ExpenseCategorySummary;
   prevExpenseCategory?: ExpenseCategorySummary;
@@ -15,7 +16,10 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
     expenseCategory?.categories.length > 0 &&
     prevExpenseCategory &&
     prevExpenseCategory?.categories.length > 0;
-
+  console.log(
+    expenseCategory.categories.length,
+    prevExpenseCategory?.categories.length
+  );
   if (!hasData) {
     return (
       <Card>
@@ -74,26 +78,6 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
       <h3 className="text-lg font-medium mb-4">카테고리별 지출 추이</h3>
       <div className="h-64 mb-4">
         <Radar data={radarData} options={radarOptions} />
-      </div>
-
-      <div className="space-y-2">
-        <h4 className="text-sm font-medium">주요 증감 카테고리</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <div className="bg-green-50 rounded-lg p-3 flex items-center">
-            <div className="w-2 h-8 bg-green-400 rounded-full mr-3"></div>
-            <div>
-              <p className="text-sm font-medium">가장 많이 절약한 카테고리</p>
-              <p className="text-sm text-green-700">쇼핑 (-12%)</p>
-            </div>
-          </div>
-          <div className="bg-red-50 rounded-lg p-3 flex items-center">
-            <div className="w-2 h-8 bg-red-400 rounded-full mr-3"></div>
-            <div>
-              <p className="text-sm font-medium">가장 많이 증가한 카테고리</p>
-              <p className="text-sm text-red-700">식비 (+8%)</p>
-            </div>
-          </div>
-        </div>
       </div>
     </Card>
   );
