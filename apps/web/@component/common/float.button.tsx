@@ -4,10 +4,23 @@ import { BlockieFace } from "@repo/ui";
 import Image from "next/image";
 import { useRouter } from "@i18n/navigation";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const FloatButton = () => {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
   const [showFinanceOptions, setShowFinanceOptions] = useState(false);
+  // 현재 URL의 쿼리 파라미터를 유지하면서 페이지 이동하는 헬퍼 함수
+  const navigateWithParams = (targetUrl: string) => {
+    const currentParams = searchParams.toString();
+    const urlWithParams = currentParams
+      ? `${targetUrl}?${currentParams}`
+      : targetUrl;
+
+    console.log("Navigating to:", urlWithParams); // 디버그용 로그
+    router.push(urlWithParams);
+  };
 
   const handleFinanceButtonClick = () => {
     setShowFinanceOptions(!showFinanceOptions);
@@ -15,13 +28,13 @@ const FloatButton = () => {
 
   const handleBudgetClick = () => {
     // 예산 설정 페이지로 이동
-    router.push(`${pageUrl.budget}`); // 실제 페이지 URL로 변경 필요
+    navigateWithParams(`${pageUrl.budget}`); // 실제 페이지 URL로 변경 필요
     setShowFinanceOptions(false);
   };
 
   const handleExpenseClick = () => {
     // 지출 기록 페이지로 이동
-    router.push(`${pageUrl.expense}`); // 실제 페이지 URL로 변경 필요
+    navigateWithParams(`${pageUrl.expense}`); // 실제 페이지 URL로 변경 필요
     setShowFinanceOptions(false);
   };
 
@@ -92,7 +105,7 @@ const FloatButton = () => {
         <button
           className="btn-base w-14 h-14 bg-blockie-blue hover:bg-blue-400 text-white rounded-full shadow-lg hover-lift animate-button-press "
           aria-label="큐브 페이지"
-          onClick={() => router.push(`${pageUrl.cube}`)}
+          onClick={() => navigateWithParams(`${pageUrl.cube}`)}
         >
           <BlockieFace size={30} emotion="happy" />
         </button>
