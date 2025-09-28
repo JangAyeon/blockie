@@ -326,44 +326,44 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         bg-blockie-yellow text-neutral-black 
         hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-blockie-yellow focus:ring-offset-2
-      `,
+  
+      ` /* focus:ring-2 focus:ring-blockie-yellow focus:ring-offset-2 --- IGNORE --- */,
       secondary: `
         bg-white border border-gray-300 text-gray-700 
         hover:bg-gray-50 hover:shadow hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
-      `,
+        
+      ` /* focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 --- IGNORE --- */,
       outline: `
         bg-transparent border-2 border-current
         hover:bg-current hover:text-white  hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-current focus:ring-offset-2
-      `,
+        
+      ` /* focus:ring-2 focus:ring-current focus:ring-offset-2 --- IGNORE --- */,
       ghost: `
         bg-transparent 
         hover:bg-current hover:text-white hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-current focus:ring-offset-2
-      `,
+       
+      ` /* focus:ring-2 focus:ring-current focus:ring-offset-2 --- IGNORE --- */,
       success: `
         bg-success text-white 
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-success focus:ring-offset-2
-      `,
+        
+      ` /* focus:ring-2 focus:ring-success focus:ring-offset-2 --- IGNORE --- */,
       warning: `
         bg-warning text-neutral-black 
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-warning focus:ring-offset-2
-      `,
+       
+      ` /* focus:ring-2 focus:ring-warning focus:ring-offset-2 --- IGNORE --- */,
       error: `
         bg-error text-white 
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-error focus:ring-offset-2
-      `,
+     
+      ` /* focus:ring-2 focus:ring-error focus:ring-offset-2 --- IGNORE --- */,
     };
 
     // color가 지정된 경우 기본 색상 클래스 제거
@@ -372,41 +372,41 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           primary: `
         hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+       
+      ` /* focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
           secondary: `
         bg-white border border-gray-300 
         hover:bg-gray-50 hover:shadow hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
-      `,
+       
+      ` /* focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 --- IGNORE --- */,
           outline: `
         bg-white border-2 
         hover:bg-current/10 hover:text-white  hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+        
+      ` /* focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
           ghost: `
         bg-white 
         hover:bg-current/10 hover:text-white  hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+       
+      ` /* focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
           success: `
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+      
+      ` /*  focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
           warning: `
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+        
+      ` /*focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
           error: `
         hover:bg-opacity-90 hover:shadow-md hover:-translate-y-0.5 
         active:scale-95 
-        focus:ring-2 focus:ring-offset-2
-      `,
+        
+      ` /* focus:ring-2 focus:ring-offset-2 --- IGNORE --- */,
         }
       : defaultVariantClasses;
 
