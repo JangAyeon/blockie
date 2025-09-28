@@ -3,6 +3,12 @@ const defaultCurrencyMap: Record<string, string> = {
   ko: "KRW",
   en: "USD",
 };
+
+const defaultLocaleMap: Record<string, string> = {
+  ko: "ko-KR",
+  en: "en-US",
+  zh: "zh-CN",
+};
 // ₩123,456 형식
 export const formatWithCurrencySymbol = (amount: number): string => {
   return new Intl.NumberFormat("ko-KR", {
@@ -39,9 +45,10 @@ export const formatPhoneNumber = (value: string): string => {
 };
 
 // 날짜 format 함수
-export const formatDate = (dateString: string) => {
+export const formatDate = (dateString: string, locale: string = "ko") => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat("ko-KR", {
+
+  return new Intl.DateTimeFormat(defaultLocaleMap[locale], {
     year: "numeric",
     month: "long",
     day: "numeric",

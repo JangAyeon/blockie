@@ -7,6 +7,10 @@
     "title": "您好！",
     "about": "前往介绍页面"
   },
+  "Footer": {
+    "tagline": "通过智能支出管理养成健康的消费习惯。",
+    "copyright": "© 2025 Blockie - 保留所有权利"
+  },
   "NotFound": {
     "title": "找不到页面",
     "description": "您请求的页面不存在或可能已被移动。",
@@ -56,7 +60,30 @@
     "description": "通过智能支出管理养成健康的消费习惯",
     "status": "支出状况",
     "history": "支出记录",
-    "statistics": "统计分析"
+    "statistics": "统计分析",
+    "overview": {
+      "dailyRecommendedSpending": "每日建议支出",
+      "spending": "支出",
+      "remainingAmount": "剩余金额",
+      "totalExpenseCount": "总支出笔数",
+      "averageExpense": "平均支出",
+      "topCategory": "最高支出类别",
+      "yearMonth": "{year}年{month}月",
+      "budgetStatus": "预算{status}状态",
+      "budgetNotSet": "未设置预算",
+      "addExpense": "添加支出",
+      "budgetUsageRate": "预算使用率",
+      "daysPassed": "{current}/{total}天",
+
+      "monthSummary": "本月总结",
+      "recentExpenses": "最近支出记录",
+      "noExpenseData": "无支出数据",
+      "addExpensePrompt": "添加支出以查看\n最近的支出记录",
+      "currencyUnit": "韩元",
+      "itemCount": "{value}项",
+      "currencyAmount": "{value}韩元",
+      "categoryName": "{value}"
+    }
   },
 
   "cube": {
