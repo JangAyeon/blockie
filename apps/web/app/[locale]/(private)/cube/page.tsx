@@ -7,10 +7,7 @@ import { useEffect } from "react";
 import { useCube } from "@hook/business/cube/useCube";
 import { MyPageLoading } from "@component/features/user";
 
-import ListMonthlyExpense from "@component/features/cube/expense/list.monthly.expense";
 import { toYMDWithString } from "@utils/date/YMD";
-
-import EmptyMonthlyExpense from "@component/features/cube/expense/list.monthly.empty";
 
 import { pageUrl } from "@constant/page.route";
 import StreakContainer from "@component/features/cube/streak/container";

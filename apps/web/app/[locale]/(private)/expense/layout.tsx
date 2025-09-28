@@ -1,6 +1,8 @@
 // app/budget/layout.tsx
 // import { cookies } from "next/headers";
-import FloatButton from "@component/features/expense/float.button";
+// import FloatButton from "@component/features/expense/_float.button";
+
+import MenuSwitcher from "@component/common/menu.switcher";
 import HydrationProvider from "@provider/query/parallel.hydration";
 import { LayoutProps } from "@type/layout";
 import { expenseService } from "@utils/apis/services/expense";
@@ -26,7 +28,7 @@ export default async function ExpenseLayout({ children }: LayoutProps) {
   return (
     <HydrationProvider queries={prefetchQueries}>
       {children}
-      <FloatButton />
+      {/* <MenuSwitcher /> */}
     </HydrationProvider>
   );
 }

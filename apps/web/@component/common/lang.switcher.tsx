@@ -1,8 +1,8 @@
 "use client";
 import { useRouter, usePathname } from "@i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
@@ -19,10 +19,8 @@ export default function LanguageSwitcher() {
 
   const switchLanguage = (newLocale: string) => {
     // 현재 쿼리 파라미터를 유지하면서 언어 변경
-    const currentParams = searchParams.toString();
-    const pathWithParams = currentParams
-      ? `${pathname}?${currentParams}`
-      : pathname;
+    const params = new URLSearchParams(searchParams).toString();
+    const pathWithParams = params ? `${pathname}?${params}` : pathname;
 
     router.push(pathWithParams, { locale: newLocale });
     setShowLanguageOptions(false);

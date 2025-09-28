@@ -4,7 +4,7 @@ import HydrationProvider from "@provider/query/parallel.hydration";
 import { queryKeys } from "@utils/query/query.key";
 import { budgetService } from "@utils/apis/services/budget";
 import { LayoutProps } from "@type/layout";
-import FloatButton from "@component/common/float.button";
+import MenuSwitcher from "@component/common/menu.switcher";
 
 export default async function CubeLayout({ children }: LayoutProps) {
   // const cookieStore = await cookies();
@@ -39,7 +39,7 @@ export default async function CubeLayout({ children }: LayoutProps) {
       {children}
       {/* 플로팅 버튼들 */}
 
-      <FloatButton />
+      {/* <MenuSwitcher /> */}
     </HydrationProvider>
   );
 }
