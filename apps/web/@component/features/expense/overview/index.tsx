@@ -396,7 +396,7 @@ const Overview: React.FC<OverviewProps> = ({
               </div>
 
               <div className="text-right">
-                <motion.p
+                <motion.div
                   key={budgetStatus.spent}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
@@ -424,7 +424,7 @@ const Overview: React.FC<OverviewProps> = ({
                       current: new Date().getDate(),
                     })}
                   </p>
-                </motion.p>
+                </motion.div>
               </div>
             </div>
 

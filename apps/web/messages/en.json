@@ -82,9 +82,39 @@
       "itemCount": "{value} items",
       "currencyAmount": "{value} won",
       "categoryName": "{value}"
+    },
+    "list": {
+      "yearMonth": "{month}/{year}",
+      "totalExpenses": "Total {count} expenses",
+      "addExpense": "Add Expense",
+      "addExpenseAlt": "Plus icon",
+      "category": "Category",
+      "allCategories": "All",
+      "noExpenses": "No expense records",
+      "addNewExpense": "Add a new expense",
+      "editAlt": "Edit",
+      "deleteAlt": "Delete"
+    },
+    "modal": {
+      "addTitle": "Add New Expense",
+      "editTitle": "Edit Expense",
+      "amount": "Amount",
+      "amountPlaceholder": "e.g., 15000",
+      "currencyUnit": "won",
+      "expenseDate": "Expense Date",
+      "cancel": "Cancel",
+      "add": "Add",
+      "edit": "Save"
     }
   },
-
+  "categories": {
+    "select": " Select Category",
+    "label": "Category",
+    "fixed": "Fixed Expenses",
+    "variable": "Variable Monthly Expenses",
+    "irregular": "Irregular Expenses",
+    "other": "Other"
+  },
   "cube": {
     "streak": {
       "todayCompleted": "Today Completed",
