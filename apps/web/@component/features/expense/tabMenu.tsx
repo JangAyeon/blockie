@@ -24,6 +24,7 @@ const ExpenseTabMenu: React.FC<ExpenseTabMenuProps> = ({
           }`}
           onClick={() => changeTab(EXPENSE_TAB_MENU.OVERVIEW)}
         >
+          {/* "지출 현황" */}
           {t("status")}
         </button>
         <button
@@ -34,6 +35,7 @@ const ExpenseTabMenu: React.FC<ExpenseTabMenuProps> = ({
           }`}
           onClick={() => changeTab(EXPENSE_TAB_MENU.LIST)}
         >
+          {/* "지출 내역" */}
           {t("history")}
         </button>
         <button
@@ -44,6 +46,7 @@ const ExpenseTabMenu: React.FC<ExpenseTabMenuProps> = ({
           }`}
           onClick={() => changeTab(EXPENSE_TAB_MENU.STATISTICS)}
         >
+          {/* "통계 분석" */}
           {t("statistics")}
         </button>
       </nav>

@@ -18,6 +18,7 @@ import { ExpenseItem } from "@type/expense";
 import { useRouter } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
+import { useTranslations } from "next-intl";
 interface ExpenseItemListProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,6 +49,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
     year,
     month,
   });
+  const t = useTranslations("expense.list");
   const router = useRouter();
   const filteredExpenses = useMemo(() => {
     if (!monthlyExpense?.expenses) return [];
@@ -111,7 +113,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
                 ◁
               </button>
               <div className="text-title-1 text-neutral-black">
-                📅 {year}년 {month}월{" "}
+                📅 {t("yearMonth", { year, month })}
               </div>
               <button
                 onClick={() =>
@@ -131,7 +133,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
 
             <div className="flex flex-row gap-2 items-center">
               <div className="py-1.5 px-3 text-body-2  text-emerald-600 font-medium bg-emerald-100/60 rounded-full">
-                총 {filteredExpenses.length}건의 지출
+                {t("totalExpenses", { count: filteredExpenses.length })}
               </div>
               <Button
                 variant="outline"
@@ -147,7 +149,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
                     width={20}
                     height={20}
                   />
-                  지출 추가
+                  {t("addExpense")}
                 </div>
               </Button>
             </div>
@@ -158,7 +160,7 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
         <div className="">
           <div>
             <label className="block text-body-2 font-medium text-neutral-black mb-2">
-              카테고리
+              {t("category")}
             </label>
             <select
               value={selectedCategory}
@@ -184,11 +186,9 @@ const ExpenseItemList: React.FC<ExpenseItemListProps> = ({
                 <BlockieBottom size={80} />
               </div>
               <h4 className="text-title-3 font-medium text-neutral-black mb-2">
-                지출 내역이 없습니다
+                {t("noExpenses")}
               </h4>
-              <p className="text-neutral-dark-gray">
-                새로운 지출을 추가해보세요
-              </p>
+              <p className="text-neutral-dark-gray">{t("addNewExpense")}</p>
             </div>
           ) : (
             filteredExpenses.map((expense, index) => (

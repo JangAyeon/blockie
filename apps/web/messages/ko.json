@@ -7,6 +7,10 @@
     "title": "안녕하세요!",
     "about": "소개 페이지로 이동"
   },
+  "Footer": {
+    "tagline": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요.",
+    "copyright": "© 2025 Blockie - 모든 권리 보유"
+  },
   "NotFound": {
     "title": "페이지를 찾을 수 없습니다",
     "description": "요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.",
@@ -55,9 +59,63 @@
     "description": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요",
     "status": "지출 현황",
     "history": "지출 내역",
-    "statistics": "통계 분석"
-  },
+    "statistics": "통계 분석",
+    "overview": {
+      "dailyRecommendedSpending": "하루 권장 지출",
+      "spending": "지출",
+      "remainingAmount": "남은 금액",
+      "totalExpenseCount": "총 지출 건수",
+      "averageExpense": "평균 지출",
+      "topCategory": "최다 지출 분류",
+      "yearMonth": "{year}년 {month}월",
+      "budgetStatus": "예산 {status} 상태",
+      "budgetNotSet": "예산 미설정 상태",
+      "addExpense": "지출 추가",
+      "budgetUsageRate": "예산 사용률",
+      "daysPassed": "{total}일 중 {current}일 지남",
 
+      "monthSummary": "이번 달 요약",
+      "recentExpenses": "최근 지출 내역",
+      "noExpenseData": "지출 데이터가 없습니다",
+      "addExpensePrompt": "지출을 추가하여\n최근 지출 내역을 확인해보세요",
+      "currencyUnit": "원",
+      "itemCount": "{value}건",
+      "currencyAmount": "{value}원",
+      "categoryName": "{value}"
+    },
+    "list": {
+      "yearMonth": "{year}년 {month}월",
+      "totalExpenses": "총 {count}건의 지출",
+      "addExpense": "지출 추가",
+      "addExpenseAlt": "플러스 아이콘",
+      "category": "카테고리",
+      "allCategories": "전체",
+      "noExpenses": "지출 내역이 없습니다",
+      "addNewExpense": "새로운 지출을 추가해보세요",
+      "editAlt": "수정",
+      "deleteAlt": "삭제"
+    },
+    "modal": {
+      "addTitle": "새 지출 추가",
+      "editTitle": "지출 수정",
+      "amount": "금액",
+      "amountPlaceholder": "예: 15000",
+      "currencyUnit": "원",
+
+      "expenseDate": "지출 날짜",
+      "cancel": "취소",
+      "add": "추가",
+      "edit": "수정"
+    }
+  },
+  "categories": {
+    "label": "카테고리",
+    "select": "카테고리 선택",
+    "fixed": "고정 지출",
+    "variable": "월별 변동 지출",
+    "irregular": "비정기 지출",
+    "other": "기타"
+  },
   "cube": {
     "budget": {
       "collectionSpace": "이번 달 컬렉션 공간",

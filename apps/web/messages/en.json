@@ -7,6 +7,10 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "Footer": {
+    "tagline": "Create healthy spending habits with smart expense management.",
+    "copyright": "© 2025 Blockie - All rights reserved"
+  },
   "NotFound": {
     "title": "Page not found",
     "description": "The page you requested does not exist or may have been moved.",
@@ -55,9 +59,62 @@
     "description": "Create healthy spending habits with smart expense management",
     "status": "Expense Status",
     "history": "Expense History",
-    "statistics": "Statistical Analysis"
-  },
+    "statistics": "Statistical Analysis",
+    "overview": {
+      "dailyRecommendedSpending": "Daily Recommended Spending",
+      "spending": "Spending",
+      "remainingAmount": "Remaining Amount",
+      "totalExpenseCount": "Total Expense Count",
+      "averageExpense": "Average Expense",
+      "topCategory": "Top Spending Category",
+      "yearMonth": "{month}/{year}",
+      "budgetStatus": "Budget {status} Status",
+      "budgetNotSet": "Budget Not Set",
+      "addExpense": "Add Expense",
+      "budgetUsageRate": "Budget Usage Rate",
+      "daysPassed": "{current}/{total} days",
 
+      "monthSummary": "This Month's Summary",
+      "recentExpenses": "Recent Expense History",
+      "noExpenseData": "No expense data available",
+      "addExpensePrompt": "Add expenses to view\nyour recent expense history",
+      "currencyUnit": " won",
+      "itemCount": "{value} items",
+      "currencyAmount": "{value} won",
+      "categoryName": "{value}"
+    },
+    "list": {
+      "yearMonth": "{month}/{year}",
+      "totalExpenses": "Total {count} expenses",
+      "addExpense": "Add Expense",
+      "addExpenseAlt": "Plus icon",
+      "category": "Category",
+      "allCategories": "All",
+      "noExpenses": "No expense records",
+      "addNewExpense": "Add a new expense",
+      "editAlt": "Edit",
+      "deleteAlt": "Delete"
+    },
+    "modal": {
+      "addTitle": "Add New Expense",
+      "editTitle": "Edit Expense",
+      "amount": "Amount",
+      "amountPlaceholder": "e.g., 15000",
+      "currencyUnit": "won",
+      "expenseDate": "Expense Date",
+      "cancel": "Cancel",
+      "add": "Add",
+      "edit": "Save"
+    }
+  },
+  "categories": {
+    "select": " Select Category",
+    "label": "Category",
+    "fixed": "Fixed Expenses",
+    "variable": "Variable Monthly Expenses",
+    "irregular": "Irregular Expenses",
+    "other": "Other"
+  },
   "cube": {
     "streak": {
       "todayCompleted": "Today Completed",
