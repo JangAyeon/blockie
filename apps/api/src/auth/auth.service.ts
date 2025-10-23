@@ -61,7 +61,7 @@ export class AuthService {
       return response.data;
     } catch (error) {
       throw new InternalServerErrorException(
-        `Supabase SignIn 실패 ${email}, ${password}, ${error}, ${url}`,
+        `Supabase SignIn 실패 ${email}, ${password}, ${error}, ${url}, apikey: ${this.supabaseKey},  Authorization: Bearer ${this.supabaseKey}`,
       );
     }
   }

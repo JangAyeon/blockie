@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/* Blockie 앱 커스텀 CSS 변수 */
+@theme {
+  /* 브랜드 색상 */
+  --color-blockie-yellow: #f4df7d;
+  --color-blockie-green: #8ddba4;
+  --color-blockie-blue: #7dc0f4;
+  --color-blockie-purple: #c89df4;
+  --color-blockie-pink: #f48dae;
+  --color-blockie-red: #f47d7d;
+  --color-blockie-red-light: #f49b9b;
+  /* 중립 색상 */
+  --color-neutral-black: #1f2937;
+  --color-neutral-dark-gray: #4b5563;
+  --color-neutral-medium-gray: #9ca3af;
+  --color-neutral-light-gray: #e5e7eb;
+  --color-neutral-off-white: #f9fafb;
+  /* 기능 색상 */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-error: #ef4444;
+  --color-info: #60a5fa;
+  /* 폰트 패밀리 */
+  --font-family-sans: Pretendard, system-ui, sans-serif;
+  /* 애니메이션 타이밍 */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
+  /* 커스텀 애니메이션 */
+  --animate-slide-up: slide-up var(--transition-medium) ease-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce-gentle: bounce 2s infinite;
+
+  /* 그리드 컬럼 */
+  --grid-template-columns-10: repeat(10, minmax(0, 1fr));
+  --grid-template-columns-8: repeat(8, minmax(0, 1fr));
+
+  /* 스페이싱 */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+
+  /* 보더 반경 */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* 그림자 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-default: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* 브레이크포인트 */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* 키프레임 애니메이션 정의 */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 버튼 애니메이션 */
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 커스텀 유틸리티 클래스 */
+@layer utilities {
+  .grid-cols-10 {
+    grid-template-columns: var(--grid-template-columns-10);
+  }
+
+  .grid-cols-8 {
+    grid-template-columns: var(--grid-template-columns-8);
+  }
+
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .animate-slide-up {
+    animation: var(--animate-slide-up);
+  }
+
+  .animate-pulse-slow {
+    animation: var(--animate-pulse-slow);
+  }
+
+  .animate-bounce-gentle {
+    animation: var(--animate-bounce-gentle);
+  }
+
+  /* 블록 관련 스타일 */
+  .block-yellow {
+    background-color: var(--color-blockie-yellow);
+  }
+
+  .block-green {
+    background-color: var(--color-blockie-green);
+  }
+
+  .block-blue {
+    background-color: var(--color-blockie-blue);
+  }
+
+  .block-purple {
+    background-color: var(--color-blockie-purple);
+  }
+
+  .block-pink {
+    background-color: var(--color-blockie-pink);
+  }
+
+  /* 텍스트 컬러 */
+  .text-dark {
+    color: var(--color-neutral-black);
+  }
+
+  .text-gray {
+    color: var(--color-neutral-dark-gray);
+  }
+
+  /* 배경 컬러 헬퍼 */
+  .bg-yellow {
+    background-color: var(--color-blockie-yellow);
+  }
+
+  .bg-green {
+    background-color: var(--color-blockie-green);
+  }
+
+  .bg-blue {
+    background-color: var(--color-blockie-blue);
+  }
+
+  .bg-purple {
+    background-color: var(--color-blockie-purple);
+  }
+
+  .bg-pink {
+    background-color: var(--color-blockie-pink);
+  }
+
+  .bg-off-white {
+    background-color: var(--color-neutral-off-white);
+  }
+
+  /* 호버 효과 */
+  .hover-scale {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+
+  /* 포커스 스타일 */
+  .focus-yellow {
+    outline: 2px solid var(--color-blockie-yellow);
+    outline-offset: 2px;
+  }
+  .animate-button-press {
+    animation: button-press var(--transition-fast) ease-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* 반응형 그리드 */
+@media (max-width: 640px) {
+  .grid-cols-10 {
+    grid-template-columns: var(--grid-template-columns-8);
+  }
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-yellow-custom);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f0d955;
+}
+
+@layer base {
+  /* 기본 스타일 리셋 */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* gap-2 in Tailwind is 0.5rem */
+    font-weight: 500; /* font-medium */
+    border-radius: 0.5rem; /* rounded-lg */
+    font-family: var(--font-family-sans);
+    transition: all var(--transition-fast) ease-in-out;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-base:focus {
+    outline: 2px solid var(--color-blockie-yellow);
+    outline-offset: 2px;
+  }
+
+  .btn-base:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

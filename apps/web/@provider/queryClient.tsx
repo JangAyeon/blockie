@@ -4,15 +4,21 @@
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import { isServer, QueryClient } from "@tanstack/react-query";
 
+const defaultOptions = {
+  queries: {
+    // With SSR, we usually want to set some default staleTime
+    // above 0 to avoid refetching immediately on the client
+    staleTime: 60 * 1000, // 기본 캐싱 시간 1분
+    retry: 1,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  },
+};
+
 function makeQueryClient() {
   return new QueryClient({
-    defaultOptions: {
-      queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
-        staleTime: 60 * 1000, // 기본 캐싱 시간 1분
-      },
-    },
+    defaultOptions,
   });
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSignup } from "../../@hook/useAuth";
+import { useSignUp } from "../../@hook/useAuth";
 
 export default function SignUpPage() {
   const [form, setForm] = useState({
@@ -9,7 +9,7 @@ export default function SignUpPage() {
     password: "",
   });
 
-  const { signup, isPending } = useSignup();
+  const { mutate: signUp, isPending } = useSignUp();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -18,7 +18,7 @@ export default function SignUpPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    signup(form);
+    signUp(form);
   };
 
   return (

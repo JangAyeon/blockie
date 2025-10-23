@@ -1,38 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchUserProfile, updateUserProfile } from "../@utils/apis/user";
-import { queryKeys } from "../@utils/query/query.control";
-import { useLogout } from "../@hook/useAuth";
+
+import {
+  useLogout,
+  useUpdateUserProfile,
+  useUserProfile,
+} from "../@hook/useAuth";
+
+export type userFormData = {
+  name: string;
+  email: string;
+  phone: string;
+};
 
 export default function UserProfile() {
-  const { handleLogout } = useLogout();
-  const queryClient = useQueryClient();
+  const { mutate: handleLogout } = useLogout();
+  const { data, isLoading, isError } = useUserProfile();
+  const { mutate: updateProfile, isPending } = useUpdateUserProfile();
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: queryKeys.user.base,
-    queryFn: () => fetchUserProfile(""),
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<userFormData>({
     name: data?.name ?? "",
     email: data?.email ?? "",
     phone: data?.phone ?? "",
-  });
-
-  // Mutation (업데이트용)
-  const mutation = useMutation({
-    mutationFn: (newData: typeof formData) => updateUserProfile(newData),
-    onSuccess: (updatedData) => {
-      // 캐시 수동 업데이트 (더 깔끔)
-      queryClient.setQueryData(queryKeys.user.base, updatedData);
-      alert("저장되었습니다!");
-    },
-    onError: () => {
-      alert("저장 실패");
-    },
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +31,7 @@ export default function UserProfile() {
   };
 
   const handleSave = () => {
-    mutation.mutate(formData);
+    updateProfile(formData);
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -80,10 +70,10 @@ export default function UserProfile() {
         </div>
         <button
           onClick={handleSave}
-          disabled={mutation.isPending}
+          disabled={isPending}
           className="bg-blue-500 text-white p-2 rounded"
         >
-          {mutation.isPending ? "저장 중..." : "저장"}
+          {isPending ? "저장 중..." : "저장"}
         </button>
       </div>
 

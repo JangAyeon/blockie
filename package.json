@@ -4,16 +4,22 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "ci": "rm -rf node_modules package-lock.json",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "test": "turbo test",
     "build:api": "npm --workspace=api run build",
-    "build:web": "npm --workspace=web run build",
+    "build:web": "turbo build --filter=web",
     "start:api": "npm --workspace=api run start:prod",
-    "start:web": "npm --workspace=web run start"
+    "start:web": "npm --workspace=web run start",
+    "dev:web": "turbo dev --filter=web",
+    "dev:ui": "turbo dev --filter=@repo/ui",
+    "storybook": "turbo storybook --filter=@repo/ui"
   },
   "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.1",
     "dotenv": "^16.5.0",
     "prettier": "^3.5.3",
     "turbo": "^2.5.4",
@@ -28,6 +34,14 @@
     "packages/*"
   ],
   "dependencies": {
-    "@tanstack/react-query-devtools": "^5.80.7"
+    "@tailwindcss/cli": "^4.1.11",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/postcss": "^4.1.10",
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.80.7",
+    "framer-motion": "^12.19.1",
+    "postcss": "^8.5.6",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^4.1.10"
   }
 }

@@ -3,7 +3,9 @@ import { AuthUser } from "@repo/types";
 export async function fetchUserProfile(
   access_token: string
 ): Promise<AuthUser> {
-  const baseUrl = process.env.NEXT_API_BASE_URL || "http://localhost:3030";
+  const baseUrl = access_token
+    ? process.env.NEXT_API_BASE_URL || "http://localhost:3030"
+    : "/api";
   const res = await fetch(`${baseUrl}/users/me`, {
     headers: {
       Authorization: `Bearer ${access_token}`,

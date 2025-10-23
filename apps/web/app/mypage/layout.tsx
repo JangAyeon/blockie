@@ -1,14 +1,9 @@
 // app/mypage/layout.tsx
 import { cookies } from "next/headers";
 import React from "react";
-import {
-  QueryClient,
-  dehydrate,
-  HydrationBoundary,
-} from "@tanstack/react-query";
-
 import { queryKeys } from "../../@utils/query/query.control";
 import { fetchUserProfile } from "../../@utils/apis/user";
+import HydrationProvider from "../../@provider/hydration";
 export default async function MyPageLayout({
   children,
 }: {
@@ -20,21 +15,14 @@ export default async function MyPageLayout({
   if (!access_token) {
     return <div>No access token</div>;
   }
-  const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.user.base,
-    queryFn: () => fetchUserProfile(access_token),
-    staleTime: 1000 * 60 * 5,
-  });
-  const dehydratedState = dehydrate(queryClient);
-  console.log(queryClient.getQueryState(queryKeys.user.base));
   return (
-    <>
-      <HydrationBoundary state={dehydratedState}>
-        <div>토큰: {access_token}</div>
-        {children}
-      </HydrationBoundary>
-    </>
+    <HydrationProvider
+      queryKey={queryKeys.user.base}
+      queryFn={() => fetchUserProfile(access_token)}
+    >
+      <div>토큰: {access_token}</div>
+      {children}
+    </HydrationProvider>
   );
 }
