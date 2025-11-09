@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useRouter } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 interface OverviewProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,11 +34,9 @@ const Overview: React.FC<OverviewProps> = ({
   month,
   day,
 }) => {
-  const t = useTranslations();
   const router = useRouter();
   const t = useTranslations("expense.overview");
   const locale = useLocale();
-  console.log("locale", locale);
   const { data: budgetStatus, isLoading: isBudgetLoading } = useBudgetStatus({
     year,
     month,
@@ -251,7 +249,8 @@ const Overview: React.FC<OverviewProps> = ({
                       transition={{ delay: 0.3 }}
                       className={`text-sm font-semibold ${budgetStatus.statusColor} flex items-center bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit border`}
                     >
-                      {t("budget.status")} {budgetStatus.status} {t("budget.state")}
+                      {t("budget.status")} {budgetStatus.status}{" "}
+                      {t("budget.state")}
                     </motion.p>
                   ) : (
                     <motion.p
@@ -507,9 +506,9 @@ const Overview: React.FC<OverviewProps> = ({
                         {t(item.label)}
                       </span>
                     </div>
-                    <span className={`font-semibold ${item.color}`}>
+                    {/* <span className={`font-semibold ${item.color}`}>
                       {t(item.unit, { value: item.value })}
-                    </span>
+                    </span> */}
                   </motion.div>
                 ))}
               </div>

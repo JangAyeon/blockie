@@ -18,8 +18,6 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
   const t = useTranslations();
   const { selectedExpense, setSelectedExpense, handleUpdateExpense } =
     selectedExpenseConfig;
-  const tc = useTranslations("categories");
-  const t = useTranslations("expense.modal");
   console.log(selectedExpense);
   return (
     <AnimatePresence>

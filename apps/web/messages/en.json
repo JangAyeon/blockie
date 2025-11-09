@@ -1,48 +1,48 @@
 {
   "HomePage": {
     "title": "Hello!",
-    "about": "Go to about"
+    "about": "Go to About"
   },
   "Metadata": {
     "title": "Hello!",
-    "about": "Go to about"
+    "about": "Go to About"
   },
   "Footer": {
-    "tagline": "Create healthy spending habits with smart expense management.",
-    "copyright": "© 2025 Blockie - All rights reserved"
+    "tagline": "Manage your spending smartly and build healthy financial habits.",
+    "copyright": "© 2025 Blockie - All rights reserved."
   },
   "NotFound": {
-    "title": "Page not found",
-    "description": "The requested page doesn't exist or has been moved.",
-    "goHome": "Go Home",
-    "autoRedirect": "Auto redirect to home in {seconds}s.",
-    "helpText": "Contact support if issue persists."
+    "title": "Page Not Found",
+    "description": "The page you requested doesn't exist or has been moved.",
+    "goHome": "Return to Home",
+    "autoRedirect": "Automatically redirecting to Home in {seconds} seconds.",
+    "helpText": "If the problem persists, please contact our support team."
   },
   "Auth": {
     "signin": {
-      "title": "No account?",
+      "title": "Don't have an account?",
       "togoPageName": "Sign Up",
       "headerTitle": "Sign In",
       "togoUrl": "/signin",
-      "welcomeTitle": "Start with Blocky!",
-      "welcomeSubTitle": "First step to fun expense tracking"
+      "welcomeTitle": "Start your journey with Blockie!",
+      "welcomeSubTitle": "Take your first step toward smarter spending"
     },
     "signup": {
-      "title": "Have an account?",
+      "title": "Already have an account?",
       "togoPageName": "Sign In",
       "togoUrl": "/signup",
       "headerTitle": "Sign Up",
       "welcomeTitle": "Welcome back!",
-      "welcomeSubTitle": "Login and build blocks!"
+      "welcomeSubTitle": "Log in and start building your financial blocks!"
     }
   },
   "email": {
     "label": "Email",
-    "remember": "Remember email"
+    "remember": "Remember Email"
   },
   "password": {
     "label": "Password",
-    "placeholder": "Enter password",
+    "placeholder": "Enter your password",
     "confirm": "Confirm Password"
   },
   "confirmPassword": "Confirm Password",
@@ -52,26 +52,56 @@
   },
   "signUp": {
     "label": "Sign Up",
-    "loading": "Signing up..."
+    "loading": "Creating account..."
   },
   "expense": {
     "management": "Expense Management",
-    "description": "Build healthy spending habits with smart expense tracking",
+    "description": "Manage your expenses smartly and build healthy spending habits.",
     "status": "Expense Status",
     "history": "Expense History",
-    "statistics": "Analytics",
-    "dailyRecommended": "Daily Recommended",
+    "statistics": "Statistics & Analysis",
+    "dailyRecommended": "Daily Recommendation",
     "remainingAmount": "Remaining Amount",
     "totalCount": "Total Expenses",
     "averageSpending": "Average Spending",
-    "topCategory": "Top Category",
+    "topCategory": "Top Spending Category",
     "addExpense": "Add Expense",
     "selectCategory": "Select Category",
     "editExpense": "Edit Expense",
     "amount": "Amount",
-    "amountExample": "e.g. 15000",
+    "amountExample": "e.g., 15000",
     "category": "Category",
-    "date": "Expense Date"
+    "date": "Expense Date",
+    "overview": {
+      "monthSummary": "Monthly Summary",
+      "recentExpenses": "Recent Expenses",
+      "noExpenseData": "No expense data available",
+      "addExpensePrompt": "Add an expense to view\nrecent records.",
+      "currencyUnit": "KRW"
+    },
+    "list": {
+      "yearMonth": "{year}-{month}",
+      "totalExpenses": "Total {count} Expenses",
+      "addExpense": "Add Expense",
+      "addExpenseAlt": "Plus Icon",
+      "category": "Category",
+      "allCategories": "All",
+      "noExpenses": "No expenses recorded",
+      "addNewExpense": "Add New Expense",
+      "editAlt": "Edit",
+      "deleteAlt": "Delete"
+    },
+    "modal": {
+      "addTitle": "Add New Expense",
+      "editTitle": "Edit Expense",
+      "amount": "Amount",
+      "amountPlaceholder": "e.g., 15000",
+      "currencyUnit": "KRW",
+      "expenseDate": "Expense Date",
+      "cancel": "Cancel",
+      "add": "Add",
+      "edit": "Save"
+    }
   },
   "user": {
     "name": "Name",
@@ -80,19 +110,19 @@
     "joinDate": "Join Date",
     "greeting": "Hello, {name}!",
     "defaultName": "User",
-    "profileInfo": "Profile Info",
-    "profileDescription": "My precious info",
-    "budgetCompliance": "Budget Compliance",
-    "since": " years together",
-    "recentRecords": " recent records",
+    "profileInfo": "Profile Information",
+    "profileDescription": "Your personal details",
+    "budgetCompliance": "Budget Compliance Rate",
+    "since": "With us since",
+    "recentRecords": "Recent Records",
     "master": "Expense Management Master",
     "phonePlaceholder": "010-0000-0000",
     "honorific": "",
-    "loadingMessage": "Blockie is fetching information",
+    "loadingMessage": "Blockie is loading your information...",
     "message": {
-      "perfect": "🎉 Perfect expense management master!",
-      "good": "✨ Building habits with consistent management!",
-      "encourage": "🚀 Let's build smart spending habits together!"
+      "perfect": "🎉 Perfect Expense Master!",
+      "good": "✨ You’re building great spending habits!",
+      "encourage": "🚀 Let’s build smart spending habits together!"
     }
   },
   "common": {
@@ -102,7 +132,7 @@
     "next": "Next",
     "recommend": "Recommend",
     "turnOffRecommend": "Turn Off",
-    "getRecommend": "Get",
+    "getRecommend": "Get Recommendation",
     "stable": "Stable",
     "recommended": "Recommended",
     "challenging": "Challenging",
@@ -110,185 +140,189 @@
     "spending": "Spending",
     "edit": "Edit",
     "cancel": "Cancel",
-    "back": "Back",
-    "budgetSet": "Budget Set",
+    "back": "Go Back",
+    "budgetSet": "Set Budget",
     "expenseRecord": "Expense Record",
-    "financeManagement": "Finance Management",
+    "financeManagement": "Financial Management",
     "profilePage": "Profile Page",
-    "cubePage": "Cube Page",
+    "cubePage": "Block Page",
     "category": {
       "fixed": "Fixed Expense",
-      "monthlyVariable": "Monthly Variable",
-      "irregular": "Irregular",
+      "monthlyVariable": "Monthly Variable Expense",
+      "irregular": "Irregular Expense",
       "other": "Other"
     },
-    "currency": "won"
+    "currency": "KRW"
   },
-
   "budget": {
     "recommendTitle": "Recommended Budget",
-    "recommendDescription": "Recommended budget based on current spending patterns",
+    "recommendDescription": "A recommended budget based on your current spending pattern.",
     "currentSpending": "Current Spending",
     "amount": "Budget Amount",
-    "amountPlaceholder": "Enter amount",
+    "amountPlaceholder": "Enter an amount",
     "status": "Budget",
     "state": "Status",
-    "notSet": "Budget Not Set",
+    "notSet": "Budget not set",
     "trendAnalysis": "Spending Trend Analysis",
-    "monthlyAverage": "Monthly avg spending for past {months} months",
-    "complianceRate": "Budget compliance for past {months} months",
-    "insufficientData": "Insufficient data for analysis.",
-    "currentTab": "Current Budget",
+    "monthlyAverage": "Average Spending (Last {months} Months)",
+    "complianceRate": "Budget Compliance (Last {months} Months)",
+    "insufficientData": "Not enough data for analysis.",
+    "currentTab": "This Month’s Budget",
     "historyTab": "Budget History",
-    "insightsTab": "Budget Analysis",
+    "insightsTab": "Budget Insights",
     "pageTitle": "Budget Management",
-    "pageDescription": "Create smart spending habits with intelligent budget management",
-    "noMonthListed": "No months with budget set",
-    "noHistory": "No past budget history",
-    "notSetThisMonth": "Budget not set for this month",
+    "pageDescription": "Manage your budget wisely and build healthy spending habits.",
+    "noMonthListed": "No months with set budgets.",
+    "noHistory": "No previous budget history.",
+    "notSetThisMonth": "No budget set for this month.",
     "setBudget": "Set Budget",
     "balance": "Balance",
     "usageRate": "Usage Rate",
     "monthlyHistory": "Monthly Budget History",
     "totalMonths": "Total",
     "of": "of",
-    "categoryTrend": "Category Spending Trend",
-    "insufficientCategoryData": "Insufficient data for category trend analysis.",
+    "categoryTrend": "Spending Trend by Category",
+    "insufficientCategoryData": "Not enough data for category analysis.",
     "thisMonth": "This Month",
     "lastMonth": "Last Month",
-    "optimizationSuggestion": "Budget Optimization Suggestion",
-    "customRecommendation": "Custom Budget Recommendation",
-    "analysisResult": "Based on analysis of spending patterns over the past few months, your optimized monthly budget is",
+    "optimizationSuggestion": "Budget Optimization Suggestions",
+    "customRecommendation": "Personalized Budget Recommendation",
+    "analysisResult": "Based on recent spending, your optimal monthly budget is",
     "isOptimal": "",
-    "categoryRecommendation": "Category Budget Recommendation",
+    "categoryRecommendation": "Category-Based Budget Recommendations",
     "setRecommendedBudget": "Set Recommended Budget",
     "overBudget": "Over Budget",
     "withinBudget": "Within Budget",
     "savingTips": "Saving Tips",
-    "loadingBudget": "Loading budget information...",
+    "loadingBudget": "Loading budget data...",
     "categoryTips": {
       "fixed": {
         "title": "Fixed Expenses",
         "tips": [
-          "Communication: Save up to 40% by switching to budget phone plans.",
-          "Subscriptions: Cancel unused subscriptions to reduce monthly fixed costs.",
-          "Insurance: Adjust overlapping coverage to save hundreds of thousands annually."
+          "Telecom: Switching to a cheaper plan can save up to 40%.",
+          "Subscriptions: Cancel unused subscriptions to reduce monthly costs.",
+          "Insurance: Adjust overlapping coverage to save hundreds annually."
         ]
       },
       "variable": {
         "title": "Monthly Variable Expenses",
         "tips": [
-          "Food: Increase home cooking to save over half of dining out costs.",
-          "Transportation: Use public transit passes to save up to 30%.",
-          "Utilities: Energy-saving habits can reduce monthly costs by 10-15%."
+          "Food: Cooking more at home can cut dining expenses by over 50%.",
+          "Transportation: Using a commuter pass can save up to 30%.",
+          "Utilities: Energy-saving habits can reduce bills by 10–15% monthly."
         ]
       },
       "irregular": {
         "title": "Irregular Expenses",
         "tips": [
-          "Travel: Book early to save 20-30% on transportation and accommodation.",
-          "Appliances: Target sale periods before you need them to reduce major expenses.",
-          "Events: Set aside a separate budget for events to reduce sudden financial burden."
+          "Travel: Booking early can save 20–30% on flights and accommodation.",
+          "Appliances: Wait for sales to reduce big purchase costs.",
+          "Events: Set aside a small budget for gifts and events to avoid surprises."
         ]
       },
       "leisure": {
-        "title": "Other (Hobbies/Leisure)",
+        "title": "Other (Leisure & Hobbies)",
         "tips": [
-          "Hobbies: Use free experiences or public programs to save costs.",
-          "Leisure: Share OTT subscriptions with family/friends to reduce costs by half.",
-          "Self-improvement: Use free online courses to significantly save on education costs."
+          "Hobbies: Use free or public programs to cut costs.",
+          "Entertainment: Share OTT subscriptions to halve expenses.",
+          "Self-Development: Take free online courses to save on tuition."
         ]
       }
     },
     "stats": {
-      "averageBudget": "Avg Monthly Budget",
-      "averageSpending": "Avg Monthly Spending",
-      "complianceRate": "Budget Compliance",
-      "budgetMonths": "Budget Set Months",
-      "months": " months"
+      "averageBudget": "Average Monthly Budget",
+      "averageSpending": "Average Monthly Spending",
+      "complianceRate": "Budget Compliance Rate",
+      "budgetMonths": "Months with Budgets",
+      "months": "months"
     }
   },
-
   "footer": {
-    "message": "Maintain healthy finances with efficient budget management.",
-    "copyright": "All rights reserved"
+    "message": "Maintain a healthy financial state with efficient budgeting.",
+    "copyright": "All rights reserved."
   },
-
+  "categories": {
+    "label": "Category",
+    "select": "Select Category",
+    "fixed": "Fixed Expense",
+    "variable": "Monthly Variable Expense",
+    "irregular": "Irregular Expense",
+    "other": "Other"
+  },
   "cube": {
     "budget": {
-      "collectionSpace": "Monthly Collection Space",
+      "collectionSpace": "This Month’s Collection Space",
       "remainingSpace": "Remaining Space",
-      "dailyAverage": "Daily avg {amount}",
-      "warningMessage": "High budget usage. Reduce spending!",
-      "cautionMessage": "Used 70%+ of budget. Be careful!",
-      "successMessage": "Great budget management!",
+      "dailyAverage": "Daily Avg: {amount}",
+      "warningMessage": "High budget usage detected. Try reducing your spending!",
+      "cautionMessage": "Over 70% of your budget is used. Be cautious!",
+      "successMessage": "Great job managing your budget!",
       "used": "Used: {amount}",
       "empty": {
-        "title": "Monthly Collection Space",
+        "title": "This Month’s Collection Space",
         "notSet": "Not Set",
         "setupRequired": "Setup Required",
-        "mainMessage": "Set monthly budget",
-        "description": "Set budget to manage expenses systematically and visualize as blocks",
+        "mainMessage": "Set Your Monthly Budget",
+        "description": "Once you set a budget, you can track and visualize your spending with blocks.",
         "setupButton": "Set Budget",
-        "tipTitle": "Budget Tips",
-        "tipDescription": "Allocate 50-70% for living expenses, 20-30% for savings. Start comfortably and adjust gradually."
+        "tipTitle": "Budgeting Tips",
+        "tipDescription": "We recommend allocating 50–70% of income for living costs and 20–30% for savings. Start small and adjust over time."
       }
     },
     "streak": {
-      "todayCompleted": "Today Done",
-      "consecutiveDays": "{days} days streak!",
-      "daysToNextReward": "Days to next reward",
-      "motivationMessage": "Keep recording for special rewards",
-      "startedFrom": "From {date} (Total {totalDays} days)",
-      "maxRecord": "Best: {days} days",
-      "level": "{level} Level",
-      "rewardSoon": "Reward Soon!",
-      "onStreak": "Streaking"
+      "todayCompleted": "Completed Today",
+      "consecutiveDays": "{days} Days in a Row!",
+      "daysToNextReward": "Days Until Next Reward",
+      "motivationMessage": "Keep tracking to earn special rewards!",
+      "startedFrom": "Started on {date} ({totalDays} days tracked)",
+      "maxRecord": "Best Record: {days} Days",
+      "level": "Level {level}",
+      "rewardSoon": "Your reward is on the way!",
+      "onStreak": "On a Streak"
     },
     "block": {
-      "title": "Monthly Block Collection",
-      "unified": "Unified",
+      "title": "This Month’s Block Collection",
+      "unified": "Unified View",
       "byCategory": "By Category",
       "availableSpace": "Available Space",
       "totalExpense": "Total Expense",
-      "categoryCount": "{category} ({count})",
-      "availableSlots": "Available (~{slots} slots)",
-      "totalExpenseAmount": "Total: {amount} won",
-      "totalItems": "Total {count}",
-      "remainingSpaceDetail": "Remaining: ~{slots} slots",
-      "blockRatio": "{used}/{total} blocks",
+      "categoryCount": "{category} ({count} items)",
+      "availableSlots": "Available: ~{slots} blocks",
+      "totalExpenseAmount": "Total Expense: {amount} KRW",
+      "totalItems": "Total {count} Items",
+      "remainingSpaceDetail": "Remaining Space: ~{slots} blocks",
+      "blockRatio": "{used}/{total} Blocks",
       "empty": {
-        "title": "Monthly Block Collection",
-        "slotsReady": "{count} slots ready",
+        "title": "This Month’s Block Collection",
+        "slotsReady": "{count} blocks ready",
         "setBudget": "Set Budget",
-        "mainMessage": "Record first expense!",
-        "description": "Add expenses to see them as pretty blocks",
+        "mainMessage": "Record your first expense!",
+        "description": "Add an expense to visualize your spending pattern through blocks.",
         "addExpenseButton": "Add Expense",
-        "helpTitle": "What's Block Collection?",
-        "helpDescription": "Shows expense amounts as {amount} won blocks to check spending patterns by category."
+        "helpTitle": "What is Block Collection?",
+        "helpDescription": "Each block represents {amount} KRW of spending, allowing you to intuitively understand your category spending patterns."
       }
     },
     "insight": {
       "title": "Smart Insights",
-      "topCategory": "Top spending category",
-      "dailyAverage": "Avg daily spending",
-      "projectedMonthEnd": "Projected month-end"
+      "topCategory": "Top Spending Category",
+      "dailyAverage": "Average Daily Spending",
+      "projectedMonthEnd": "Projected End-of-Month Spending"
     },
-
     "expense": {
       "title": "Recent Expenses",
       "viewAll": "View All",
-      "blocks": "{count} blocks",
-      "viewMoreExpenses": "View more expenses",
+      "blocks": "{count} Blocks",
+      "viewMoreExpenses": "View More Expenses",
       "empty": {
         "title": "Recent Expenses",
-        "mainMessage": "No expenses yet",
-        "description": "Record first expense and start smart budgeting",
+        "mainMessage": "No expenses recorded yet",
+        "description": "Record your first expense and start smart financial management.",
         "addExpenseButton": "Record Expense",
         "quickInputTitle": "Quick Input",
-        "quickInputDescription": "Easily record expenses by category",
+        "quickInputDescription": "Easily record by category.",
         "visualAnalysisTitle": "Visual Analysis",
-        "visualAnalysisDescription": "Check spending patterns with blocks"
+        "visualAnalysisDescription": "View your spending pattern at a glance with blocks."
       }
     }
   }

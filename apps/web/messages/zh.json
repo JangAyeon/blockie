@@ -71,7 +71,37 @@
     "amount": "金额",
     "amountExample": "例如：15000",
     "category": "分类",
-    "date": "支出日期"
+    "date": "支出日期",
+    "overview": {
+      "monthSummary": "本月总结",
+      "recentExpenses": "最近支出记录",
+      "noExpenseData": "无支出数据",
+      "addExpensePrompt": "添加支出以查看\n最近的支出记录",
+      "currencyUnit": "韩元"
+    },
+    "list": {
+      "yearMonth": "{year}年{month}月",
+      "totalExpenses": "总计{count}笔支出",
+      "addExpense": "添加支出",
+      "addExpenseAlt": "加号图标",
+      "category": "类别",
+      "allCategories": "全部",
+      "noExpenses": "没有支出记录",
+      "addNewExpense": "添加新的支出",
+      "editAlt": "编辑",
+      "deleteAlt": "删除"
+    },
+    "modal": {
+      "addTitle": "添加新支出",
+      "editTitle": "编辑支出",
+      "amount": "金额",
+      "amountPlaceholder": "例如：15000",
+      "currencyUnit": "韩元",
+      "expenseDate": "支出日期",
+      "cancel": "取消",
+      "add": "添加",
+      "edit": "保存"
+    }
   },
   "user": {
     "name": "姓名",
@@ -214,39 +244,6 @@
     "copyright": "版权所有"
   },
 
-      "monthSummary": "本月总结",
-      "recentExpenses": "最近支出记录",
-      "noExpenseData": "无支出数据",
-      "addExpensePrompt": "添加支出以查看\n最近的支出记录",
-      "currencyUnit": "韩元",
-      "itemCount": "{value}项",
-      "currencyAmount": "{value}韩元",
-      "categoryName": "{value}"
-    },
-    "list": {
-      "yearMonth": "{year}年{month}月",
-      "totalExpenses": "总计{count}笔支出",
-      "addExpense": "添加支出",
-      "addExpenseAlt": "加号图标",
-      "category": "类别",
-      "allCategories": "全部",
-      "noExpenses": "没有支出记录",
-      "addNewExpense": "添加新的支出",
-      "editAlt": "编辑",
-      "deleteAlt": "删除"
-    },
-    "modal": {
-      "addTitle": "添加新支出",
-      "editTitle": "编辑支出",
-      "amount": "金额",
-      "amountPlaceholder": "例如：15000",
-      "currencyUnit": "韩元",
-      "expenseDate": "支出日期",
-      "cancel": "取消",
-      "add": "添加",
-      "edit": "保存"
-    }
-  },
   "categories": {
     "label": "类别",
     "select": "选择类别",
