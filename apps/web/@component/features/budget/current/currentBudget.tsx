@@ -13,6 +13,7 @@ import Card from "@component/common/card";
 import { useRouter } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
+import { useTranslations } from "next-intl";
 // import SavingsAchievements from "./_savingsAchievements";
 
 interface CurrentBudgetProps {
@@ -30,6 +31,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
   month,
 }) => {
   const router = useRouter();
+  const t = useTranslations();
   const now = new Date();
 
   const { data: budgetStatus, isSuccess } = useBudgetStatus({ year, month });
@@ -168,7 +170,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {[
                   {
-                    label: "예산",
+                    label: t("common.budget"),
                     value: animatedBudget,
                     color: "from-blue-500 to-blue-600",
                     bgGradient: "from-blue-50 to-indigo-50",
@@ -176,7 +178,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     icon: "🎯",
                   },
                   {
-                    label: "지출",
+                    label: t("common.spending"),
                     value: animatedSpent,
                     color: "from-purple-500 to-purple-600",
                     bgGradient: "from-purple-50 to-pink-50",

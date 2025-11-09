@@ -25,6 +25,7 @@ import { toYMDWithString } from "@utils/date/YMD";
 import { pageUrl } from "@constant/page.route";
 
 import { useUpdateBudget } from "@hook/api/budget/useBudget";
+import { useTranslations } from "next-intl";
 import { BUDGET_TAB_MENU } from "@constant/budget";
 import CurrentBudget from "@component/features/budget/current/currentBudget";
 import Footer from "@component/features/budget/footer";
@@ -55,6 +56,7 @@ ChartJS.register(
 export default function BudgetPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations();
   const year = searchParams.get("year");
   const month = searchParams.get("month")?.padStart(2, "0");
   const day = searchParams.get("day")?.padStart(2, "0");
@@ -116,9 +118,11 @@ export default function BudgetPage() {
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-center">예산 관리</h1>
+        <h1 className="text-3xl font-bold text-center">
+          {t("budget.pageTitle")}
+        </h1>
         <p className="text-center text-gray-500 mt-2">
-          스마트한 예산 관리로 현명한 소비 습관을 만들어 보세요
+          {t("budget.pageDescription")}
         </p>
       </motion.div>
 

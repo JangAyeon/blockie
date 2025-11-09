@@ -1,6 +1,8 @@
 import { BlockieFace, BlockieBottom } from "@repo/ui";
+import { useTranslations } from "next-intl";
 
 const FullLoader = () => {
+  const t = useTranslations();
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="animate-pulse flex flex-col items-center">
@@ -8,7 +10,7 @@ const FullLoader = () => {
         <BlockieBottom size={60} />
       </div>
       <p className="mt-4 text-gray-600 animate-pulse">
-        예산 정보를 불러오는 중...
+        {t("budget.loadingBudget")}
       </p>
     </div>
   );

@@ -4,12 +4,14 @@ import { BudgetHistoryItem } from "@type/budget";
 
 import EmptyMonthListed from "./empty.monthListed";
 import { getBarOptionsAnimation } from "@utils/budget";
+import { useTranslations } from "next-intl";
 
 interface BudgetChartProps {
   budgetedMonths?: BudgetHistoryItem[];
 }
 
 const BudgetChart = ({ budgetedMonths }: BudgetChartProps) => {
+  const t = useTranslations();
   if (!budgetedMonths || budgetedMonths.length === 0) {
     return <EmptyMonthListed />;
   }
@@ -18,13 +20,13 @@ const BudgetChart = ({ budgetedMonths }: BudgetChartProps) => {
     labels: budgetedMonths.map((item) => `${item.year}년 ${item.month}월`),
     datasets: [
       {
-        label: "예산",
+        label: t("common.budget"),
         data: budgetedMonths.map((item) => item.budget),
         backgroundColor: "#8DDBA4",
         borderRadius: 6,
       },
       {
-        label: "지출",
+        label: t("common.spending"),
         data: budgetedMonths.map((item) => item.spent),
         backgroundColor: "#F47D7D",
         borderRadius: 6,

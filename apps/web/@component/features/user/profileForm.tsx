@@ -1,8 +1,10 @@
 import { useProfileForm } from "@hook/business/mypage/useUserProfileForm";
 import { User } from "@type/user";
+import { useTranslations } from "next-intl";
 
 // 프로필 폼 컴포넌트
 const ProfileForm = ({ user }: { user: User }) => {
+  const t = useTranslations();
   const form = useProfileForm({
     name: user.name || "",
     email: user.email || "",
@@ -18,9 +20,9 @@ const ProfileForm = ({ user }: { user: User }) => {
               <span className="text-2xl">👤</span>
             </div>
             <div>
-              <h3 className="text-2xl font-black text-gray-800">프로필 정보</h3>
+              <h3 className="text-2xl font-black text-gray-800">{t("user.profileInfo")}</h3>
               <p className="text-sm text-gray-500 font-medium">
-                나의 소중한 정보들
+                {t("user.profileDescription")}
               </p>
             </div>
           </div>
@@ -32,7 +34,7 @@ const ProfileForm = ({ user }: { user: User }) => {
             >
               <span className="flex items-center gap-2">
                 <span className="text-lg">✏️</span>
-                수정하기
+                {t("common.edit")}
               </span>
             </button>
           )}
@@ -46,14 +48,14 @@ const ProfileForm = ({ user }: { user: User }) => {
                 <span className="w-5 h-5 bg-blue-100 rounded-lg flex items-center justify-center">
                   <span className="text-xs">👤</span>
                 </span>
-                이름
+                {t("user.name")}
               </label>
               <input
                 type="text"
                 value={form.formData.name || ""}
                 onChange={(e) => form.updateField("name", e.target.value)}
                 className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-yellow-100 focus:border-yellow-300 transition-all duration-200 text-lg font-medium"
-                placeholder="이름을 입력해주세요"
+                placeholder={t("user.name")}
               />
             </div>
 
@@ -62,14 +64,14 @@ const ProfileForm = ({ user }: { user: User }) => {
                 <span className="w-5 h-5 bg-green-100 rounded-lg flex items-center justify-center">
                   <span className="text-xs">📧</span>
                 </span>
-                이메일
+                {t("user.email")}
               </label>
               <input
                 type="email"
                 value={form.formData.email || ""}
                 onChange={(e) => form.updateField("email", e.target.value)}
                 className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-yellow-100 focus:border-yellow-300 transition-all duration-200 text-lg font-medium"
-                placeholder="이메일을 입력해주세요"
+                placeholder={t("user.email")}
               />
             </div>
 
@@ -78,14 +80,14 @@ const ProfileForm = ({ user }: { user: User }) => {
                 <span className="w-5 h-5 bg-purple-100 rounded-lg flex items-center justify-center">
                   <span className="text-xs">📱</span>
                 </span>
-                전화번호
+                {t("user.phone")}
               </label>
               <input
                 type="tel"
                 value={form.formData.phone || ""}
                 onChange={(e) => form.updateField("phone", e.target.value)}
                 className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-yellow-100 focus:border-yellow-300 transition-all duration-200 text-lg font-medium"
-                placeholder="전화번호를 입력해주세요"
+                placeholder={t("user.phone")}
               />
             </div>
 
@@ -99,12 +101,12 @@ const ProfileForm = ({ user }: { user: User }) => {
                   {form.isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      저장 중...
+                      {t("common.saving")}
                     </>
                   ) : (
                     <>
                       <span className="text-xl">💾</span>
-                      저장하기
+                      {t("common.save")}
                     </>
                   )}
                 </span>
@@ -117,7 +119,7 @@ const ProfileForm = ({ user }: { user: User }) => {
               >
                 <span className="flex items-center gap-2">
                   <span className="text-xl">❌</span>
-                  취소
+                  {t("common.cancel")}
                 </span>
               </button>
             </div>
@@ -127,25 +129,25 @@ const ProfileForm = ({ user }: { user: User }) => {
             {/* 읽기 전용 프로필 정보 */}
             {[
               {
-                label: "이름",
+                label: t("user.name"),
                 value: user?.name,
                 icon: "👤",
                 bgColor: "bg-blue-100",
               },
               {
-                label: "이메일",
+                label: t("user.email"),
                 value: user?.email,
                 icon: "📧",
                 bgColor: "bg-green-100",
               },
               {
-                label: "전화번호",
+                label: t("user.phone"),
                 value: user?.phone,
                 icon: "📱",
                 bgColor: "bg-purple-100",
               },
               {
-                label: "가입일",
+                label: t("user.joinDate"),
                 value: user?.createdAt
                   ? new Date(user.createdAt).toLocaleDateString("ko-KR")
                   : "",

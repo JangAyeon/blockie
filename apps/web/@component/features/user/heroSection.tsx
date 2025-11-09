@@ -1,6 +1,7 @@
 import { BlockieFace, BlockieBottom } from "@repo/ui";
 import { BudgetHistoryResponse } from "@type/budget";
 import { RecentExpense, User } from "@type/user";
+import { useTranslations } from "next-intl";
 
 // 히어로 섹션 컴포넌트
 const HeroSection = ({
@@ -14,6 +15,7 @@ const HeroSection = ({
   recentExpenses: RecentExpense[];
   emotion: "happy" | "neutral" | "sad";
 }) => {
+  const t = useTranslations();
   console.log("#@##", user, budgetHistory, recentExpenses);
 
   return (
@@ -48,18 +50,21 @@ const HeroSection = ({
         <div className="text-center">
           <h2 className="text-4xl lg:text-5xl font-black mb-3">
             <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-500 bg-clip-text text-transparent">
-              안녕하세요,
+              {t("user.greeting").split(",")[0]},
             </span>
-            <span className="text-gray-800">{user?.name || "사용자"}님!</span>
+            <span className="text-gray-800">
+              {user?.name || t("user.defaultName")}
+              {t("user.greeting").includes("님") ? t("user.honorific") : ""}!
+            </span>
           </h2>
 
           {budgetHistory?.budgetComplianceRate && (
             <p className="text-xl text-gray-600 mb-6 text-center leading-relaxed">
               {budgetHistory.budgetComplianceRate >= 80
-                ? "🎉 완벽한 지출 관리의 달인이시네요!"
+                ? t("user.message.perfect")
                 : budgetHistory.budgetComplianceRate >= 60
-                  ? "✨ 꾸준한 관리로 습관을 만들어가고 있어요!"
-                  : "🚀 함께 똑똑한 지출 습관을 만들어 봐요!"}
+                  ? t("user.message.good")
+                  : t("user.message.encourage")}
             </p>
           )}
 
@@ -68,8 +73,8 @@ const HeroSection = ({
             {budgetHistory?.budgetComplianceRate && (
               <div className="group relative">
                 <div className="bg-gradient-to-r from-green-400 to-emerald-500 text-white px-5 py-3 rounded-2xl font-semibold text-sm shadow-lg transform transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl">
-                  🎯 예산 준수율 {budgetHistory.budgetComplianceRate.toFixed(1)}
-                  %
+                  🎯 {t("user.budgetCompliance")}{" "}
+                  {budgetHistory.budgetComplianceRate.toFixed(1)}%
                 </div>
               </div>
             )}
@@ -77,13 +82,14 @@ const HeroSection = ({
             <div className="group relative">
               <div className="bg-gradient-to-r from-blue-400 to-indigo-500 text-white px-5 py-3 rounded-2xl font-semibold text-sm shadow-lg transform transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl">
                 📅 {user?.createdAt && new Date(user.createdAt).getFullYear()}
-                년부터 함께
+                {t("user.since")}
               </div>
             </div>
 
             <div className="group relative">
               <div className="bg-gradient-to-r from-purple-400 to-pink-500 text-white px-5 py-3 rounded-2xl font-semibold text-sm shadow-lg transform transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl">
-                ⭐ {recentExpenses.length}개 최근 기록
+                ⭐ {recentExpenses.length}
+                {t("user.recentRecords")}
               </div>
             </div>
           </div>
@@ -93,7 +99,7 @@ const HeroSection = ({
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-100 to-yellow-200 border-2 border-yellow-300 rounded-2xl px-4 py-2 animate-pulse">
               <span className="text-2xl">🏆</span>
               <span className="text-sm font-bold text-yellow-700">
-                지출 관리 마스터
+                {t("user.master")}
               </span>
             </div>
           )}

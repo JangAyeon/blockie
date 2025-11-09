@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { getMonthName } from "@utils/budget";
 import { BudgetHistoryItem as BudgetHistoryItemType } from "@type/budget";
+import { useTranslations } from "next-intl";
 
 import StatusBadge from "./status.badge";
 import BudgetProgressBar from "./budget.progressBar";
@@ -12,6 +13,7 @@ interface BudgetHistoryItemProps {
 }
 
 const BudgetHistoryItem = ({ item, index }: BudgetHistoryItemProps) => {
+  const t = useTranslations();
   return (
     <motion.div
       key={`${item.year}-${item.month}`}
@@ -24,7 +26,8 @@ const BudgetHistoryItem = ({ item, index }: BudgetHistoryItemProps) => {
     >
       <div className="flex justify-between items-center mb-3">
         <h3 className="font-medium text-title-3">
-          {item.year}년 {getMonthName(item.month)}
+          {item.year}
+          {t("common.year")} {getMonthName(item.month)}
         </h3>
         <StatusBadge item={item} />
       </div>
@@ -33,25 +36,28 @@ const BudgetHistoryItem = ({ item, index }: BudgetHistoryItemProps) => {
         <>
           <div className="grid grid-cols-3 gap-4 mb-3 text-body-2">
             <div>
-              <p className="text-neutral-black mb-1">예산</p>
+              <p className="text-neutral-black mb-1">{t("budget.budget")}</p>
               <p className="font-medium text-base">
-                {item.budget.toLocaleString()}원
+                {item.budget.toLocaleString()}
+                {t("common.currency")}
               </p>
             </div>
             <div>
-              <p className="text-neutral-black mb-1">지출</p>
+              <p className="text-neutral-black mb-1">{t("common.spending")}</p>
               <p className="font-medium text-base">
-                {item.spent.toLocaleString()}원
+                {item.spent.toLocaleString()}
+                {t("common.currency")}
               </p>
             </div>
             <div>
-              <p className="text-neutral-black mb-1">잔액</p>
+              <p className="text-neutral-black mb-1">{t("budget.balance")}</p>
               <p
                 className={`font-medium text-base ${
                   item.remaining < 0 ? "text-error" : "text-green-700"
                 }`}
               >
-                {item.remaining.toLocaleString()}원
+                {item.remaining.toLocaleString()}
+                {t("common.currency")}
               </p>
             </div>
           </div>

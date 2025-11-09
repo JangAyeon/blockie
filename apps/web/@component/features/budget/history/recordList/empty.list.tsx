@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const EmptyHistoryList = () => {
+  const t = useTranslations();
   return (
     <div className="flex flex-col items-center justify-center h-40 text-neutral-medium-gray">
       <Image
@@ -10,7 +12,7 @@ const EmptyHistoryList = () => {
         height={32}
       />
 
-      <p>과거 예산 내역이 없습니다</p>
+      <p>{t("budget.noHistory")}</p>
     </div>
   );
 };

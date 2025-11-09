@@ -2,6 +2,7 @@ import { Radar } from "react-chartjs-2";
 import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategorySummary } from "@type/expense";
+import { useTranslations } from "next-intl";
 
 interface CategoryComparisonCardProps {
   expenseCategory: ExpenseCategorySummary;
@@ -12,6 +13,7 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
   expenseCategory,
   prevExpenseCategory,
 }) => {
+  const t = useTranslations();
   const hasData =
     expenseCategory?.categories.length > 0 &&
     prevExpenseCategory &&
@@ -23,7 +25,9 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
   if (!hasData) {
     return (
       <Card>
-        <h3 className="text-lg font-medium mb-4">카테고리별 지출 추이</h3>
+        <h3 className="text-lg font-medium mb-4">
+          {t("budget.categoryTrend")}
+        </h3>
         <div className="flex flex-col h-full gap-2 items-center justify-center  text-neutral-medium-gray">
           <Image
             src="/common/noMonthListed.svg"
@@ -32,8 +36,7 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
             height={32}
           />
           <div>
-            <p>카테고리 추이 분석을 위한 </p>
-            <p>데이터가 충분하지 않아요.</p>
+            <p>{t("budget.insufficientCategoryData")}</p>
           </div>
         </div>
       </Card>
@@ -44,14 +47,14 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
     labels: expenseCategory.categories.map((cat: any) => cat.category),
     datasets: [
       {
-        label: "이번 달",
+        label: t("budget.thisMonth"),
         data: expenseCategory.categories.map((cat: any) => cat.amount),
         backgroundColor: "rgba(244, 223, 125, 0.2)",
         borderColor: "#F4DF7D",
         pointBackgroundColor: "#F4DF7D",
       },
       {
-        label: "지난 달",
+        label: t("budget.lastMonth"),
         data: prevExpenseCategory.categories.map(
           (cat: any) => cat.amount * 0.9
         ),
@@ -75,7 +78,7 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
 
   return (
     <Card>
-      <h3 className="text-lg font-medium mb-4">카테고리별 지출 추이</h3>
+      <h3 className="text-lg font-medium mb-4">{t("budget.categoryTrend")}</h3>
       <div className="h-64 mb-4">
         <Radar data={radarData} options={radarOptions} />
       </div>

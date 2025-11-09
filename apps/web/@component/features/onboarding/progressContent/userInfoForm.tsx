@@ -1,5 +1,6 @@
 import { Input } from "@repo/ui";
 import { FormData } from "@type/onboarding";
+import { useTranslations } from "next-intl";
 
 interface UserInfoFormProps {
   formData: FormData;
@@ -12,27 +13,28 @@ const UserInfoForm: React.FC<UserInfoFormProps> = ({
   onInputChange,
   onPhoneChange,
 }) => {
+  const t = useTranslations();
   return (
     <div className="text-left w-full mx-auto">
       <div className="space-y-4">
         <Input
-          label="이름"
+          label={t("user.name")}
           type="text"
           name="name"
           value={formData.name}
           onChange={onInputChange}
-          placeholder="이름을 입력해주세요"
+          placeholder={t("user.name")}
           size="lg"
           required
         />
 
         <Input
-          label="전화번호"
+          label={t("user.phone")}
           type="text"
           name="phone"
           value={formData.phone}
           onChange={onPhoneChange}
-          placeholder="010-0000-0000"
+          placeholder={t("user.phonePlaceholder")}
           maxLength={13}
           size="lg"
           required

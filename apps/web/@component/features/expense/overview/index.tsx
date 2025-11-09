@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useRouter } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 interface OverviewProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,6 +34,7 @@ const Overview: React.FC<OverviewProps> = ({
   month,
   day,
 }) => {
+  const t = useTranslations();
   const router = useRouter();
   const t = useTranslations("expense.overview");
   const locale = useLocale();
@@ -57,7 +58,7 @@ const Overview: React.FC<OverviewProps> = ({
     if (!budgetStatus) return [];
     return [
       {
-        label: "dailyRecommendedSpending",
+        label: t("expense.dailyRecommended"),
         value: `${
           budgetStatus.remaining > 0
             ? Math.floor(
@@ -72,7 +73,7 @@ const Overview: React.FC<OverviewProps> = ({
         borderColor: "border-blue-200",
       },
       {
-        label: "spending",
+        label: t("common.spending"),
         value: budgetStatus.spent,
         unit: "currencyUnit",
         icon: "💸",
@@ -81,7 +82,7 @@ const Overview: React.FC<OverviewProps> = ({
         borderColor: "border-purple-200",
       },
       {
-        label: "remainingAmount",
+        label: t("expense.remainingAmount"),
         value: budgetStatus.remaining,
         unit: "currencyUnit",
         icon: budgetStatus.remaining < 0 ? "🚨" : "💰",
@@ -110,22 +111,19 @@ const Overview: React.FC<OverviewProps> = ({
     if (!monthlyExpense || !budgetStatus || !expenseCategory) return [];
     return [
       {
-        label: "totalExpenseCount",
-        value: `${monthlyExpense.expenses.length}`,
-        unit: "itemCount",
+        label: t("expense.totalCount"),
+        value: `${monthlyExpense.expenses.length}건`,
         icon: "📝",
         color: "text-blue-600",
       },
       {
-        label: "averageExpense",
-        value: `${monthlyExpense.expenses.length ? Math.round(budgetStatus.spent / monthlyExpense.expenses.length).toLocaleString() : 0}`,
-        unit: "currencyAmount",
+        label: t("expense.averageSpending"),
+        value: `${monthlyExpense.expenses.length ? Math.round(budgetStatus.spent / monthlyExpense.expenses.length).toLocaleString() : 0}원`,
         icon: "📊",
         color: "text-purple-600",
       },
       {
-        label: "topCategory",
-        unit: "categoryName",
+        label: t("expense.topCategory"),
         value:
           expenseCategory.categories.sort((a, b) => a.amount - b.amount)[0]
             ?.category || "-",
@@ -253,8 +251,7 @@ const Overview: React.FC<OverviewProps> = ({
                       transition={{ delay: 0.3 }}
                       className={`text-sm font-semibold ${budgetStatus.statusColor} flex items-center bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit border`}
                     >
-                      {/* 예산 {budgetStatus.status} 상태 */}
-                      {t("budgetStatus", { status: budgetStatus.status })}
+                      {t("budget.status")} {budgetStatus.status} {t("budget.state")}
                     </motion.p>
                   ) : (
                     <motion.p
@@ -263,8 +260,7 @@ const Overview: React.FC<OverviewProps> = ({
                       transition={{ delay: 0.3 }}
                       className="text-sm font-semibold text-amber-600 flex items-center bg-amber-50/80 backdrop-blur-sm px-2 py-1.5 rounded-full border w-fit border-amber-200"
                     >
-                      {/* 예산 미설정 상태 */}
-                      {t("budgetNotSet")}
+                      {t("budget.notSet")}
                     </motion.p>
                   )}
                   <motion.div
@@ -302,8 +298,7 @@ const Overview: React.FC<OverviewProps> = ({
                             height={24}
                           />
                         </motion.div>
-                        {/* <div>지출 추가</div> */}
-                        <div>{t("addExpense")}</div>
+                        <div>{t("expense.addExpense")}</div>
                       </div>
                     </Button>
                   </motion.div>

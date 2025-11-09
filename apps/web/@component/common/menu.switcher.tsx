@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useRouter } from "@i18n/navigation";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const MenuSwitcher = () => {
   const router = useRouter();
+  const t = useTranslations();
 
   const searchParams = useSearchParams();
   const [showFinanceOptions, setShowFinanceOptions] = useState(false);
@@ -46,7 +48,7 @@ const MenuSwitcher = () => {
             {/* 예산 설정 버튼 */}
             <button
               className="btn-base w-14 h-14 bg-blue-500 hover:bg-blue-400 text-white rounded-full shadow-lg hover-lift animate-button-press flex items-center justify-center"
-              aria-label="예산 설정"
+              aria-label={t("common.budgetSet")}
               onClick={handleBudgetClick}
             >
               <Image
@@ -60,7 +62,7 @@ const MenuSwitcher = () => {
             {/* 지출 기록 버튼 */}
             <button
               className="btn-base w-14 h-14 bg-red-500 hover:bg-red-400 text-white rounded-full shadow-lg hover-lift animate-button-press flex items-center justify-center"
-              aria-label="지출 기록"
+              aria-label={t("common.expenseRecord")}
               onClick={handleExpenseClick}
             >
               <Image
@@ -78,7 +80,7 @@ const MenuSwitcher = () => {
           className={`btn-base w-14 h-14 bg-[var(--color-blockie-green)] hover:bg-green-400 text-white rounded-full shadow-lg hover-lift animate-button-press transition-transform duration-200 ${
             showFinanceOptions ? "rotate-45" : ""
           }`}
-          aria-label="재무 관리"
+          aria-label={t("common.financeManagement")}
           onClick={handleFinanceButtonClick}
         >
           <Image
@@ -91,7 +93,7 @@ const MenuSwitcher = () => {
         {/* 프로필 버튼 */}
         <button
           className="btn-base w-14 h-14 bg-neutral-light-gray hover:bg-medium-gray text-white rounded-full shadow-lg hover-lift animate-button-press"
-          aria-label="프로필 페이지"
+          aria-label={t("common.profilePage")}
           onClick={() => router.push(`${pageUrl.mypage}`)}
         >
           <Image
@@ -103,7 +105,7 @@ const MenuSwitcher = () => {
         </button>
         <button
           className="btn-base w-14 h-14 bg-blockie-blue hover:bg-blue-400 text-white rounded-full shadow-lg hover-lift animate-button-press "
-          aria-label="큐브 페이지"
+          aria-label={t("common.cubePage")}
           onClick={() => navigateWithParams(`${pageUrl.cube}`)}
         >
           <BlockieFace size={30} emotion="happy" />

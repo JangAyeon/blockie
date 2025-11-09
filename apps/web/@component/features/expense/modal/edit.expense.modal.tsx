@@ -15,6 +15,7 @@ interface EditModalProps {
 const EditExpenseModal: React.FC<EditModalProps> = ({
   selectedExpenseConfig,
 }) => {
+  const t = useTranslations();
   const { selectedExpense, setSelectedExpense, handleUpdateExpense } =
     selectedExpenseConfig;
   const tc = useTranslations("categories");
@@ -39,14 +40,13 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-title-2 font-semibold mb-4">
-              {" "}
-              {t("editTitle")}
+              {t("expense.editExpense")}
             </h3>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  {t("amount")}
+                  {t("expense.amount")}
                 </label>
                 <div className="relative">
                   <input
@@ -59,11 +59,11 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
                       })
                     }
                     className="w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
-                    placeholder={t("amountPlaceholder")}
+                    placeholder={t("expense.amountExample")}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <span className="text-neutral-dark-gray">
-                      {t("currencyUnit")}
+                      {t("common.currency")}
                     </span>
                   </div>
                 </div>
@@ -71,7 +71,7 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
 
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  {tc("label")}
+                  {t("expense.category")}
                 </label>
                 <select
                   value={selectedExpense.category}
@@ -83,17 +83,22 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
                   }
                   className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-blue focus:border-blockie-blue"
                 >
-                  <option value=""> {tc("select")}</option>
-                  <option value="월별 고정 지출"> {tc("fixed")}</option>
-                  <option value="월별 변동 지출">{tc("variable")}</option>
-                  <option value="비정기 지출">{tc("irregular")}</option>
-                  <option value="기타">{tc("other")}</option>
+                  <option value="월별 고정 지출">
+                    {t("common.category.fixed")}
+                  </option>
+                  <option value="월별 변동 지출">
+                    {t("common.category.monthlyVariable")}
+                  </option>
+                  <option value="비정기 지출">
+                    {t("common.category.irregular")}
+                  </option>
+                  <option value="기타">{t("common.category.other")}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  {t("expenseDate")}
+                  {t("expense.date")}
                 </label>
                 <input
                   type="date"
@@ -114,14 +119,14 @@ const EditExpenseModal: React.FC<EditModalProps> = ({
                 onClick={() => setSelectedExpense(null)}
                 className="flex-1 px-4 py-3 border border-gray-300 text-neutral-black rounded-lg font-medium hover:bg-gray-50 transition-colors"
               >
-                {t("cancel")}
+                {t("common.cancel")}
               </button>
               <button
                 onClick={handleUpdateExpense}
                 disabled={!selectedExpense.amount || !selectedExpense.category}
                 className="flex-1 px-4 py-3 bg-blockie-blue text-white rounded-lg font-medium hover:shadow-md hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t("edit")}
+                {t("common.edit")}
               </button>
             </div>
           </motion.div>
