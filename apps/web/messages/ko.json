@@ -235,6 +235,28 @@
       "complianceRate": "예산 준수율",
       "budgetMonths": "예산 설정 월",
       "months": "개월"
+    },
+    "modal": {
+      "title": "{year}년 {month}월 예산 설정"
+    },
+    "current": {
+      "statusLabel": "예산 {status} 상태",
+      "statusUnset": "예산 미설정 상태",
+      "editButton": "예산 수정",
+      "setButton": "예산 설정",
+      "remainingAmount": "남은 금액",
+      "usageRateHeading": "예산 사용률",
+      "analysis": {
+        "overBudget": "⚠️ 예산을 초과했습니다. 지출을 줄이거나 예산을 조정해 보세요.",
+        "nearLimit": "⚡ 예산의 80% 이상을 사용했습니다. 지출에 주의하세요.",
+        "withinBudget": "✅ 예산 내에서 지출이 이루어지고 있습니다. 잘 하고 계세요!"
+      },
+      "dailyAllowance": "일일 허용 금액",
+      "remainingDaysLabel": "남은 {days}일 기준",
+      "unsetTitle": "예산이 설정되지 않았습니다",
+      "unsetDescription": "월간 예산을 설정하여 효율적인 지출 관리를 시작해 보세요.",
+      "spentSoFar": "현재까지 지출 금액",
+      "recommendationButton": "내게 맞는 예산 추천받기"
     }
   },
   "footer": {

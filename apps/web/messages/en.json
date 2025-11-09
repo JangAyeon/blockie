@@ -235,6 +235,35 @@
       "complianceRate": "Budget Compliance Rate",
       "budgetMonths": "Months with Budgets",
       "months": "months"
+    },
+    "modal": {
+      "title": "Set budget for {month}/{year}"
+    },
+    "current": {
+      "statusLabel": "Budget status: {status}",
+      "statusUnset": "Budget not set",
+      "editButton": "Edit budget",
+      "setButton": "Set budget",
+      "remainingAmount": "Remaining amount",
+      "usageRateHeading": "Budget usage",
+      "analysis": {
+        "overBudget": "⚠️ You've exceeded your budget. Reduce spending or adjust your plan.",
+        "nearLimit": "⚡ You've used over 80% of your budget. Spend carefully.",
+        "withinBudget": "✅ You're staying within your budget. Great job!"
+      },
+      "dailyAllowance": "Daily allowance",
+      "remainingDaysLabel": "Based on {days} day(s) remaining",
+      "unsetTitle": "No budget set",
+      "unsetDescription": "Set a monthly budget to start managing your spending more effectively.",
+      "spentSoFar": "Total spent so far",
+      "recommendationButton": "Get a tailored budget recommendation",
+      "statusValue": {
+        "notSet": "Not set",
+        "comfortable": "Comfortable",
+        "over": "Over",
+        "warning": "Caution"
+      },
+      "patternAnalysis": "Spending pattern analysis"
     }
   },
   "footer": {

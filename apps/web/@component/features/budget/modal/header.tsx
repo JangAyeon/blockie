@@ -1,5 +1,5 @@
-import { Button } from "@repo/ui";
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 
 interface BudgetModalHeaderProps {
   year: number;
@@ -16,10 +16,12 @@ const BudgetModalHeader: FC<BudgetModalHeaderProps> = ({
   // showAdvisor,
   // onToggleAdvisor,
 }) => {
+  const t = useTranslations("budget.modal");
+
   return (
     <div className="flex items-center justify-between">
       <h2 className="text-title-2 font-semibold">
-        {year}년 {month}월 예산 설정
+        {t("title", { year, month })}
       </h2>
     </div>
   );
