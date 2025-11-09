@@ -1,45 +1,44 @@
 {
   "HomePage": {
-    "title": "您好！",
-    "about": "前往介绍页面"
+    "title": "你好！",
+    "about": "前往关于"
   },
   "Metadata": {
-    "title": "您好！",
-    "about": "前往介绍页面"
+    "title": "你好！",
+    "about": "前往关于"
   },
   "NotFound": {
-    "title": "找不到页面",
-    "description": "您请求的页面不存在或可能已被移动。",
+    "title": "页面未找到",
+    "description": "请求的页面不存在或已移动。",
     "goHome": "返回首页",
-    "autoRedirect": "{seconds}秒后自动跳转到首页。",
-    "helpText": "如果问题持续存在，请联系我们的客服。"
+    "autoRedirect": "{seconds}秒后自动返回首页。",
+    "helpText": "问题持续存在请联系客服。"
   },
   "Auth": {
     "signin": {
-      "title": "还没有账户？",
+      "title": "没有账户？",
       "togoPageName": "注册",
-      "togoUrl": "/signin",
       "headerTitle": "登录",
-      "welcomeTitle": "让我们一起开始使用Blockie！",
-      "welcomeSubTitle": "有趣消费管理的第一步"
+      "togoUrl": "/signin",
+      "welcomeTitle": "与Blocky一起开始！",
+      "welcomeSubTitle": "趣味支出管理第一步"
     },
     "signup": {
-      "title": "已经有账户了？",
+      "title": "已有账户？",
       "togoPageName": "登录",
-      "headerTitle": "注册",
       "togoUrl": "/signup",
-      "welcomeTitle": "很高兴再次见到您！",
-      "welcomeSubTitle": "登录开始搭建积木吧！"
+      "headerTitle": "注册",
+      "welcomeTitle": "欢迎回来！",
+      "welcomeSubTitle": "登录并开始建造方块！"
     }
   },
-
   "email": {
     "label": "邮箱",
     "remember": "记住邮箱"
   },
   "password": {
     "label": "密码",
-    "placeholder": "请输入密码",
+    "placeholder": "输入密码",
     "confirm": "确认密码"
   },
   "confirmPassword": "确认密码",
@@ -53,10 +52,162 @@
   },
   "expense": {
     "management": "支出管理",
-    "description": "通过智能支出管理养成健康的消费习惯",
-    "status": "支出状况",
-    "history": "支出记录",
-    "statistics": "统计分析"
+    "description": "通过智能支出管理建立健康消费习惯",
+    "status": "支出状态",
+    "history": "支出历史",
+    "statistics": "统计分析",
+    "dailyRecommended": "每日推荐",
+    "remainingAmount": "剩余金额",
+    "totalCount": "总支出数",
+    "averageSpending": "平均支出",
+    "topCategory": "最高分类",
+    "addExpense": "添加支出",
+    "selectCategory": "选择分类",
+    "editExpense": "编辑支出",
+    "amount": "金额",
+    "amountExample": "例如：15000",
+    "category": "分类",
+    "date": "支出日期"
+  },
+  "user": {
+    "name": "姓名",
+    "email": "邮箱",
+    "phone": "电话",
+    "joinDate": "注册日期",
+    "greeting": "你好，{name}！",
+    "defaultName": "用户",
+    "profileInfo": "个人资料",
+    "profileDescription": "我的珍贵信息",
+    "budgetCompliance": "预算遵守率",
+    "since": "年开始一起",
+    "recentRecords": "个最近记录",
+    "master": "支出管理大师",
+    "phonePlaceholder": "010-0000-0000",
+    "honorific": "",
+    "loadingMessage": "方块正在获取信息",
+    "message": {
+      "perfect": "🎉 完美的支出管理大师！",
+      "good": "✨ 通过持续管理建立习惯！",
+      "encourage": "🚀 让我们一起建立智能支出习惯！"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "save": "保存",
+    "saving": "保存中...",
+    "next": "下一步",
+    "recommend": "推荐",
+    "turnOffRecommend": "关闭",
+    "getRecommend": "获取",
+    "stable": "稳定",
+    "recommended": "推荐",
+    "challenging": "挑战",
+    "budget": "预算",
+    "spending": "支出",
+    "edit": "编辑",
+    "cancel": "取消",
+    "back": "返回",
+    "budgetSet": "预算设置",
+    "expenseRecord": "支出记录",
+    "financeManagement": "财务管理",
+    "profilePage": "个人资料页面",
+    "cubePage": "方块页面",
+    "category": {
+      "fixed": "固定支出",
+      "monthlyVariable": "月度变动",
+      "irregular": "不定期",
+      "other": "其他"
+    },
+    "currency": "元"
+  },
+
+  "budget": {
+    "recommendTitle": "推荐预算",
+    "recommendDescription": "基于当前支出模式的推荐预算",
+    "currentSpending": "当前支出",
+    "amount": "预算金额",
+    "amountPlaceholder": "输入金额",
+    "status": "预算",
+    "state": "状态",
+    "notSet": "预算未设置",
+    "trendAnalysis": "支出趋势分析",
+    "monthlyAverage": "过去{months}个月月均支出",
+    "complianceRate": "过去{months}个月预算遵守率",
+    "insufficientData": "数据不足无法分析。",
+    "currentTab": "本月预算",
+    "historyTab": "预算历史",
+    "insightsTab": "预算分析",
+    "pageTitle": "预算管理",
+    "pageDescription": "通过智能预算管理养成明智的消费习惯",
+    "noMonthListed": "没有设置预算的月份",
+    "noHistory": "没有过去的预算历史",
+    "notSetThisMonth": "本月未设置预算",
+    "setBudget": "设置预算",
+    "balance": "余额",
+    "usageRate": "使用率",
+    "monthlyHistory": "月度预算历史",
+    "totalMonths": "总计",
+    "of": "中",
+    "categoryTrend": "分类支出趋势",
+    "insufficientCategoryData": "分类趋势分析数据不足。",
+    "thisMonth": "本月",
+    "lastMonth": "上月",
+    "optimizationSuggestion": "预算优化建议",
+    "customRecommendation": "定制预算推荐",
+    "analysisResult": "基于过去几个月支出模式分析，您的优化月度预算是",
+    "isOptimal": "",
+    "categoryRecommendation": "分类预算推荐",
+    "setRecommendedBudget": "设置推荐预算",
+    "overBudget": "超出预算",
+    "withinBudget": "预算内支出",
+    "savingTips": "省钱技巧",
+    "loadingBudget": "正在加载预算信息...",
+    "categoryTips": {
+      "fixed": {
+        "title": "固定支出",
+        "tips": [
+          "通信费：改用经济套餐可节省最多40%的费用。",
+          "订阅服务：取消不使用的订阅以减少每月固定费用。",
+          "保险：调整重复保障范围的保险可每年节省数十万元。"
+        ]
+      },
+      "variable": {
+        "title": "月度变动支出",
+        "tips": [
+          "伙食费：增加在家做饭可节省一半以上的外出就餐费用。",
+          "交通：使用公共交通月票可节省最多30%。",
+          "公共事业费：养成节能习惯可减少月均10-15%的费用。"
+        ]
+      },
+      "irregular": {
+        "title": "不定期支出",
+        "tips": [
+          "旅行：提前预订可在交通和住宿费用上节省20-30%。",
+          "家电：在需要前瞄准促销期可减少大额支出。",
+          "红白事：提前预留红白事预算可减少突发财务负担。"
+        ]
+      },
+      "leisure": {
+        "title": "其他（爱好/休闲等）",
+        "tips": [
+          "爱好：利用免费体验或公共项目可节省成本。",
+          "休闲：与家人/朋友共享OTT可减少一半以上的费用。",
+          "自我提升：利用免费在线课程可大幅节省教育费用。"
+        ]
+      }
+    },
+    "stats": {
+      "averageBudget": "平均月预算",
+      "averageSpending": "平均月支出",
+      "complianceRate": "预算遵守率",
+      "budgetMonths": "预算设置月",
+      "months": "个月"
+    }
+  },
+
+  "footer": {
+    "message": "通过高效的预算管理保持健康的财务状况。",
+    "copyright": "版权所有"
   },
 
   "cube": {
@@ -64,75 +215,76 @@
       "collectionSpace": "本月收藏空间",
       "remainingSpace": "剩余空间",
       "dailyAverage": "日均 {amount}",
-      "warningMessage": "预算使用率较高，请尝试减少支出！",
-      "cautionMessage": "您已使用超过70%的预算，请注意！",
-      "successMessage": "您的预算管理做得很棒！",
-      "used": "已使用: {amount}",
+      "warningMessage": "预算使用率高。减少支出！",
+      "cautionMessage": "已使用预算70%以上。请注意！",
+      "successMessage": "预算管理很棒！",
+      "used": "已用：{amount}",
       "empty": {
         "title": "本月收藏空间",
         "notSet": "未设置",
         "setupRequired": "需要设置",
-        "mainMessage": "设置您的月度预算",
-        "description": "设置预算后，您可以系统地管理支出并以积木形式可视化",
+        "mainMessage": "设置月度预算",
+        "description": "设置预算可系统管理支出并可视化为方块",
         "setupButton": "设置预算",
         "tipTitle": "预算设置提示",
-        "tipDescription": "建议将收入的50-70%用于生活费，20-30%用于储蓄。刚开始可以设置得宽松一些，然后逐步调整。"
+        "tipDescription": "建议生活费占收入50-70%，储蓄占20-30%。从舒适额度开始并逐步调整。"
       }
     },
     "streak": {
       "todayCompleted": "今日完成",
-      "consecutiveDays": "连续记录{days}天！",
-      "daysToNextReward": "距离下次奖励剩余天数",
-      "motivationMessage": "坚持记录，特别奖励等着您",
-      "startedFrom": "从{date}开始 (总计记录{totalDays}天)",
-      "maxRecord": "最高: {days}天",
-      "level": "{level} 等级",
+      "consecutiveDays": "{days}天连续记录！",
+      "daysToNextReward": "距离下次奖励天数",
+      "motivationMessage": "持续记录获得特殊奖励",
+      "startedFrom": "从{date}开始（共{totalDays}天记录）",
+      "maxRecord": "最佳：{days}天",
+      "level": "{level}级",
       "rewardSoon": "奖励即将到来！",
       "onStreak": "连续中"
     },
     "block": {
-      "title": "本月积木收藏",
+      "title": "本月方块收藏",
       "unified": "统一",
       "byCategory": "按类别",
       "availableSpace": "可用空间",
       "totalExpense": "总支出",
-      "categoryCount": "{category} ({count}项)",
-      "availableSlots": "可用 (约{slots}个位置)",
-      "totalExpenseAmount": "总支出: {amount}韩元",
-      "totalItems": "总计{count}项",
-      "remainingSpaceDetail": "剩余空间: 约{slots}个位置",
-      "blockRatio": "{used}/{total} 积木",
+      "categoryCount": "{category}（{count}项）",
+      "availableSlots": "可用（约{slots}格）",
+      "totalExpenseAmount": "总支出：{amount}元",
+      "totalItems": "共{count}项",
+      "remainingSpaceDetail": "剩余空间：约{slots}格",
+      "blockRatio": "{used}/{total}方块",
       "empty": {
-        "title": "本月积木收藏",
-        "slotsReady": "{count}个位置已准备",
+        "title": "本月方块收藏",
+        "slotsReady": "{count}格就绪",
         "setBudget": "设置预算",
-        "mainMessage": "记录您的第一笔支出！",
-        "description": "添加支出后，将以漂亮的积木形式可视化，一目了然",
+        "mainMessage": "记录第一笔支出！",
+        "description": "添加支出可看到漂亮的方块可视化",
         "addExpenseButton": "添加支出",
-        "helpTitle": "什么是积木收藏？",
-        "helpDescription": "将支出金额以{amount}韩元为单位的积木表示，可以直观地查看各类别的支出模式的功能。"
+        "helpTitle": "什么是方块收藏？",
+        "helpDescription": "将支出金额显示为{amount}元单位的方块，直观查看各类别支出模式。"
       }
     },
     "insight": {
       "title": "智能洞察",
-      "topCategory": "支出最多的类别",
+      "topCategory": "最高支出类别",
       "dailyAverage": "本月日均支出",
       "projectedMonthEnd": "预计月末支出"
     },
+
     "expense": {
       "title": "最近支出",
       "viewAll": "查看全部",
-      "blocks": "{count} 积木",
-      "viewMoreExpenses": "查看更多支出记录",
+      "blocks": "{count}方块",
+      "viewMoreExpenses": "查看更多支出",
       "empty": {
         "title": "最近支出",
-        "mainMessage": "还没有支出记录",
-        "description": "记录第一笔支出，开始智能理财管理",
-        "addExpenseButton": "记录第一笔支出",
+        "mainMessage": "暂无支出记录",
+        "description": "记录第一笔支出开始智能理财",
+        "addExpenseButton": "记录支出",
         "quickInputTitle": "快速输入",
-        "quickInputDescription": "可以按类别轻松记录支出",
-        "visualAnalysisTitle": "可视化分析",
-        "visualAnalysisDescription": "通过积木一目了然地查看支出模式"
+        "quickInputDescription": "按类别轻松记录支出",
+        "visualAnalysisTitle": "视觉分析",
+        "visualAnalysisDescription": "用方块查看支出模式"
       }
     }
   }

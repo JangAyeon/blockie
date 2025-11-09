@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
 import Card from "@component/common/card";
+import { useTranslations } from "next-intl";
 
 import { useBudgetHistory } from "@hook/api/budget/useBudget";
 
@@ -11,6 +12,7 @@ import { BUDGET_ITEM_COUNT } from "@constant/budget";
 import FullLoader from "../loading/FullLoader";
 
 const HistorySection = () => {
+  const t = useTranslations();
   const { data } = useBudgetHistory(BUDGET_ITEM_COUNT);
 
   // TODO: 내역 칸 데이터 로딩중
@@ -31,9 +33,13 @@ const HistorySection = () => {
     >
       <Card>
         <div className="flex justify-between items-center">
-          <h2 className="text-title-2  font-semibold">월별 예산 내역</h2>
+          <h2 className="text-title-2  font-semibold">
+            {t("budget.monthlyHistory")}
+          </h2>
           <div className="text-body-2 text-neutral-black">
-            총 {data.totalMonths}개월 중 {data.monthsWithBudget}개월 예산 설정
+            {t("budget.totalMonths")} {data.totalMonths}
+            {t("budget.stats.months")} {t("budget.of")} {data.monthsWithBudget}
+            {t("budget.stats.months")} {t("budget.budgetSet")}
           </div>
         </div>
         <BudgetChart budgetedMonths={budgetedMonths} />

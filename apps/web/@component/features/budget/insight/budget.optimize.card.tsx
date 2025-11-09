@@ -3,6 +3,7 @@ import Card from "../../../common/card";
 import Image from "next/image";
 import { ExpenseCategoryItem, ExpenseCategorySummary } from "@type/expense";
 import CategoryFeedback from "./category.feedback";
+import { useTranslations } from "next-intl";
 interface BudgetOptimizationCardProps {
   recommendedBudget: string;
   expenseCategory: ExpenseCategorySummary;
@@ -16,6 +17,7 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
   prevExpenseCategory,
   onSetBudget,
 }) => {
+  const t = useTranslations();
   const categories = expenseCategory.categories?.length
     ? expenseCategory.categories
     : (prevExpenseCategory?.categories ?? []);
@@ -26,7 +28,9 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
   );
   return (
     <Card className="lg:col-span-2">
-      <h3 className="text-lg font-medium mb-4">예산 최적화 제안</h3>
+      <h3 className="text-lg font-medium mb-4">
+        {t("budget.optimizationSuggestion")}
+      </h3>
 
       <div className="bg-blockie-yellow bg-opacity-10 rounded-lg p-4 mb-4">
         <div className="flex items-start">
@@ -40,12 +44,15 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
           </div>
           <div className="ml-3">
             <h4 className="text-sm font-medium text-blockie-yellow">
-              맞춤 예산 추천
+              {t("budget.customRecommendation")}
             </h4>
             <p className="text-sm mt-1">
-              지난 몇 개월간의 지출 패턴을 분석한 결과, 귀하에게 최적화된 월
-              예산은 <span className="font-bold">{recommendedBudget}원</span>{" "}
-              입니다.
+              {t("budget.analysisResult")}{" "}
+              <span className="font-bold">
+                {recommendedBudget}
+                {t("common.currency")}
+              </span>{" "}
+              {t("budget.isOptimal")}.
             </p>
           </div>
         </div>
@@ -53,7 +60,9 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div className="bg-gray-50 rounded-lg p-4">
-          <h4 className="text-sm font-medium mb-2">카테고리별 예산 추천</h4>
+          <h4 className="text-sm font-medium mb-2">
+            {t("budget.categoryRecommendation")}
+          </h4>
 
           <div className="space-y-2">
             {categories.map((category: ExpenseCategoryItem, index: number) => (
@@ -63,7 +72,7 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
                   {(category.amount * 1.1)
                     .toFixed(0)
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  원
+                  {t("common.currency")}
                 </span>
               </div>
             ))}
@@ -82,7 +91,7 @@ const BudgetOptimizationCard: React.FC<BudgetOptimizationCardProps> = ({
           className="w-full"
           onClick={() => onSetBudget(recommendedBudget)}
         >
-          추천 예산으로 설정하기
+          {t("budget.setRecommendedBudget")}
         </Button>
       </div>
     </Card>

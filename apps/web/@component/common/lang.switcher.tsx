@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const languages = [
   { code: "en", name: "English", flag: "🇺🇸" },
-  { code: "ko", name: "한국어", flag: "🇰🇷" },
+  { code: "ko", name: "Korean", flag: "🇰🇷" },
   { code: "zh", name: "中文", flag: "🇨🇳" },
 ];
 

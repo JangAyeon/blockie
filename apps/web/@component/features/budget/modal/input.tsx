@@ -1,6 +1,7 @@
 import { Button, Input } from "@repo/ui";
 import { BudgetSummary } from "@type/budget";
 import { FC, Dispatch, SetStateAction, ChangeEvent } from "react";
+import { useTranslations } from "next-intl";
 
 interface BudgetInputSectionProps {
   budgetStatus: BudgetSummary;
@@ -21,15 +22,16 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
   showAdvisor,
   onToggleAdvisor,
 }) => {
+  const t = useTranslations();
   return (
     <div className="flex flex-col gap-y-4">
       {/* 현재 지출 정보 */}
       {hasSpentAmount && (
         <div className="p-3 bg-gray-50 rounded-lg">
           <p className="text-body-2 text-neutral-black">
-            현재 지출 금액:{" "}
+            {t("budget.currentSpending")}:{" "}
             <span className="font-medium text-error">
-              {budgetStatus?.spent.toLocaleString() ?? 0}원
+              {budgetStatus?.spent.toLocaleString() ?? 0}{t("common.currency")}
             </span>
           </p>
         </div>
@@ -39,7 +41,7 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
       <div className="flex flex-col gap-y-2">
         <div className="flex items-center justify-between ">
           <label className="block text-body-2 font-medium text-neutral-black ">
-            예산 금액
+            {t("budget.amount")}
           </label>
           {hasSpentAmount && (
             <Button
@@ -48,7 +50,7 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
               onClick={onToggleAdvisor}
               className={showAdvisor ? "bg-blue-50" : ""}
             >
-              💡 추천 {showAdvisor ? "끄기" : "받기"}
+              💡 {t("common.recommend")} {showAdvisor ? t("common.turnOffRecommend") : t("common.getRecommend")}
             </Button>
           )}
         </div>
@@ -62,12 +64,12 @@ const BudgetInputSection: FC<BudgetInputSectionProps> = ({
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setBudgetAmount(e.target.value.replace(/[^0-9]/g, ""))
             }
-            placeholder="금액을 입력하세요"
+            placeholder={t("budget.amountPlaceholder")}
             disabled={isSubmitting}
             required
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <span className="text-neutral-medium-gray">원</span>
+            <span className="text-neutral-medium-gray">{t("common.currency")}</span>
           </div>
         </div>
       </div>

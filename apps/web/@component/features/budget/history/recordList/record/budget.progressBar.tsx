@@ -1,10 +1,12 @@
 import { getUsageColor, getUsageTextColor } from "@utils/budget";
+import { useTranslations } from "next-intl";
 
 interface BudgetProgressBarProps {
   usagePercentage: number;
 }
 
 const BudgetProgressBar = ({ usagePercentage }: BudgetProgressBarProps) => {
+  const t = useTranslations();
   return (
     <div className="mt-3">
       <div className="bg-neutral-light-gray h-3 rounded-full overflow-hidden">
@@ -16,7 +18,7 @@ const BudgetProgressBar = ({ usagePercentage }: BudgetProgressBarProps) => {
         />
       </div>
       <div className="flex justify-between text-caption mt-1">
-        <span className="text-neutral-black">사용률</span>
+        <span className="text-neutral-black">{t("budget.usageRate")}</span>
         <span className={`font-medium ${getUsageTextColor(usagePercentage)}`}>
           {usagePercentage.toFixed(1)}%
         </span>

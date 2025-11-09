@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ExpenseProps } from "app/[locale]/(private)/expense/page";
+import { useTranslations } from "next-intl";
 
 interface AddModalProps {
   modalConfig: {
@@ -18,6 +19,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
   modalConfig,
   expenseConfig,
 }) => {
+  const t = useTranslations();
   const { showAddForm, setShowAddForm } = modalConfig;
   const { newExpense, setNewExpense, handleAddExpense } = expenseConfig;
   return (
@@ -78,11 +80,11 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                   }
                   className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
                 >
-                  <option value="">카테고리 선택</option>
-                  <option value="월별 고정 지출">고정 지출</option>
-                  <option value="월별 변동 지출">월별 변동 지출</option>
-                  <option value="비정기 지출">비정기 지출</option>
-                  <option value="기타">기타</option>
+                  <option value="">{t("expense.selectCategory")}</option>
+                  <option value="월별 고정 지출">{t("common.category.fixed")}</option>
+                  <option value="월별 변동 지출">{t("common.category.monthlyVariable")}</option>
+                  <option value="비정기 지출">{t("common.category.irregular")}</option>
+                  <option value="기타">{t("common.category.other")}</option>
                 </select>
               </div>
 

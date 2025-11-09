@@ -1,6 +1,8 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const EmptyMonthListed = () => {
+  const t = useTranslations();
   return (
     <div className="h-80 mb-6 flex items-center justify-center bg-gray-50 rounded-lg">
       <div className="text-center flex-col flex items-center gap-2 text-neutral-black">
@@ -10,7 +12,7 @@ const EmptyMonthListed = () => {
           width={32}
           height={32}
         />
-        <p>예산이 설정된 달이 없습니다</p>
+        <p>{t("budget.noMonthListed")}</p>
       </div>
     </div>
   );

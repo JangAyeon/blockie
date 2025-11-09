@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type CategoryKey = "fixed" | "variable" | "irregular" | "leisure";
 
@@ -38,11 +39,14 @@ const categories: Record<CategoryKey, { title: string; tips: string[] }> = {
 };
 
 const CategoryFeedback = () => {
+  const t = useTranslations();
   const [activeTab, setActiveTab] = useState<CategoryKey>("fixed");
 
   return (
     <div className="bg-gray-50 rounded-lg p-4 max-w-2xl">
-      <h4 className="text-lg font-semibold mb-4 text-gray-800">절약 팁</h4>
+      <h4 className="text-lg font-semibold mb-4 text-gray-800">
+        {t("budget.savingTips")}
+      </h4>
 
       {/* 탭 버튼들 */}
       <div className="flex flex-wrap gap-2 mb-4">
@@ -56,7 +60,7 @@ const CategoryFeedback = () => {
                 : "bg-white text-gray-600 hover:bg-green-50 hover:text-blockie-green"
             }`}
           >
-            {category.title}
+            {t(`budget.categoryTips.${key}.title`)}
           </button>
         ))}
       </div>
@@ -67,7 +71,9 @@ const CategoryFeedback = () => {
           {categories[activeTab].tips.map((tip, index) => (
             <li key={index} className="flex items-center gap-1">
               <span className="text-blockie-purple text-lg">•</span>
-              <span className="text-sm text-gray-700 ">{tip}</span>
+              <span className="text-sm text-gray-700 ">
+                {t(`budget.categoryTips.${activeTab}.tips.${index}`)}
+              </span>
             </li>
           ))}
         </ul>

@@ -2,12 +2,14 @@ import { OnboardingSlides } from "@constant/onboarding";
 import { Button } from "@repo/ui";
 import { useProgressStepStore } from "@store/useProgressStepStore";
 import { ButtonContainerProps } from "@type/onboarding";
+import { useTranslations } from "next-intl";
 
 const ButtonContainer: React.FC<ButtonContainerProps> = ({
   handleBack,
   handleNext,
   isLoading,
 }) => {
+  const t = useTranslations();
   const { currentStep, canGoBack } = useProgressStepStore();
   const prevSlideData = OnboardingSlides[currentStep - 1];
   const currentlideData = OnboardingSlides[currentStep];
@@ -25,7 +27,7 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
             onClick={handleBack}
             className="text-button"
           >
-            뒤로 가기
+            {t("common.back")}
           </Button>
         )}
 
@@ -41,10 +43,10 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
           disabled={isLoading}
         >
           {isLoading
-            ? "로딩 중..."
+            ? t("common.loading")
             : currentStep === OnboardingSlides.length - 1
-              ? "저장하기"
-              : "다음으로"}
+              ? t("common.save")
+              : t("common.next")}
         </Button>
       </div>
     </>

@@ -3,6 +3,7 @@ import { Button } from "@repo/ui";
 import { BudgetSummary } from "@type/budget";
 import { motion } from "framer-motion";
 import { FC, useCallback } from "react";
+import { useTranslations } from "next-intl";
 
 interface BudgetRecommendSectionProps {
   budgetStatus: BudgetSummary;
@@ -19,6 +20,7 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
   budgetStatus,
   onSelectAmount,
 }) => {
+  const t = useTranslations();
   const getRecommendedBudget = useCallback(
     (multiplier: number) => {
       if (!budgetStatus?.spent) return 0;
@@ -29,16 +31,16 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
 
   const recommendedBudgets: RecommendedBudget[] = [
     {
-      label: "안정적",
+      label: t("common.stable"),
       amount: getRecommendedBudget(BUDGET_MULTIPLIERS.CONSERVATIVE),
     },
     {
-      label: "추천",
+      label: t("common.recommended"),
       amount: getRecommendedBudget(BUDGET_MULTIPLIERS.RECOMMENDED),
       isHighlighted: true,
     },
     {
-      label: "도전적",
+      label: t("common.challenging"),
       amount: getRecommendedBudget(BUDGET_MULTIPLIERS.AGGRESSIVE),
     },
   ].filter((budget) => budget.amount > 0);
@@ -51,7 +53,7 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
       className="bg-blue-50 rounded-lg p-4 flex flex-col gap-y-3 "
     >
       <h3 className="text-body-2 font-medium text-blue-700">
-        📊 추천 예산 금액
+        📊 {t("budget.recommendTitle")}
       </h3>
 
       <div className="flex flex-col gap-y-2">
@@ -67,14 +69,14 @@ const BudgetRecommendSection: FC<BudgetRecommendSectionProps> = ({
               onClick={() => onSelectAmount(budget.amount)}
               className={`text-xs ${budget.isHighlighted ? "bg-blue-100" : ""}`}
             >
-              {budget.amount.toLocaleString()}원
+              {budget.amount.toLocaleString()}{t("common.currency")}
             </Button>
           </div>
         ))}
       </div>
 
       <p className="text-xs text-info">
-        💡 현재 지출 패턴을 기반으로 한 추천 예산입니다
+        💡 {t("budget.recommendDescription")}
       </p>
     </motion.div>
   );

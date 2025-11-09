@@ -1,5 +1,6 @@
 import { isCurrentOrFutureMonth } from "@utils/budget";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface EmptyBudgetStateProps {
   year: number;
@@ -7,6 +8,7 @@ interface EmptyBudgetStateProps {
 }
 
 const EmptyBudgetState = ({ year, month }: EmptyBudgetStateProps) => {
+  const t = useTranslations();
   return (
     <div className="flex items-center justify-center py-8 text-neutral-medium-gray">
       <div className="text-center flex flex-col items-center gap-2">
@@ -17,10 +19,10 @@ const EmptyBudgetState = ({ year, month }: EmptyBudgetStateProps) => {
           height={32}
         />
         <div>
-          <p className="text-body-2">이 달은 예산이 설정되지 않았습니다</p>
+          <p className="text-body-2">{t("budget.notSetThisMonth")}</p>
           {isCurrentOrFutureMonth(year, month) && (
             <button className="cursor-pointer mt-2 text-caption text-neutral-medium-gray hover:text-info underline">
-              예산 설정하기
+              {t("budget.setBudget")}
             </button>
           )}
         </div>

@@ -18,6 +18,7 @@ import Image from "next/image";
 import { useRouter } from "@i18n/navigation";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
+import { useTranslations } from "next-intl";
 interface OverviewProps {
   direction: number;
   setShowAddForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +34,7 @@ const Overview: React.FC<OverviewProps> = ({
   month,
   day,
 }) => {
+  const t = useTranslations();
   const router = useRouter();
   const { data: budgetStatus, isLoading: isBudgetLoading } = useBudgetStatus({
     year,
@@ -54,7 +56,7 @@ const Overview: React.FC<OverviewProps> = ({
     if (!budgetStatus) return [];
     return [
       {
-        label: "하루 권장 지출",
+        label: t("expense.dailyRecommended"),
         value: `${
           budgetStatus.remaining > 0
             ? Math.floor(
@@ -68,7 +70,7 @@ const Overview: React.FC<OverviewProps> = ({
         borderColor: "border-blue-200",
       },
       {
-        label: "지출",
+        label: t("common.spending"),
         value: budgetStatus.spent,
         icon: "💸",
         gradient: "from-purple-500 to-pink-600",
@@ -76,7 +78,7 @@ const Overview: React.FC<OverviewProps> = ({
         borderColor: "border-purple-200",
       },
       {
-        label: "남은 금액",
+        label: t("expense.remainingAmount"),
         value: budgetStatus.remaining,
         icon: budgetStatus.remaining < 0 ? "🚨" : "💰",
         gradient:
@@ -104,19 +106,19 @@ const Overview: React.FC<OverviewProps> = ({
     if (!monthlyExpense || !budgetStatus || !expenseCategory) return [];
     return [
       {
-        label: "총 지출 건수",
+        label: t("expense.totalCount"),
         value: `${monthlyExpense.expenses.length}건`,
         icon: "📝",
         color: "text-blue-600",
       },
       {
-        label: "평균 지출",
+        label: t("expense.averageSpending"),
         value: `${monthlyExpense.expenses.length ? Math.round(budgetStatus.spent / monthlyExpense.expenses.length).toLocaleString() : 0}원`,
         icon: "📊",
         color: "text-purple-600",
       },
       {
-        label: "최다 지출 분류",
+        label: t("expense.topCategory"),
         value:
           expenseCategory.categories.sort((a, b) => a.amount - b.amount)[0]
             ?.category || "-",
@@ -240,7 +242,7 @@ const Overview: React.FC<OverviewProps> = ({
                       transition={{ delay: 0.3 }}
                       className={`text-sm font-semibold ${budgetStatus.statusColor} flex items-center bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit border`}
                     >
-                      예산 {budgetStatus.status} 상태
+                      {t("budget.status")} {budgetStatus.status} {t("budget.state")}
                     </motion.p>
                   ) : (
                     <motion.p
@@ -249,7 +251,7 @@ const Overview: React.FC<OverviewProps> = ({
                       transition={{ delay: 0.3 }}
                       className="text-sm font-semibold text-amber-600 flex items-center bg-amber-50/80 backdrop-blur-sm px-2 py-1.5 rounded-full border w-fit border-amber-200"
                     >
-                      예산 미설정 상태
+                      {t("budget.notSet")}
                     </motion.p>
                   )}
                   <motion.div
@@ -287,7 +289,7 @@ const Overview: React.FC<OverviewProps> = ({
                             height={24}
                           />
                         </motion.div>
-                        <div>지출 추가</div>
+                        <div>{t("expense.addExpense")}</div>
                       </div>
                     </Button>
                   </motion.div>

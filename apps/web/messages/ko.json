@@ -55,7 +55,159 @@
     "description": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요",
     "status": "지출 현황",
     "history": "지출 내역",
-    "statistics": "통계 분석"
+    "statistics": "통계 분석",
+    "dailyRecommended": "하루 권장 지출",
+    "remainingAmount": "남은 금액",
+    "totalCount": "총 지출 건수",
+    "averageSpending": "평균 지출",
+    "topCategory": "최다 지출 분류",
+    "addExpense": "지출 추가",
+    "selectCategory": "카테고리 선택",
+    "editExpense": "지출 수정",
+    "amount": "금액",
+    "amountExample": "예: 15000",
+    "category": "카테고리",
+    "date": "지출 날짜"
+  },
+  "user": {
+    "name": "이름",
+    "email": "이메일",
+    "phone": "전화번호",
+    "joinDate": "가입일",
+    "greeting": "안녕하세요, {name}님!",
+    "defaultName": "사용자",
+    "profileInfo": "프로필 정보",
+    "profileDescription": "나의 소중한 정보들",
+    "budgetCompliance": "예산 준수율",
+    "since": "년부터 함께",
+    "recentRecords": "개 최근 기록",
+    "master": "지출 관리 마스터",
+    "phonePlaceholder": "010-0000-0000",
+    "honorific": "님",
+    "loadingMessage": "블록키가 정보를 가져오고 있어요",
+    "message": {
+      "perfect": "🎉 완벽한 지출 관리의 달인이시네요!",
+      "good": "✨ 꾸준한 관리로 습관을 만들어가고 있어요!",
+      "encourage": "🚀 함께 똑똑한 지출 습관을 만들어 봐요!"
+    }
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "save": "저장",
+    "saving": "저장 중...",
+    "next": "다음으로",
+    "recommend": "추천",
+    "turnOffRecommend": "끄기",
+    "getRecommend": "받기",
+    "stable": "안정적",
+    "recommended": "추천",
+    "challenging": "도전적",
+    "budget": "예산",
+    "spending": "지출",
+    "edit": "수정하기",
+    "cancel": "취소",
+    "back": "뒤로 가기",
+    "budgetSet": "예산 설정",
+    "expenseRecord": "지출 기록",
+    "financeManagement": "재무 관리",
+    "profilePage": "프로필 페이지",
+    "cubePage": "큐브 페이지",
+    "category": {
+      "fixed": "고정 지출",
+      "monthlyVariable": "월별 변동 지출",
+      "irregular": "비정기 지출",
+      "other": "기타"
+    },
+    "currency": "원"
+  },
+
+  "budget": {
+    "recommendTitle": "추천 예산 금액",
+    "recommendDescription": "현재 지출 패턴을 기반으로 한 추천 예산입니다",
+    "currentSpending": "현재 지출 금액",
+    "amount": "예산 금액",
+    "amountPlaceholder": "금액을 입력하세요",
+    "status": "예산",
+    "state": "상태",
+    "notSet": "예산 미설정 상태",
+    "trendAnalysis": "지출 추세 분석",
+    "monthlyAverage": "지난 {months}달 간 월 평균 지출",
+    "complianceRate": "지난 {months}달 간 예산 준수율",
+    "insufficientData": "분석을 위한 충분한 데이터가 없습니다.",
+    "currentTab": "이번 달 예산",
+    "historyTab": "예산 내역",
+    "insightsTab": "예산 분석",
+    "pageTitle": "예산 관리",
+    "pageDescription": "스마트한 예산 관리로 현명한 소비 습관을 만들어 보세요",
+    "noMonthListed": "예산이 설정된 달이 없습니다",
+    "noHistory": "과거 예산 내역이 없습니다",
+    "notSetThisMonth": "이 달은 예산이 설정되지 않았습니다",
+    "setBudget": "예산 설정하기",
+    "balance": "잔액",
+    "usageRate": "사용률",
+    "monthlyHistory": "월별 예산 내역",
+    "totalMonths": "총",
+    "of": "중",
+    "categoryTrend": "카테고리별 지출 추이",
+    "insufficientCategoryData": "카테고리 추이 분석을 위한 데이터가 충분하지 않아요.",
+    "thisMonth": "이번 달",
+    "lastMonth": "지난 달",
+    "optimizationSuggestion": "예산 최적화 제안",
+    "customRecommendation": "맞춤 예산 추천",
+    "analysisResult": "지난 몇 개월간의 지출 패턴을 분석한 결과, 귀하에게 최적화된 월 예산은",
+    "isOptimal": "입니다",
+    "categoryRecommendation": "카테고리별 예산 추천",
+    "setRecommendedBudget": "추천 예산으로 설정하기",
+    "overBudget": "예산 초과",
+    "withinBudget": "예산 내 지출",
+    "savingTips": "절약 팁",
+    "loadingBudget": "예산 정보를 불러오는 중...",
+    "categoryTips": {
+      "fixed": {
+        "title": "고정 지출",
+        "tips": [
+          "통신비: 알뜰폰 요금제로 바꾸면 최대 40% 절약할 수 있습니다.",
+          "구독 서비스: 사용하지 않는 구독을 해지해 매달 고정비를 줄이세요.",
+          "보험: 보장 범위가 겹치는 보험을 조정하면 연 수십만 원 절약됩니다."
+        ]
+      },
+      "variable": {
+        "title": "월별 변동 지출",
+        "tips": [
+          "식비: 집밥을 늘리면 외식비의 절반 이상을 아낄 수 있습니다.",
+          "교통: 대중교통 정기권으로 최대 30% 절약이 가능합니다.",
+          "공과금: 전기·가스 절약 습관으로 월 평균 10~15% 비용 감소 효과가 있습니다."
+        ]
+      },
+      "irregular": {
+        "title": "비정기 지출",
+        "tips": [
+          "여행: 미리 예약하면 교통·숙박비를 20~30% 절약할 수 있습니다.",
+          "가전제품: 필요 시기 전에 세일 기간을 노리면 큰 지출을 줄일 수 있습니다.",
+          "경조사: 경조사비 예산을 미리 따로 잡아두면 갑작스러운 부담을 줄일 수 있습니다."
+        ]
+      },
+      "leisure": {
+        "title": "기타 (취미/여가 등)",
+        "tips": [
+          "취미: 무료 체험이나 공공 프로그램을 활용해 비용을 절약할 수 있습니다.",
+          "여가: OTT는 가족·친구와 함께 공유하면 절반 이하로 줄일 수 있습니다.",
+          "자기계발: 온라인 무료 강의를 활용하면 교육비를 크게 아낄 수 있습니다."
+        ]
+      }
+    },
+    "stats": {
+      "averageBudget": "평균 월 예산",
+      "averageSpending": "평균 월 지출",
+      "complianceRate": "예산 준수율",
+      "budgetMonths": "예산 설정 달",
+      "months": "개월"
+    }
+  },
+
+  "footer": {
+    "message": "효율적인 예산 관리로 건강한 재정 상태를 유지하세요.",
+    "copyright": "모든 권리 보유"
   },
 
   "cube": {
