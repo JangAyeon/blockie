@@ -32,9 +32,10 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
 }) => {
   const router = useRouter();
   const t = useTranslations();
+  const budgetT = useTranslations("budget.current");
   const now = new Date();
 
-  const { data: budgetStatus, isSuccess } = useBudgetStatus({ year, month });
+  const { data: budgetStatus } = useBudgetStatus({ year, month });
 
   // 애니메이션이 있는 카운터
   const animatedBudget = useAnimatedFrame(budgetStatus?.budget ?? 0);
@@ -47,6 +48,26 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
       </>
     );
   console.log(budgetStatus);
+  const statusValueMap: Record<string, string> = {
+    미설정: budgetT("statusValue.notSet"),
+    여유: budgetT("statusValue.comfortable"),
+    초과: budgetT("statusValue.over"),
+    주의: budgetT("statusValue.warning"),
+  };
+  const localizedStatus =
+    statusValueMap[budgetStatus.status] ?? budgetStatus.status;
+  const daysInMonth = new Date(
+    Number(budgetStatus.year),
+    Number(budgetStatus.month),
+    0
+  ).getDate();
+  const remainingDaysRaw = daysInMonth - now.getDate() + 1;
+  const daysRemainingForLabel = Math.max(remainingDaysRaw, 0);
+  const dailyAllowance =
+    budgetStatus.remaining > 0 && remainingDaysRaw > 0
+      ? Math.floor(budgetStatus.remaining / remainingDaysRaw)
+      : 0;
+  const currencyLabel = t("common.currency");
   return (
     <motion.div
       key="current"
@@ -134,7 +155,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       transition={{ delay: 0.3 }}
                       className={`text-sm font-semibold ${budgetStatus.statusColor} flex items-center bg-white/60 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit border`}
                     >
-                      예산 {budgetStatus.status} 상태
+                      {budgetT("statusLabel", { status: localizedStatus })}
                     </motion.p>
                   ) : (
                     <motion.p
@@ -143,7 +164,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       transition={{ delay: 0.3 }}
                       className="text-sm font-semibold text-amber-600 flex items-center bg-amber-50/80 backdrop-blur-sm px-2 py-1.5 rounded-full border w-fit border-amber-200"
                     >
-                      예산 미설정 상태
+                      {budgetT("statusUnset")}
                     </motion.p>
                   )}
                   <motion.div
@@ -156,7 +177,9 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       onClick={() => setShowBudgetModal(true)}
                       className={`shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-sm font-semibold flex items-center bg-white/60 backdrop-blur-sm px-2 py-1.5 rounded-full w-fit`}
                     >
-                      {budgetStatus.hasBudget ? <>예산 수정</> : <>예산 설정</>}
+                      {budgetStatus.hasBudget
+                        ? budgetT("editButton")
+                        : budgetT("setButton")}
                     </Button>
                   </motion.div>
                 </div>
@@ -186,7 +209,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     icon: "💸",
                   },
                   {
-                    label: "남은 금액",
+                    label: budgetT("remainingAmount"),
                     value: animatedRemaining,
                     color:
                       budgetStatus.remaining < 0
@@ -243,7 +266,8 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                         animate={{ scale: 1 }}
                         className={`font-bold text-2xl md:text-3xl bg-gradient-to-r ${item.color} bg-clip-text text-transparent`}
                       >
-                        {item.value.toLocaleString()}원
+                        {item.value.toLocaleString()}
+                        {currencyLabel}
                       </motion.p>
                     </div>
 
@@ -264,7 +288,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                   <div className="flex items-center">
                     <span className="text-lg mr-2">📊</span>
                     <p className="text-lg font-semibold text-gray-700">
-                      예산 사용률
+                      {budgetT("usageRateHeading")}
                     </p>
                   </div>
                   {/* <div className="text-right">
@@ -334,7 +358,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                   <div className="flex items-center mb-4">
                     <span className="text-2xl mr-3">🔍</span>
                     <h3 className="text-lg font-semibold text-gray-700">
-                      지출 패턴 분석
+                      {budgetT("patternAnalysis")}
                     </h3>
                   </div>
                   <div className="flex items-start">
@@ -349,10 +373,10 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     ></div> */}
                     <p className="text-gray-600 leading-relaxed">
                       {budgetStatus.isOverBudget
-                        ? "⚠️ 예산을 초과했습니다. 지출을 줄이거나 예산을 조정해 보세요."
+                        ? budgetT("analysis.overBudget")
                         : budgetStatus.isNearLimit
-                          ? "⚡ 예산의 80% 이상을 사용했습니다. 지출에 주의하세요."
-                          : "✅ 예산 내에서 지출이 이루어지고 있습니다. 잘 하고 계세요!"}
+                          ? budgetT("analysis.nearLimit")
+                          : budgetT("analysis.withinBudget")}
                     </p>
                   </div>
                 </motion.div>
@@ -370,7 +394,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     <div className="flex items-center mb-4">
                       <span className="text-2xl mr-2">📅</span>
                       <h3 className="text-sm font-semibold text-emerald-800">
-                        일일 허용 금액
+                        {budgetT("dailyAllowance")}
                       </h3>
                     </div>
                     <motion.p
@@ -379,30 +403,13 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       animate={{ scale: 1, opacity: 1 }}
                       className="text-2xl md:text-3xl font-bold text-emerald-600 mb-2"
                     >
-                      {budgetStatus.remaining > 0
-                        ? Math.floor(
-                            budgetStatus.remaining /
-                              (new Date(
-                                Number(budgetStatus.year),
-                                Number(budgetStatus.month),
-                                0
-                              ).getDate() -
-                                now.getDate() +
-                                1)
-                          ).toLocaleString()
-                        : 0}
-                      원
+                      {dailyAllowance.toLocaleString()}
+                      {currencyLabel}
                     </motion.p>
                     <p className="text-xs text-emerald-600 font-medium bg-emerald-100/50 px-2 py-1 rounded-full inline-block">
-                      남은{" "}
-                      {new Date(
-                        Number(budgetStatus.year),
-                        Number(budgetStatus.month),
-                        0
-                      ).getDate() -
-                        now.getDate() +
-                        1}
-                      일 기준
+                      {budgetT("remainingDaysLabel", {
+                        days: daysRemainingForLabel,
+                      })}
                     </p>
                   </div>
                 </motion.div>
@@ -437,10 +444,10 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                     💡
                   </motion.div>
                   <h3 className="text-2xl font-bold text-amber-800 mb-4">
-                    예산이 설정되지 않았습니다
+                    {budgetT("unsetTitle")}
                   </h3>
                   <p className="text-amber-700 mb-8 leading-relaxed text-lg">
-                    월간 예산을 설정하여 효율적인 지출 관리를 시작해 보세요.
+                    {budgetT("unsetDescription")}
                   </p>
 
                   {budgetStatus.spent > 0 && (
@@ -453,11 +460,12 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                       <div className="flex items-center justify-center mb-3">
                         <span className="text-2xl mr-2">💰</span>
                         <p className="text-amber-800 font-semibold">
-                          현재까지 지출 금액
+                          {budgetT("spentSoFar")}
                         </p>
                       </div>
                       <p className="text-amber-800 text-3xl font-bold mb-4">
-                        {budgetStatus.spent.toLocaleString()}원
+                        {budgetStatus.spent.toLocaleString()}
+                        {currencyLabel}
                       </p>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -469,7 +477,7 @@ const CurrentBudget: React.FC<CurrentBudgetProps> = ({
                         }}
                       >
                         <span className="mr-2">🎯</span>
-                        내게 맞는 예산 추천받기
+                        {budgetT("recommendationButton")}
                       </motion.button>
                     </motion.div>
                   )}
