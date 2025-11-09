@@ -236,6 +236,9 @@
       "budgetMonths": "예산 설정 월",
       "months": "개월"
     },
+    "modal": {
+      "title": "{year}년 {month}월 예산 설정"
+    },
     "current": {
       "statusLabel": "예산 {status} 상태",
       "statusUnset": "예산 미설정 상태",

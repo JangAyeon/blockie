@@ -236,6 +236,9 @@
       "budgetMonths": "Months with Budgets",
       "months": "months"
     },
+    "modal": {
+      "title": "Set budget for {month}/{year}"
+    },
     "current": {
       "statusLabel": "Budget status: {status}",
       "statusUnset": "Budget not set",
