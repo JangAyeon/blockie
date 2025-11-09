@@ -1,11 +1,11 @@
 {
   "HomePage": {
     "title": "안녕하세요!",
-    "about": "소개 페이지로 이동"
+    "about": "소개로 이동"
   },
   "Metadata": {
     "title": "안녕하세요!",
-    "about": "소개 페이지로 이동"
+    "about": "소개로 이동"
   },
   "Footer": {
     "tagline": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요.",
@@ -13,27 +13,27 @@
   },
   "NotFound": {
     "title": "페이지를 찾을 수 없습니다",
-    "description": "요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.",
-    "goHome": "홈으로 이동",
-    "autoRedirect": "{seconds}초 후 자동으로 홈으로 이동합니다.",
-    "helpText": "문제가 계속되면 고객센터로 문의해 주세요."
+    "description": "요청하신 페이지가 존재하지 않거나 이동되었습니다.",
+    "goHome": "홈으로 돌아가기",
+    "autoRedirect": "{seconds}초 후 홈으로 자동 이동합니다.",
+    "helpText": "문제가 지속될 경우 고객센터로 문의해 주세요."
   },
   "Auth": {
     "signin": {
       "title": "계정이 없으신가요?",
       "togoPageName": "회원가입",
-      "togoUrl": "/signin",
       "headerTitle": "로그인",
-      "welcomeTitle": "블로키와 함께 시작해요!",
-      "welcomeSubTitle": "재미있는 소비 관리의 첫 걸음"
+      "togoUrl": "/signin",
+      "welcomeTitle": "Blockie와 함께 시작해 보세요!",
+      "welcomeSubTitle": "즐겁게 지출 관리하는 첫 걸음"
     },
     "signup": {
       "title": "이미 계정이 있으신가요?",
       "togoPageName": "로그인",
-      "headerTitle": "회원가입",
       "togoUrl": "/signup",
+      "headerTitle": "회원가입",
       "welcomeTitle": "다시 만나서 반가워요!",
-      "welcomeSubTitle": "로그인하고 블록을 쌓아볼까요?"
+      "welcomeSubTitle": "로그인하고 블록을 쌓아보세요!"
     }
   },
   "email": {
@@ -52,26 +52,56 @@
   },
   "signUp": {
     "label": "회원가입",
-    "loading": "회원가입 중..."
+    "loading": "가입 중..."
   },
   "expense": {
     "management": "지출 관리",
     "description": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요",
-    "status": "지출 현황",
+    "status": "지출 상태",
     "history": "지출 내역",
     "statistics": "통계 분석",
-    "dailyRecommended": "하루 권장 지출",
+    "dailyRecommended": "일일 추천",
     "remainingAmount": "남은 금액",
-    "totalCount": "총 지출 건수",
-    "averageSpending": "평균 지출",
-    "topCategory": "최다 지출 분류",
+    "totalCount": "총 지출 횟수",
+    "averageSpending": "평균 지출액",
+    "topCategory": "가장 많은 지출 카테고리",
     "addExpense": "지출 추가",
     "selectCategory": "카테고리 선택",
     "editExpense": "지출 수정",
     "amount": "금액",
     "amountExample": "예: 15000",
     "category": "카테고리",
-    "date": "지출 날짜"
+    "date": "지출 날짜",
+    "overview": {
+      "monthSummary": "이달 요약",
+      "recentExpenses": "최근 지출 내역",
+      "noExpenseData": "지출 데이터가 없습니다",
+      "addExpensePrompt": "지출을 추가하면\n최근 기록을 볼 수 있습니다",
+      "currencyUnit": "원"
+    },
+    "list": {
+      "yearMonth": "{year}년 {month}월",
+      "totalExpenses": "총 {count}건의 지출",
+      "addExpense": "지출 추가",
+      "addExpenseAlt": "플러스 아이콘",
+      "category": "카테고리",
+      "allCategories": "전체",
+      "noExpenses": "지출 내역이 없습니다",
+      "addNewExpense": "새 지출 추가",
+      "editAlt": "수정",
+      "deleteAlt": "삭제"
+    },
+    "modal": {
+      "addTitle": "새 지출 추가",
+      "editTitle": "지출 수정",
+      "amount": "금액",
+      "amountPlaceholder": "예: 15000",
+      "currencyUnit": "원",
+      "expenseDate": "지출 날짜",
+      "cancel": "취소",
+      "add": "추가",
+      "edit": "저장"
+    }
   },
   "user": {
     "name": "이름",
@@ -81,41 +111,41 @@
     "greeting": "안녕하세요, {name}님!",
     "defaultName": "사용자",
     "profileInfo": "프로필 정보",
-    "profileDescription": "나의 소중한 정보들",
+    "profileDescription": "나의 소중한 정보",
     "budgetCompliance": "예산 준수율",
     "since": "년부터 함께",
-    "recentRecords": "개 최근 기록",
+    "recentRecords": "개의 최근 기록",
     "master": "지출 관리 마스터",
     "phonePlaceholder": "010-0000-0000",
-    "honorific": "님",
-    "loadingMessage": "블록키가 정보를 가져오고 있어요",
+    "honorific": "",
+    "loadingMessage": "Blockie가 정보를 불러오고 있어요",
     "message": {
-      "perfect": "🎉 완벽한 지출 관리의 달인이시네요!",
-      "good": "✨ 꾸준한 관리로 습관을 만들어가고 있어요!",
-      "encourage": "🚀 함께 똑똑한 지출 습관을 만들어 봐요!"
+      "perfect": "🎉 완벽한 지출 관리 마스터!",
+      "good": "✨ 꾸준한 관리로 습관을 만들어가요!",
+      "encourage": "🚀 함께 스마트한 소비 습관을 만들어봐요!"
     }
   },
   "common": {
-    "loading": "로딩 중...",
+    "loading": "불러오는 중...",
     "save": "저장",
     "saving": "저장 중...",
-    "next": "다음으로",
+    "next": "다음",
     "recommend": "추천",
     "turnOffRecommend": "끄기",
     "getRecommend": "받기",
-    "stable": "안정적",
-    "recommended": "추천",
-    "challenging": "도전적",
+    "stable": "안정형",
+    "recommended": "추천형",
+    "challenging": "도전형",
     "budget": "예산",
     "spending": "지출",
-    "edit": "수정하기",
+    "edit": "수정",
     "cancel": "취소",
-    "back": "뒤로 가기",
+    "back": "뒤로가기",
     "budgetSet": "예산 설정",
     "expenseRecord": "지출 기록",
-    "financeManagement": "재무 관리",
+    "financeManagement": "재정 관리",
     "profilePage": "프로필 페이지",
-    "cubePage": "큐브 페이지",
+    "cubePage": "블록 페이지",
     "category": {
       "fixed": "고정 지출",
       "monthlyVariable": "월별 변동 지출",
@@ -124,44 +154,43 @@
     },
     "currency": "원"
   },
-
   "budget": {
-    "recommendTitle": "추천 예산 금액",
-    "recommendDescription": "현재 지출 패턴을 기반으로 한 추천 예산입니다",
-    "currentSpending": "현재 지출 금액",
+    "recommendTitle": "추천 예산",
+    "recommendDescription": "현재 지출 패턴을 기반으로 한 추천 예산입니다.",
+    "currentSpending": "현재 지출",
     "amount": "예산 금액",
     "amountPlaceholder": "금액을 입력하세요",
     "status": "예산",
     "state": "상태",
-    "notSet": "예산 미설정 상태",
+    "notSet": "예산이 설정되지 않았습니다",
     "trendAnalysis": "지출 추세 분석",
-    "monthlyAverage": "지난 {months}달 간 월 평균 지출",
-    "complianceRate": "지난 {months}달 간 예산 준수율",
-    "insufficientData": "분석을 위한 충분한 데이터가 없습니다.",
+    "monthlyAverage": "최근 {months}개월 평균 지출",
+    "complianceRate": "최근 {months}개월 예산 준수율",
+    "insufficientData": "데이터가 부족하여 분석할 수 없습니다.",
     "currentTab": "이번 달 예산",
-    "historyTab": "예산 내역",
+    "historyTab": "예산 기록",
     "insightsTab": "예산 분석",
     "pageTitle": "예산 관리",
-    "pageDescription": "스마트한 예산 관리로 현명한 소비 습관을 만들어 보세요",
-    "noMonthListed": "예산이 설정된 달이 없습니다",
-    "noHistory": "과거 예산 내역이 없습니다",
-    "notSetThisMonth": "이 달은 예산이 설정되지 않았습니다",
+    "pageDescription": "스마트한 예산 관리로 현명한 소비 습관을 만들어 보세요.",
+    "noMonthListed": "예산이 설정된 월이 없습니다.",
+    "noHistory": "이전 예산 기록이 없습니다.",
+    "notSetThisMonth": "이번 달 예산이 설정되지 않았습니다.",
     "setBudget": "예산 설정하기",
     "balance": "잔액",
     "usageRate": "사용률",
-    "monthlyHistory": "월별 예산 내역",
+    "monthlyHistory": "월별 예산 기록",
     "totalMonths": "총",
     "of": "중",
-    "categoryTrend": "카테고리별 지출 추이",
-    "insufficientCategoryData": "카테고리 추이 분석을 위한 데이터가 충분하지 않아요.",
+    "categoryTrend": "카테고리별 지출 추세",
+    "insufficientCategoryData": "카테고리별 분석 데이터가 부족합니다.",
     "thisMonth": "이번 달",
-    "lastMonth": "지난 달",
+    "lastMonth": "지난달",
     "optimizationSuggestion": "예산 최적화 제안",
-    "customRecommendation": "맞춤 예산 추천",
-    "analysisResult": "지난 몇 개월간의 지출 패턴을 분석한 결과, 귀하에게 최적화된 월 예산은",
-    "isOptimal": "입니다",
+    "customRecommendation": "맞춤형 예산 추천",
+    "analysisResult": "최근 지출 패턴 분석 결과, 최적 월 예산은",
+    "isOptimal": "",
     "categoryRecommendation": "카테고리별 예산 추천",
-    "setRecommendedBudget": "추천 예산으로 설정하기",
+    "setRecommendedBudget": "추천 예산 설정",
     "overBudget": "예산 초과",
     "withinBudget": "예산 내 지출",
     "savingTips": "절약 팁",
@@ -170,33 +199,33 @@
       "fixed": {
         "title": "고정 지출",
         "tips": [
-          "통신비: 알뜰폰 요금제로 바꾸면 최대 40% 절약할 수 있습니다.",
-          "구독 서비스: 사용하지 않는 구독을 해지해 매달 고정비를 줄이세요.",
-          "보험: 보장 범위가 겹치는 보험을 조정하면 연 수십만 원 절약됩니다."
+          "통신비: 알뜰 요금제로 전환하면 최대 40% 절감할 수 있습니다.",
+          "구독 서비스: 사용하지 않는 구독을 해지해 매월 고정비를 줄이세요.",
+          "보험: 중복 보장 항목을 조정하면 연간 수십만 원을 절약할 수 있습니다."
         ]
       },
       "variable": {
         "title": "월별 변동 지출",
         "tips": [
-          "식비: 집밥을 늘리면 외식비의 절반 이상을 아낄 수 있습니다.",
-          "교통: 대중교통 정기권으로 최대 30% 절약이 가능합니다.",
-          "공과금: 전기·가스 절약 습관으로 월 평균 10~15% 비용 감소 효과가 있습니다."
+          "식비: 집밥을 늘리면 외식비를 절반 이상 절약할 수 있습니다.",
+          "교통비: 대중교통 정기권을 이용하면 최대 30% 절감됩니다.",
+          "공과금: 절전 습관으로 월 10~15%까지 절감할 수 있습니다."
         ]
       },
       "irregular": {
         "title": "비정기 지출",
         "tips": [
-          "여행: 미리 예약하면 교통·숙박비를 20~30% 절약할 수 있습니다.",
-          "가전제품: 필요 시기 전에 세일 기간을 노리면 큰 지출을 줄일 수 있습니다.",
-          "경조사: 경조사비 예산을 미리 따로 잡아두면 갑작스러운 부담을 줄일 수 있습니다."
+          "여행: 미리 예약하면 교통비와 숙박비에서 20~30% 절약할 수 있습니다.",
+          "가전: 구매 전 세일 기간을 노리면 큰 지출을 줄일 수 있습니다.",
+          "경조사: 미리 경조사 예산을 확보해 갑작스러운 부담을 줄이세요."
         ]
       },
       "leisure": {
         "title": "기타 (취미/여가 등)",
         "tips": [
-          "취미: 무료 체험이나 공공 프로그램을 활용해 비용을 절약할 수 있습니다.",
-          "여가: OTT는 가족·친구와 함께 공유하면 절반 이하로 줄일 수 있습니다.",
-          "자기계발: 온라인 무료 강의를 활용하면 교육비를 크게 아낄 수 있습니다."
+          "취미: 무료 체험이나 공공 프로그램을 이용해 비용을 아껴보세요.",
+          "여가: OTT를 가족/친구와 공유해 절반 이상 절약할 수 있습니다.",
+          "자기계발: 무료 온라인 강의를 활용해 교육비를 절감하세요."
         ]
       }
     },
@@ -204,21 +233,13 @@
       "averageBudget": "평균 월 예산",
       "averageSpending": "평균 월 지출",
       "complianceRate": "예산 준수율",
-      "budgetMonths": "예산 설정 달",
+      "budgetMonths": "예산 설정 월",
       "months": "개월"
     }
   },
-
   "footer": {
     "message": "효율적인 예산 관리로 건강한 재정 상태를 유지하세요.",
-    "copyright": "모든 권리 보유"
-  },
-
-      "expenseDate": "지출 날짜",
-      "cancel": "취소",
-      "add": "추가",
-      "edit": "수정"
-    }
+    "copyright": "저작권 소유"
   },
   "categories": {
     "label": "카테고리",
@@ -230,79 +251,78 @@
   },
   "cube": {
     "budget": {
-      "collectionSpace": "이번 달 컬렉션 공간",
+      "collectionSpace": "이달의 수집 공간",
       "remainingSpace": "남은 공간",
       "dailyAverage": "일 평균 {amount}",
-      "warningMessage": "예산 사용률이 높습니다. 지출을 줄여보세요!",
-      "cautionMessage": "예산의 70% 이상을 사용했습니다. 주의하세요!",
-      "successMessage": "훌륭한 예산 관리를 하고 계시네요!",
-      "used": "사용: {amount}",
+      "warningMessage": "예산 사용률이 높습니다. 지출을 줄이세요!",
+      "cautionMessage": "예산의 70% 이상 사용했습니다. 주의하세요!",
+      "successMessage": "예산 관리가 훌륭해요!",
+      "used": "사용됨: {amount}",
       "empty": {
-        "title": "이번 달 컬렉션 공간",
+        "title": "이달의 수집 공간",
         "notSet": "미설정",
         "setupRequired": "설정 필요",
-        "mainMessage": "월간 예산을 설정해보세요",
-        "description": "예산을 설정하면 지출을 체계적으로 관리하고 블록으로 시각화할 수 있어요",
-        "setupButton": "예산 설정하기",
+        "mainMessage": "월별 예산 설정하기",
+        "description": "예산을 설정하면 지출을 체계적으로 관리하고 블록으로 시각화할 수 있습니다.",
+        "setupButton": "예산 설정",
         "tipTitle": "예산 설정 팁",
-        "tipDescription": "수입의 50-70%를 생활비로, 20-30%를 저축으로 설정하는 것을 추천합니다. 처음에는 여유롭게 설정하고 점차 조정해보세요."
+        "tipDescription": "생활비는 수입의 50~70%, 저축은 20~30%를 권장합니다. 편한 수준에서 시작해 점차 조정해 보세요."
       }
     },
     "streak": {
       "todayCompleted": "오늘 완료",
-      "consecutiveDays": "{days}일 연속 기록 중!",
+      "consecutiveDays": "{days}일 연속 기록!",
       "daysToNextReward": "다음 보상까지 남은 일수",
-      "motivationMessage": "꾸준히 기록하면 특별한 보상이 기다려요",
+      "motivationMessage": "꾸준히 기록해 특별 보상을 받아보세요",
       "startedFrom": "{date}부터 시작 (총 {totalDays}일 기록)",
-      "maxRecord": "최고: {days}일",
-      "level": "{level} 레벨",
-      "rewardSoon": "보상 임박!",
-      "onStreak": "연속 중"
+      "maxRecord": "최고 기록: {days}일",
+      "level": "{level}레벨",
+      "rewardSoon": "곧 보상이 도착합니다!",
+      "onStreak": "연속 기록 중"
     },
     "block": {
-      "title": "이번 달 블록 컬렉션",
-      "unified": "통합",
-      "byCategory": "카테고리별",
-      "availableSpace": "사용 가능한 공간",
-      "totalExpense": "전체 지출",
+      "title": "이달의 블록 수집",
+      "unified": "통합 보기",
+      "byCategory": "카테고리별 보기",
+      "availableSpace": "사용 가능 공간",
+      "totalExpense": "총 지출",
       "categoryCount": "{category} ({count}건)",
-      "availableSlots": "사용 가능 (대략 {slots}칸)",
-      "totalExpenseAmount": "전체 지출: {amount}원",
+      "availableSlots": "사용 가능: 약 {slots}칸",
+      "totalExpenseAmount": "총 지출: {amount}원",
       "totalItems": "총 {count}건",
-      "remainingSpaceDetail": "남은 공간: 대략 {slots}칸",
+      "remainingSpaceDetail": "남은 공간: 약 {slots}칸",
       "blockRatio": "{used}/{total} 블록",
       "empty": {
-        "title": "이번 달 블록 컬렉션",
-        "slotsReady": "{count}칸 준비됨",
-        "setBudget": "예산 설정하기",
-        "mainMessage": "첫 번째 지출을 기록해보세요!",
-        "description": "지출을 추가하면 예쁜 블록으로 시각화되어 한 눈에 볼 수 있어요",
-        "addExpenseButton": "지출 추가하기",
-        "helpTitle": "블록 컬렉션이란?",
-        "helpDescription": "지출 금액을 {amount}원 단위의 블록으로 나타내어, 카테고리별 지출 패턴을 직관적으로 확인할 수 있는 기능입니다."
+        "title": "이달의 블록 수집",
+        "slotsReady": "{count}칸 준비 완료",
+        "setBudget": "예산 설정",
+        "mainMessage": "첫 지출을 기록해 보세요!",
+        "description": "지출을 추가하면 블록 시각화를 통해 소비 패턴을 볼 수 있습니다.",
+        "addExpenseButton": "지출 추가",
+        "helpTitle": "블록 수집이란?",
+        "helpDescription": "지출 금액을 {amount}원 단위의 블록으로 표시해 카테고리별 소비 패턴을 직관적으로 볼 수 있습니다."
       }
     },
     "insight": {
       "title": "스마트 인사이트",
-      "topCategory": "가장 많이 지출한 카테고리",
-      "dailyAverage": "이번 달 평균 일일 지출",
+      "topCategory": "가장 높은 지출 카테고리",
+      "dailyAverage": "이달 일 평균 지출",
       "projectedMonthEnd": "예상 월말 지출"
     },
-
     "expense": {
       "title": "최근 지출",
-      "viewAll": "전체보기",
+      "viewAll": "전체 보기",
       "blocks": "{count} 블록",
-      "viewMoreExpenses": "더 많은 지출 내역 보기",
+      "viewMoreExpenses": "지출 더 보기",
       "empty": {
         "title": "최근 지출",
-        "mainMessage": "아직 지출 내역이 없어요",
-        "description": "첫 번째 지출을 기록하고 스마트한 가계부 관리를 시작해보세요",
-        "addExpenseButton": "첫 지출 기록하기",
+        "mainMessage": "아직 지출 기록이 없습니다",
+        "description": "첫 지출을 기록하고 스마트한 재정 관리를 시작해 보세요",
+        "addExpenseButton": "지출 기록하기",
         "quickInputTitle": "빠른 입력",
-        "quickInputDescription": "카테고리별로 간편하게 지출을 기록할 수 있어요",
-        "visualAnalysisTitle": "시각적 분석",
-        "visualAnalysisDescription": "블록으로 지출 패턴을 한눈에 확인해보세요"
+        "quickInputDescription": "카테고리별로 손쉽게 기록할 수 있어요",
+        "visualAnalysisTitle": "시각 분석",
+        "visualAnalysisDescription": "블록으로 소비 패턴을 한눈에 확인해 보세요"
       }
     }
   }

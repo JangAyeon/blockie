@@ -1,10 +1,11 @@
 import { useProfileForm } from "@hook/business/mypage/useUserProfileForm";
 import { User } from "@type/user";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 // 프로필 폼 컴포넌트
 const ProfileForm = ({ user }: { user: User }) => {
   const t = useTranslations();
+  const locale = useLocale();
   const form = useProfileForm({
     name: user.name || "",
     email: user.email || "",
@@ -20,7 +21,9 @@ const ProfileForm = ({ user }: { user: User }) => {
               <span className="text-2xl">👤</span>
             </div>
             <div>
-              <h3 className="text-2xl font-black text-gray-800">{t("user.profileInfo")}</h3>
+              <h3 className="text-2xl font-black text-gray-800">
+                {t("user.profileInfo")}
+              </h3>
               <p className="text-sm text-gray-500 font-medium">
                 {t("user.profileDescription")}
               </p>

@@ -22,7 +22,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
   const t = useTranslations();
   const { showAddForm, setShowAddForm } = modalConfig;
   const { newExpense, setNewExpense, handleAddExpense } = expenseConfig;
-  const t = useTranslations("expense.modal");
+
   const tc = useTranslations("categories");
 
   return (
@@ -61,7 +61,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                       })
                     }
                     className="w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-                    placeholder={t("amountPlaceholder")}
+                    placeholder={t("budget.amountPlaceholder")}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <span className="text-neutral-dark-gray">
@@ -86,9 +86,15 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                   className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
                 >
                   <option value="">{t("expense.selectCategory")}</option>
-                  <option value="월별 고정 지출">{t("common.category.fixed")}</option>
-                  <option value="월별 변동 지출">{t("common.category.monthlyVariable")}</option>
-                  <option value="비정기 지출">{t("common.category.irregular")}</option>
+                  <option value="월별 고정 지출">
+                    {t("common.category.fixed")}
+                  </option>
+                  <option value="월별 변동 지출">
+                    {t("common.category.monthlyVariable")}
+                  </option>
+                  <option value="비정기 지출">
+                    {t("common.category.irregular")}
+                  </option>
                   <option value="기타">{t("common.category.other")}</option>
                 </select>
               </div>
