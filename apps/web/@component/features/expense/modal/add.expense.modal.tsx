@@ -22,6 +22,9 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
   const t = useTranslations();
   const { showAddForm, setShowAddForm } = modalConfig;
   const { newExpense, setNewExpense, handleAddExpense } = expenseConfig;
+  const t = useTranslations("expense.modal");
+  const tc = useTranslations("categories");
+
   return (
     <AnimatePresence>
       {showAddForm && (
@@ -40,12 +43,12 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
             className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-title-2 font-semibold mb-4">새 지출 추가</h3>
+            <h3 className="text-title-2 font-semibold mb-4">{t("addTitle")}</h3>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  금액
+                  {t("amount")}
                 </label>
                 <div className="relative">
                   <input
@@ -58,17 +61,19 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                       })
                     }
                     className="w-full px-3 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blockie-yellow focus:border-blockie-yellow"
-                    placeholder="예: 15000"
+                    placeholder={t("amountPlaceholder")}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <span className="text-neutral-dark-gray">원</span>
+                    <span className="text-neutral-dark-gray">
+                      {t("currencyUnit")}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  카테고리
+                  {tc("label")}
                 </label>
                 <select
                   value={newExpense.category}
@@ -90,7 +95,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
 
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  지출 날짜
+                  {t("expenseDate")}
                 </label>
                 <input
                   type="date"
@@ -111,14 +116,14 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                 onClick={() => setShowAddForm(false)}
                 className="flex-1 px-4 py-3 border border-gray-300 text-neutral-black rounded-lg font-medium hover:bg-gray-50 transition-colors"
               >
-                취소
+                {t("cancel")}
               </button>
               <button
                 onClick={handleAddExpense}
                 disabled={!newExpense.amount || !newExpense.category}
                 className="flex-1 px-4 py-3 bg-blockie-yellow text-neutral-black rounded-lg font-medium hover:shadow-md hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                추가
+                {t("add")}
               </button>
             </div>
           </motion.div>

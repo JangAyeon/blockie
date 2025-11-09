@@ -7,6 +7,10 @@
     "title": "Hello!",
     "about": "Go to about"
   },
+  "Footer": {
+    "tagline": "Create healthy spending habits with smart expense management.",
+    "copyright": "© 2025 Blockie - All rights reserved"
+  },
   "NotFound": {
     "title": "Page not found",
     "description": "The requested page doesn't exist or has been moved.",

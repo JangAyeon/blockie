@@ -36,6 +36,9 @@ const Overview: React.FC<OverviewProps> = ({
 }) => {
   const t = useTranslations();
   const router = useRouter();
+  const t = useTranslations("expense.overview");
+  const locale = useLocale();
+  console.log("locale", locale);
   const { data: budgetStatus, isLoading: isBudgetLoading } = useBudgetStatus({
     year,
     month,
@@ -51,7 +54,6 @@ const Overview: React.FC<OverviewProps> = ({
   });
 
   const isLoading = !budgetStatus || !expenseCategory || !monthlyExpense;
-  console.log("overvie`", budgetStatus, isBudgetLoading);
   const budgetCards = useMemo(() => {
     if (!budgetStatus) return [];
     return [
@@ -64,6 +66,7 @@ const Overview: React.FC<OverviewProps> = ({
               ).toLocaleString()
             : 0
         }`,
+        unit: "currencyUnit",
         icon: "📅",
         gradient: "from-blue-500 to-indigo-600",
         bgGradient: "from-blue-50 to-indigo-50",
@@ -72,6 +75,7 @@ const Overview: React.FC<OverviewProps> = ({
       {
         label: t("common.spending"),
         value: budgetStatus.spent,
+        unit: "currencyUnit",
         icon: "💸",
         gradient: "from-purple-500 to-pink-600",
         bgGradient: "from-purple-50 to-pink-50",
@@ -80,6 +84,7 @@ const Overview: React.FC<OverviewProps> = ({
       {
         label: t("expense.remainingAmount"),
         value: budgetStatus.remaining,
+        unit: "currencyUnit",
         icon: budgetStatus.remaining < 0 ? "🚨" : "💰",
         gradient:
           budgetStatus.remaining < 0
@@ -153,7 +158,7 @@ const Overview: React.FC<OverviewProps> = ({
         <div className="relative z-10">
           {/* 헤더 섹션 */}
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
-            <div className="flex items-center mb-6 md:mb-0">
+            <div className="flex items-center">
               <div className="relative mr-6">
                 {/* Blockie 캐릭터 주변 효과 */}
                 <div className="absolute -inset-3 bg-gradient-to-r from-blue-200/30 via-purple-200/30 to-pink-200/30 rounded-full blur-lg"></div>
@@ -194,7 +199,7 @@ const Overview: React.FC<OverviewProps> = ({
                 </motion.div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 w-full">
                 <div className="flex flex-row gap-3 items-center">
                   <button
                     onClick={() =>
@@ -216,7 +221,11 @@ const Overview: React.FC<OverviewProps> = ({
                     transition={{ delay: 0.2 }}
                     className="text-title-1 font-bold text-neutral-black "
                   >
-                    {budgetStatus.year}년 {budgetStatus.month}월
+                    {/* {budgetStatus.year}년 {budgetStatus.month}월 */}
+                    {t("yearMonth", {
+                      year: budgetStatus.year,
+                      month: budgetStatus.month,
+                    })}
                   </motion.h2>
                   <button
                     onClick={() =>
@@ -342,7 +351,7 @@ const Overview: React.FC<OverviewProps> = ({
                       {item.icon}
                     </motion.span>
                     <p className="text-body-2 font-semibold text-neutral-dark-gray group-hover:text-neutral-black transition-colors">
-                      {item.label}
+                      {t(item.label)}
                     </p>
                   </div>
                   <motion.p
@@ -352,7 +361,8 @@ const Overview: React.FC<OverviewProps> = ({
                     transition={{ delay: 0.5 + index * 0.1 }}
                     className={`font-bold text-title-1 md:text-3xl bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}
                   >
-                    {item.value.toLocaleString()}원
+                    {item.value.toLocaleString()}
+                    {t(item.unit)}
                   </motion.p>
                 </div>
 
@@ -374,36 +384,42 @@ const Overview: React.FC<OverviewProps> = ({
                 <div className="flex items-center">
                   <span className="text-title-1 mr-3">📊</span>
                   <p className="text-title-3 font-semibold text-neutral-black">
-                    예산 사용률
+                    {/* 예산 사용률 */}
+                    {t("budgetUsageRate")}
                   </p>
                 </div>{" "}
-                <p className="text-body-2 text-emerald-600 font-medium bg-emerald-100/60 px-3 py-1.5 rounded-full inline-block">
-                  {new Date(
-                    new Date().getFullYear(),
-                    new Date().getMonth() + 1,
-                    0
-                  ).getDate()}
-                  일 중 {new Date().getDate()}일 지남
-                </p>
               </div>
 
               <div className="text-right">
-                <motion.p
+                <motion.div
                   key={budgetStatus.spent}
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
                   className="text-title-1 font-bold text-gray-800 mb-1"
                 >
-                  {budgetStatus.budget
+                  {/* {budgetStatus.budget
                     ? Math.round(
                         (budgetStatus.spent / budgetStatus.budget) * 100
                       )
                     : 0}
-                  %
-                </motion.p>
-                <p className="text-xs text-neutral-dark-gray">
-                  목표 대비 달성률
-                </p>
+                  % */}
+                  <p className="text-body-2 text-emerald-600  bg-emerald-100/60 p-1.5 text-center rounded-full">
+                    {/* {new Date(
+                    new Date().getFullYear(),
+                    new Date().getMonth() + 1,
+                    0
+                  ).getDate()}
+                  일 중 {new Date().getDate()}일 지남 */}
+                    {t("daysPassed", {
+                      total: new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth() + 1,
+                        0
+                      ).getDate(),
+                      current: new Date().getDate(),
+                    })}
+                  </p>
+                </motion.div>
               </div>
             </div>
 
@@ -442,12 +458,12 @@ const Overview: React.FC<OverviewProps> = ({
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 1.2, type: "spring" }}
-                  className="absolute top-0 h-6 w-1 bg-gray-700 rounded-full"
+                  className="absolute bottom-0 h-6 w-1 bg-gray-700 rounded-full"
                   style={{
                     left: `${Math.min((budgetStatus.spent / budgetStatus.budget) * 100, 98)}%`,
                   }}
                 >
-                  <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-lg whitespace-nowrap shadow-lg">
+                  <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-3 py-1 rounded-lg whitespace-nowrap shadow-lg">
                     {budgetStatus.budget
                       ? Math.round(
                           (budgetStatus.spent / budgetStatus.budget) * 100
@@ -472,7 +488,8 @@ const Overview: React.FC<OverviewProps> = ({
               <div className="flex items-center mb-6">
                 <span className="text-title-1 mr-3">📈</span>
                 <h3 className="text-title-3 font-semibold text-neutral-black">
-                  이번 달 요약
+                  {/* 이번 달 요약 */}
+                  {t("monthSummary")}
                 </h3>
               </div>
               <div className="space-y-4">
@@ -487,11 +504,11 @@ const Overview: React.FC<OverviewProps> = ({
                     <div className="flex items-center">
                       <span className="text-title-3 mr-3">{item.icon}</span>
                       <span className="text-body-2 text-neutral-dark-gray">
-                        {item.label}
+                        {t(item.label)}
                       </span>
                     </div>
                     <span className={`font-semibold ${item.color}`}>
-                      {item.value}
+                      {t(item.unit, { value: item.value })}
                     </span>
                   </motion.div>
                 ))}
@@ -517,7 +534,8 @@ const Overview: React.FC<OverviewProps> = ({
                     📅
                   </motion.span>
                   <h3 className="text-title-3 font-semibold text-neutral-black">
-                    최근 지출 내역
+                    {/* 최근 지출 내역 */}
+                    {t("recentExpenses")}
                   </h3>
                 </div>
                 {monthlyExpense.expenses.length <= 0 ? (
@@ -539,16 +557,18 @@ const Overview: React.FC<OverviewProps> = ({
                       <BlockieBottom size={50} />
                     </motion.div>
                     <p className="text-title-3 font-medium">
-                      지출 데이터가 없습니다
+                      {/* 지출 데이터가 없습니다 */}
+                      {t("noExpenseData")}
                     </p>
                     <p className="text-body-2 text-center mt-2">
-                      지출을 추가하여
+                      {/* 지출을 추가하여
                       <br />
-                      최근 지출 내역을 확인해보세요
+                      최근 지출 내역을 확인해보세요 */}
+                      {t("addExpensePrompt")}
                     </p>
                   </motion.div>
                 ) : (
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {monthlyExpense.expenses
                       .slice(0, Math.min(monthlyExpense.expenses.length, 6))
                       .map((item, idx) => (
@@ -556,21 +576,21 @@ const Overview: React.FC<OverviewProps> = ({
                           key={idx}
                           className="flex flex-col justify-between rounded-lg border border-gray-200 p-4 shadow-sm hover:shadow-md transition"
                         >
-                          <div className="flex items-center gap-3 mb-2">
-                            <span
+                          <div className="flex flex-row items-center gap-3">
+                            <div
                               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border 
 ${categoryConfig[item.category]?.bg ?? "bg-gray-50"} 
 ${categoryConfig[item.category]?.text ?? "text-neutral-black"} 
 ${categoryConfig[item.category]?.border ?? "border-gray-200"}`}
                             >
                               {item.category}
-                            </span>
-                            <span className="text-title-2 font-bold text-neutral-black">
+                            </div>
+                            <div className="text-title-2 font-bold text-neutral-black">
                               {formatWithCurrencySymbol(item.amount)}
-                            </span>
+                            </div>
                           </div>
                           <p className="text-body-2 text-neutral-dark-gray0">
-                            {formatDate(item.expenseDate)}
+                            {formatDate(item.expenseDate, locale)}
                           </p>
                         </div>
                       ))}
