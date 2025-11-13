@@ -60,7 +60,7 @@
     "description": "Manage your expenses smartly and build healthy spending habits.",
     "status": "Expense Status",
     "history": "Expense History",
-    "statistics": "Statistics & Analysis",
+    "statisticsTitle": "Expense Statistics",
     "dailyRecommended": "Daily Recommendation",
     "remainingAmount": "Remaining Amount",
     "totalCount": "Total Expenses",

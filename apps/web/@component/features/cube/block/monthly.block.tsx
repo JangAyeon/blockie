@@ -72,7 +72,7 @@ const BlockMonthlyExpense = memo<BlockMonthlyExpenseProps>(
     return (
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative">
         <div className="z-10">
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex flex-col items-start mb-4 md:flex-row md:justify-between md:items-center">
             <h2 className="font-bold text-lg text-gray-800">{t("title")}</h2>
             <div className="flex flex-row gap-2">
               {/* 토글 스위치 */}
