@@ -36,7 +36,7 @@ const BudgetHistoryItem = ({ item, index }: BudgetHistoryItemProps) => {
         <>
           <div className="grid grid-cols-3 gap-4 mb-3 text-body-2">
             <div>
-              <p className="text-neutral-black mb-1">{t("budget.budget")}</p>
+              <p className="text-neutral-black mb-1">{t("common.budget")}</p>
               <p className="font-medium text-base">
                 {item.budget.toLocaleString()}
                 {t("common.currency")}

@@ -47,7 +47,7 @@ const ExpenseTabMenu: React.FC<ExpenseTabMenuProps> = ({
           onClick={() => changeTab(EXPENSE_TAB_MENU.STATISTICS)}
         >
           {/* "통계 분석" */}
-          {t("statistics")}
+          {t("statisticsTitle")}
         </button>
       </nav>
     </div>
