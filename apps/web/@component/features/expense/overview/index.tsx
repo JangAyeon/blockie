@@ -146,7 +146,7 @@ const Overview: React.FC<OverviewProps> = ({
       initial="initial"
       animate="animate"
       exit="exit"
-      className="max-w-5xl mx-auto p-1 md:p-6"
+      className="max-w-5xl mx-auto px-1 py-6 md:p-6"
     >
       <Card className="lg:col-span-2 relative overflow-hidden">
         {/* 장식적 배경 요소들 */}
