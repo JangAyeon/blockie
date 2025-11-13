@@ -174,7 +174,7 @@ function ExpenseManagementPage() {
     <FullLoader />;
   } else {
     return (
-      <div className="max-w-5xl mx-auto p-1 md:p-6">
+      <div className="max-w-5xl mx-auto px-1 py-6 md:p-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
