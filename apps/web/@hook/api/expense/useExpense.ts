@@ -115,7 +115,7 @@ export const useDeleteExpenseItem = (options: {
 
       // 성공 토스트
       if (showToast) {
-        alert("지출 항목이 삭제되었습니다.");
+        // alert("지출 항목이 삭제되었습니다.");
       }
 
       // 커스텀 성공 콜백 실행
@@ -125,7 +125,7 @@ export const useDeleteExpenseItem = (options: {
     onError: (error, variables) => {
       // 에러 토스트
       if (showToast) {
-        alert("지출 항목 삭제에 실패했습니다.");
+        // alert("지출 항목 삭제에 실패했습니다.");
       }
 
       // 커스텀 에러 콜백 실행
@@ -174,7 +174,7 @@ export const useAddExpenseItem = (options: {
       // });
       // 성공 토스트
       if (showToast) {
-        alert("지출 항목이 추가되었습니다.");
+        // alert("지출 항목이 추가되었습니다.");
       }
 
       // 커스텀 성공 콜백 실행
@@ -184,7 +184,7 @@ export const useAddExpenseItem = (options: {
     onError: (error, variables) => {
       // 에러 토스트
       if (showToast) {
-        alert("지출 항목 추가에 실패했습니다.");
+        // alert("지출 항목 추가에 실패했습니다.");
       }
 
       // 커스텀 에러 콜백 실행
@@ -224,7 +224,7 @@ export const useEditExpenseItem = (options: {
 
       // 성공 토스트
       if (showToast) {
-        alert("지출 항목이 수정 되었습니다.");
+        // alert("지출 항목이 수정 되었습니다.");
       }
 
       // 커스텀 성공 콜백 실행
@@ -234,7 +234,7 @@ export const useEditExpenseItem = (options: {
     onError: (error, variables) => {
       // 에러 토스트
       if (showToast) {
-        alert("지출 항목 수정에 실패했습니다.");
+        // alert("지출 항목 수정에 실패했습니다.");
       }
 
       // 커스텀 에러 콜백 실행
@@ -252,7 +252,7 @@ export const usePeriodExpensesAnalysis = ({
     period,
     months,
   };
-  console.log("zzz", params);
+  // console.log("zzz", params);
   return useQuery({
     queryKey: queryKeys.expense.analysis(params),
     queryFn: () => expenseService.getAnalysis(params),

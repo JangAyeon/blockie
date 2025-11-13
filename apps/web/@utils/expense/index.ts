@@ -18,7 +18,7 @@ export const handleDateChangeBtn = (
     currentDate.setMonth(currentDate.getMonth() + 1);
   } else {
     // 잘못된 타입이 전달된 경우 에러 처리
-    alert("유효하지 않은 타입");
+    // alert("유효하지 않은 타입");
     return;
   }
 

@@ -64,7 +64,7 @@ const ContentSection = () => {
       } catch (err) {
         console.error("업데이트 중 에러", err);
       }
-      alert(`환영합니다! Blockie와 함께 시작해보세요 🎉`);
+      // alert(`환영합니다! Blockie와 함께 시작해보세요 🎉`);
       router.push(`${pageUrl.cube}`);
     } else {
       if (currentStep == 3 && (!formData.name || !formData.phone)) {
