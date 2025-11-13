@@ -51,7 +51,7 @@ export default function ExpenseCubePage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 w-full">
       <main className="max-w-5xl mx-auto px-1 py-8">
         {" "}
-        <main className="p-6 space-y-6">
+        <main className="py-6 px-1 space-y-6">
           {/* 연속 기록 배지 */}
           <StreakContainer streak={streak} dateInfo={{ year, month, day }} />
 
