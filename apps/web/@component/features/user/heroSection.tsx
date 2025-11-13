@@ -50,12 +50,19 @@ const HeroSection = ({
         <div className="text-center">
           <h2 className="text-4xl lg:text-5xl font-black mb-3">
             <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-500 bg-clip-text text-transparent">
-              {t("user.greeting").split(",")[0]},
+              {t("user.greeting", {
+                name: user?.name || t("user.defaultName"),
+              })}
             </span>
-            <span className="text-gray-800">
+            {/* <span className="text-gray-800">
               {user?.name || t("user.defaultName")}
-              {t("user.greeting").includes("님") ? t("user.honorific") : ""}!
-            </span>
+              {t("user.greeting", {
+                name: user?.name || t("user.defaultName"),
+              }).includes("님")
+                ? t("user.honorific")
+                : ""}
+              !
+            </span> */}
           </h2>
 
           {budgetHistory?.budgetComplianceRate && (
