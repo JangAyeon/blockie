@@ -40,7 +40,7 @@ const MenuSwitcher = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-0 z-50 safe-area-bottom">
+    <div className="fixed bottom-6 right-0 safe-area-bottom">
       <div className="flex flex-col justify-center gap-4 px-6">
         {/* 재무 관리 옵션들 */}
         {showFinanceOptions && (

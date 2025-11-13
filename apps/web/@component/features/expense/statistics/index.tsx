@@ -16,6 +16,7 @@ import CategoryStateCard from "./cards/categoryStateCard";
 import { pageUrl } from "@constant/page.route";
 import { handleDateChangeBtn } from "@utils/expense";
 import { useRouter } from "@i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface StatisticsProps extends YearMonthDayProps {
   direction: number;
@@ -28,6 +29,7 @@ const Statistics: React.FC<StatisticsProps> = ({
   day,
 }) => {
   const router = useRouter();
+  const t = useTranslations();
   const { data: weeklyData, chartData: weeklyBarData } = useWeeklyData({
     year,
     month,
@@ -70,7 +72,7 @@ const Statistics: React.FC<StatisticsProps> = ({
                 ◁
               </button>
               <div className="text-title-1 text-neutral-black">
-                📅 {year}년 {month}월{" "}
+                📅 {t("expense.list.yearMonth", { year, month })}
               </div>
               <button
                 onClick={() =>
@@ -88,7 +90,9 @@ const Statistics: React.FC<StatisticsProps> = ({
               </button>
             </div>
           </div>
-          <h3 className="text-title-3 font-medium mb-4">주간 지출 추이</h3>
+          <h3 className="text-title-3 font-medium mb-4">
+            {t("expense.statistics.weeklyTrend")}
+          </h3>
           <WeeklyBarChart data={weeklyBarData} />
 
           {weeklyData && (
@@ -105,7 +109,9 @@ const Statistics: React.FC<StatisticsProps> = ({
         </Card>
 
         <Card>
-          <h3 className="text-title-3 font-medium mb-4">월별 지출 추이</h3>
+          <h3 className="text-title-3 font-medium mb-4">
+            {t("expense.statistics.monthlyTrend")}
+          </h3>
 
           <MonthlyLineChart data={monthlyLineData} />
           {monthlyData && (
@@ -123,7 +129,7 @@ const Statistics: React.FC<StatisticsProps> = ({
 
         <Card className="lg:col-span-2">
           <h3 className="text-title-3 font-medium mb-4">
-            카테고리별 상세 분석
+            {t("expense.statistics.categoryAnalysis")}
           </h3>
 
           {categoryData && categoryDoughnutData ? (
@@ -140,8 +146,7 @@ const Statistics: React.FC<StatisticsProps> = ({
                 height={32}
               />
               <div>
-                <p>카테고리 상세 분석을 위한 </p>
-                <p>데이터가 충분하지 않아요.</p>
+                <p>{t("expense.statistics.insufficientData")}</p>
               </div>
             </div>
           )}

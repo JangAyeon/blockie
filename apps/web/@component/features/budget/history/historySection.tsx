@@ -39,7 +39,7 @@ const HistorySection = () => {
           <div className="text-body-2 text-neutral-black">
             {t("budget.totalMonths")} {data.totalMonths}
             {t("budget.stats.months")} {t("budget.of")} {data.monthsWithBudget}
-            {t("budget.stats.months")} {t("budget.budgetSet")}
+            {t("budget.stats.months")} {t("common.budgetSet")}
           </div>
         </div>
         <BudgetChart budgetedMonths={budgetedMonths} />

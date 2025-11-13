@@ -1,12 +1,14 @@
 import { categoryConfig } from "@constant/expense";
 import { ExpenseCategorySummary } from "@type/expense";
 import { FC } from "react";
+import { useTranslations } from "next-intl";
 
 interface CategoryStateCardProps {
   data: ExpenseCategorySummary;
 }
 
 const CategoryStateCard: FC<CategoryStateCardProps> = ({ data }) => {
+  const t = useTranslations();
   const mostSpentCategory = data.categories.sort(
     (a, b) => -a.amount + b.amount
   )[0];
@@ -27,14 +29,18 @@ const CategoryStateCard: FC<CategoryStateCardProps> = ({ data }) => {
                 <span className="font-medium">{item.category}</span>
               </div>
               <span className="text-body-2 text-neutral-dark-gray">
-                {item.count}건
+                {item.count}
+                {t("expense.statistics.items")}
               </span>
             </div>
             <p className="text-title-2 font-bold text-neutral-black mb-1">
-              {item.amount.toLocaleString()}원
+              {item.amount.toLocaleString()}
+              {t("expense.overview.currencyUnit")}
             </p>
             <p className="text-body-2 text-neutral-dark-gray">
-              평균 {Math.round(item.amount / item.count).toLocaleString()}원
+              {t("expense.statistics.average")}{" "}
+              {Math.round(item.amount / item.count).toLocaleString()}
+              {t("expense.overview.currencyUnit")}
             </p>
             <div className="mt-2">
               <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
@@ -48,7 +54,7 @@ const CategoryStateCard: FC<CategoryStateCardProps> = ({ data }) => {
                 />
               </div>
               <p className="text-xs text-neutral-dark-gray mt-1 text-right">
-                전체의 {item.percentage.toFixed(1)}%
+                {t("expense.statistics.ofTotal")} {item.percentage.toFixed(1)}%
               </p>
             </div>
           </div>
@@ -72,20 +78,21 @@ const CategoryStateCard: FC<CategoryStateCardProps> = ({ data }) => {
               </svg>
 
               <h4 className="text-body-2 font-medium text-blockie-yellow">
-                지출 패턴 분석
+                {t("expense.statistics.spendingPatternAnalysis")}
               </h4>
             </div>
             <div>
               {" "}
               <p className="text-body-2">
-                * 가장 많이 지출하는 카테고리는{" "}
+                * {t("expense.statistics.mostSpentCategory")}{" "}
                 <strong>{mostSpentCategory.category || "-"}</strong>
-                입니다.
+                {t("expense.statistics.is")}
               </p>
               <p className="text-body-2">
-                * 전체 지출의{" "}
-                <strong>{mostSpentCategory.percentage.toFixed(1)}%</strong>를
-                차지합니다.
+                *{" "}
+                {t("expense.statistics.accountsForPercentage", {
+                  percentage: mostSpentCategory.percentage.toFixed(1),
+                })}
               </p>
             </div>
           </div>

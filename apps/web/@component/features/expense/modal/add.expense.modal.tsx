@@ -43,12 +43,14 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
             className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-title-2 font-semibold mb-4">{t("addTitle")}</h3>
+            <h3 className="text-title-2 font-semibold mb-4">
+              {t("expense.modal.addTitle")}
+            </h3>
 
             <div className="space-y-4">
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  {t("amount")}
+                  {t("expense.modal.amount")}
                 </label>
                 <div className="relative">
                   <input
@@ -65,7 +67,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <span className="text-neutral-dark-gray">
-                      {t("currencyUnit")}
+                      {t("expense.modal.currencyUnit")}
                     </span>
                   </div>
                 </div>
@@ -101,7 +103,7 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
 
               <div>
                 <label className="block text-body-2 font-medium text-neutral-black mb-2">
-                  {t("expenseDate")}
+                  {t("expense.modal.expenseDate")}
                 </label>
                 <input
                   type="date"
@@ -122,14 +124,14 @@ const AddExpenseModal: React.FC<AddModalProps> = ({
                 onClick={() => setShowAddForm(false)}
                 className="flex-1 px-4 py-3 border border-gray-300 text-neutral-black rounded-lg font-medium hover:bg-gray-50 transition-colors"
               >
-                {t("cancel")}
+                {t("expense.modal.cancel")}
               </button>
               <button
                 onClick={handleAddExpense}
                 disabled={!newExpense.amount || !newExpense.category}
                 className="flex-1 px-4 py-3 bg-blockie-yellow text-neutral-black rounded-lg font-medium hover:shadow-md hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t("add")}
+                {t("expense.modal.add")}
               </button>
             </div>
           </motion.div>

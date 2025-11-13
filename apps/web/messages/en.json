@@ -56,6 +56,7 @@
   },
   "expense": {
     "management": "Expense Management",
+    "loading": "Loading expense data...",
     "description": "Manage your expenses smartly and build healthy spending habits.",
     "status": "Expense Status",
     "history": "Expense History",
@@ -101,6 +102,31 @@
       "cancel": "Cancel",
       "add": "Add",
       "edit": "Save"
+    },
+    "statistics": {
+      "weeklyTrend": "Weekly Spending Trend",
+      "weeklyAverage": "Weekly Average",
+      "weeklyMax": "Weekly Maximum",
+      "weeklyMin": "Weekly Minimum",
+      "weeklyAnalysis": "Weekly Trend Analysis",
+      "monthlyTrend": "Monthly Spending Trend",
+      "monthlyAverage": "Monthly Average",
+      "monthlyMax": "Monthly Maximum",
+      "monthlyMin": "Monthly Minimum",
+      "monthlyAnalysis": "Monthly Trend Analysis",
+      "categoryAnalysis": "Category Detailed Analysis",
+      "insufficientData": "Insufficient data for category detailed analysis.",
+      "items": "items",
+      "average": "Average",
+      "ofTotal": "of total",
+      "spendingPatternAnalysis": "Spending Pattern Analysis",
+      "mostSpentCategory": "The category with the highest spending is",
+      "is": ".",
+      "accountsFor": "accounts for",
+      "accountsForPercentage": "accounts for {percentage}% of total spending.",
+      "weekLabel": "Week {week}",
+      "weeklySpending": "Weekly Spending",
+      "monthlySpendingTrend": "Monthly Spending Trend"
     }
   },
   "user": {
@@ -126,6 +152,7 @@
     }
   },
   "common": {
+    "year": "Year",
     "loading": "Loading...",
     "save": "Save",
     "saving": "Saving...",
@@ -160,6 +187,7 @@
     "currentSpending": "Current Spending",
     "amount": "Budget Amount",
     "amountPlaceholder": "Enter an amount",
+    "daysPassed": "Day {current} of {total}",
     "status": "Budget",
     "state": "Status",
     "notSet": "Budget not set",

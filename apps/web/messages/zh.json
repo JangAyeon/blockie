@@ -24,7 +24,7 @@
       "togoPageName": "注册",
       "headerTitle": "登录",
       "togoUrl": "/signin",
-      "welcomeTitle": "与Blocky一起开始！",
+      "welcomeTitle": "与Blockie一起开始！",
       "welcomeSubTitle": "趣味支出管理第一步"
     },
     "signup": {
@@ -56,10 +56,11 @@
   },
   "expense": {
     "management": "支出管理",
+    "loading": "正在加载支出信息...",
     "description": "通过智能支出管理建立健康消费习惯",
     "status": "支出状态",
     "history": "支出历史",
-    "statistics": "统计分析",
+    "statisticsTitle": "统计分析",
     "dailyRecommended": "每日推荐",
     "remainingAmount": "剩余金额",
     "totalCount": "总支出数",
@@ -92,6 +93,7 @@
       "deleteAlt": "删除"
     },
     "modal": {
+      "year": "年",
       "addTitle": "添加新支出",
       "editTitle": "编辑支出",
       "amount": "金额",
@@ -101,6 +103,31 @@
       "cancel": "取消",
       "add": "添加",
       "edit": "保存"
+    },
+    "statistics": {
+      "weeklyTrend": "周支出趋势",
+      "weeklyAverage": "周平均",
+      "weeklyMax": "周最高",
+      "weeklyMin": "周最低",
+      "weeklyAnalysis": "周趋势分析",
+      "monthlyTrend": "月支出趋势",
+      "monthlyAverage": "月平均",
+      "monthlyMax": "月最高",
+      "monthlyMin": "月最低",
+      "monthlyAnalysis": "月趋势分析",
+      "categoryAnalysis": "分类详细分析",
+      "insufficientData": "分类详细分析数据不足。",
+      "items": "项",
+      "average": "平均",
+      "ofTotal": "占总额",
+      "spendingPatternAnalysis": "支出模式分析",
+      "mostSpentCategory": "支出最多的类别是",
+      "is": "。",
+      "accountsFor": "占",
+      "accountsForPercentage": "占总支出的{percentage}%。",
+      "weekLabel": "第{week}周",
+      "weeklySpending": "周支出",
+      "monthlySpendingTrend": "月支出趋势"
     }
   },
   "user": {
@@ -161,6 +188,7 @@
     "currentSpending": "当前支出",
     "amount": "预算金额",
     "amountPlaceholder": "输入金额",
+    "daysPassed": "本月{total}天，已过{current}天",
     "status": "预算",
     "state": "状态",
     "notSet": "预算未设置",

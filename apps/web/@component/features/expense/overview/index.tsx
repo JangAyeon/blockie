@@ -35,7 +35,7 @@ const Overview: React.FC<OverviewProps> = ({
   day,
 }) => {
   const router = useRouter();
-  const t = useTranslations("expense.overview");
+  const t = useTranslations();
   const locale = useLocale();
   const { data: budgetStatus, isLoading: isBudgetLoading } = useBudgetStatus({
     year,
@@ -64,7 +64,7 @@ const Overview: React.FC<OverviewProps> = ({
               ).toLocaleString()
             : 0
         }`,
-        unit: "currencyUnit",
+        unit: "expense.overview.currencyUnit",
         icon: "📅",
         gradient: "from-blue-500 to-indigo-600",
         bgGradient: "from-blue-50 to-indigo-50",
@@ -73,7 +73,7 @@ const Overview: React.FC<OverviewProps> = ({
       {
         label: t("common.spending"),
         value: budgetStatus.spent,
-        unit: "currencyUnit",
+        unit: "expense.overview.currencyUnit",
         icon: "💸",
         gradient: "from-purple-500 to-pink-600",
         bgGradient: "from-purple-50 to-pink-50",
@@ -82,7 +82,7 @@ const Overview: React.FC<OverviewProps> = ({
       {
         label: t("expense.remainingAmount"),
         value: budgetStatus.remaining,
-        unit: "currencyUnit",
+        unit: "expense.overview.currencyUnit",
         icon: budgetStatus.remaining < 0 ? "🚨" : "💰",
         gradient:
           budgetStatus.remaining < 0
@@ -109,19 +109,19 @@ const Overview: React.FC<OverviewProps> = ({
     if (!monthlyExpense || !budgetStatus || !expenseCategory) return [];
     return [
       {
-        label: t("expense.totalCount"),
+        label: "expense.totalCount",
         value: `${monthlyExpense.expenses.length}건`,
         icon: "📝",
         color: "text-blue-600",
       },
       {
-        label: t("expense.averageSpending"),
+        label: "expense.averageSpending",
         value: `${monthlyExpense.expenses.length ? Math.round(budgetStatus.spent / monthlyExpense.expenses.length).toLocaleString() : 0}원`,
         icon: "📊",
         color: "text-purple-600",
       },
       {
-        label: t("expense.topCategory"),
+        label: "cube.insight.topCategory",
         value:
           expenseCategory.categories.sort((a, b) => a.amount - b.amount)[0]
             ?.category || "-",
@@ -146,7 +146,7 @@ const Overview: React.FC<OverviewProps> = ({
       initial="initial"
       animate="animate"
       exit="exit"
-      className="max-w-5xl mx-auto p-4 md:p-6"
+      className="max-w-5xl mx-auto p-1 md:p-6"
     >
       <Card className="lg:col-span-2 relative overflow-hidden">
         {/* 장식적 배경 요소들 */}
@@ -220,7 +220,7 @@ const Overview: React.FC<OverviewProps> = ({
                     className="text-title-1 font-bold text-neutral-black "
                   >
                     {/* {budgetStatus.year}년 {budgetStatus.month}월 */}
-                    {t("yearMonth", {
+                    {t("expense.list.yearMonth", {
                       year: budgetStatus.year,
                       month: budgetStatus.month,
                     })}
@@ -384,7 +384,7 @@ const Overview: React.FC<OverviewProps> = ({
                   <span className="text-title-1 mr-3">📊</span>
                   <p className="text-title-3 font-semibold text-neutral-black">
                     {/* 예산 사용률 */}
-                    {t("budgetUsageRate")}
+                    {t("budget.current.usageRateHeading")}
                   </p>
                 </div>{" "}
               </div>
@@ -409,7 +409,7 @@ const Overview: React.FC<OverviewProps> = ({
                     0
                   ).getDate()}
                   일 중 {new Date().getDate()}일 지남 */}
-                    {t("daysPassed", {
+                    {t("budget.daysPassed", {
                       total: new Date(
                         new Date().getFullYear(),
                         new Date().getMonth() + 1,
@@ -488,7 +488,7 @@ const Overview: React.FC<OverviewProps> = ({
                 <span className="text-title-1 mr-3">📈</span>
                 <h3 className="text-title-3 font-semibold text-neutral-black">
                   {/* 이번 달 요약 */}
-                  {t("monthSummary")}
+                  {t("expense.overview.monthSummary")}
                 </h3>
               </div>
               <div className="space-y-4">
@@ -534,7 +534,7 @@ const Overview: React.FC<OverviewProps> = ({
                   </motion.span>
                   <h3 className="text-title-3 font-semibold text-neutral-black">
                     {/* 최근 지출 내역 */}
-                    {t("recentExpenses")}
+                    {t("expense.overview.recentExpenses")}
                   </h3>
                 </div>
                 {monthlyExpense.expenses.length <= 0 ? (

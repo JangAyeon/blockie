@@ -33,7 +33,7 @@ export default function LanguageSwitcher() {
   const currentLanguage = languages.find((lang) => lang.code === locale);
 
   return (
-    <div className="fixed bottom-6 left-0 z-50">
+    <div className="fixed bottom-6 left-0">
       <div className="flex flex-col justify-center gap-3 px-6">
         {/* 언어 옵션들 */}
         {showLanguageOptions && (
