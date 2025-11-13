@@ -59,7 +59,7 @@
     "description": "스마트한 지출 관리로 건강한 소비 습관을 만들어 보세요.",
     "status": "지출 현황",
     "history": "지출 내역",
-    "statistics": "통계 및 분석",
+    "statisticsTitle": "지출 통계",
     "dailyRecommended": "일일 권장 지출",
     "remainingAmount": "남은 금액",
     "totalCount": "총 지출 횟수",
