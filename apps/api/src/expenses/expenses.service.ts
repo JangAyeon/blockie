@@ -84,8 +84,10 @@ export class ExpensesService {
     month: number,
     day: number,
   ) {
-    const start = startOfMonth(new Date(year, month - 1, day));
-    const end = endOfMonth(new Date(year, month - 1, day));
+    const targetDate = new Date(year, month - 1, day);
+
+    const start = startOfDay(targetDate);
+    const end = endOfDay(targetDate);
 
     const expenses = await this.prisma.expense.findMany({
       where: {
@@ -108,11 +110,15 @@ export class ExpensesService {
     month: number,
     day: number,
   ) {
-    const start = startOfWeek(new Date(year, month - 1, 1), {
-      weekStartsOn: 1,
-    }); // 월요일 시작
-    const end = endOfWeek(new Date(year, month - 1, 1), { weekStartsOn: 1 });
+    const targetDate = new Date(year, month - 1, day);
 
+    const start = startOfWeek(targetDate, {
+      weekStartsOn: 1, // 월요일 시작
+    });
+
+    const end = endOfWeek(targetDate, {
+      weekStartsOn: 1,
+    });
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
@@ -132,6 +138,7 @@ export class ExpensesService {
     userId: string,
     year: number,
     month: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     day: number,
   ) {
     const start = startOfMonth(new Date(year, month - 1, 1));
@@ -154,11 +161,14 @@ export class ExpensesService {
     return { total, expenses };
   }
   async getCategoryStats(userId: string, year: number, month: number) {
-    const start = startOfMonth(new Date(year, month - 1, 1));
-    const end = endOfMonth(new Date(year, month - 1, 1));
+    const targetDate = new Date(year, month - 1);
 
-    // 해당 월의 모든 지출 데이터 조회
-    const expenses = await this.prisma.expense.findMany({
+    const start = startOfMonth(targetDate);
+    const end = endOfMonth(targetDate);
+
+    // 1) Prisma에서 카테고리별 합계 + 건수를 바로 집계
+    const grouped = await this.prisma.expense.groupBy({
+      by: ['category'],
       where: {
         userId,
         expenseDate: {
@@ -166,12 +176,12 @@ export class ExpensesService {
           lte: end,
         },
       },
-      orderBy: {
-        amount: 'desc',
-      },
+      _sum: { amount: true },
+      _count: { amount: true },
     });
 
-    if (expenses.length === 0) {
+    // 집계할 데이터가 없다면 빈 데이터 반환
+    if (grouped.length === 0) {
       return {
         totalAmount: 0,
         totalCount: 0,
@@ -179,43 +189,27 @@ export class ExpensesService {
       };
     }
 
-    // 카테고리별 집계
-    const categoryMap = new Map<string, { amount: number; count: number }>();
-    let totalAmount = 0;
+    // 2) 전체 금액
+    const totalAmount = grouped.reduce(
+      (sum, c) => sum + (c._sum.amount ?? 0),
+      0,
+    );
+    const totalCount = grouped.reduce((sum, c) => sum + c._count.amount, 0);
 
-    expenses.forEach((expense) => {
-      const category = expense.category;
-      const amount = expense.amount;
-
-      totalAmount += amount;
-
-      if (categoryMap.has(category)) {
-        const existing = categoryMap.get(category)!;
-        categoryMap.set(category, {
-          amount: existing.amount + amount,
-          count: existing.count + 1,
-        });
-      } else {
-        categoryMap.set(category, {
-          amount: amount,
-          count: 1,
-        });
-      }
-    });
-
-    // 결과 변환 및 정렬 (금액 기준 내림차순)
-    const categories = Array.from(categoryMap.entries())
-      .map(([category, data]) => ({
-        category,
-        amount: data.amount,
-        count: data.count,
-        percentage: totalAmount > 0 ? (data.amount / totalAmount) * 100 : 0,
+    // 3) 카테고리별 비율 포함 데이터 변환
+    const categories = grouped
+      .map((c) => ({
+        category: c.category,
+        amount: c._sum.amount ?? 0,
+        count: c._count.amount,
+        percentage:
+          totalAmount > 0 ? ((c._sum.amount ?? 0) / totalAmount) * 100 : 0,
       }))
-      .sort((a, b) => b.amount - a.amount);
+      .sort((a, b) => b.amount - a.amount); // 가장 많이 쓴 카테고리 순으로 정렬
 
     return {
       totalAmount,
-      totalCount: expenses.length,
+      totalCount,
       categories,
     };
   }
