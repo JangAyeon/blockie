@@ -1,4 +1,5 @@
 import { IsInt, Min, Max, IsOptional, IsIn } from 'class-validator';
+import { PeriodType } from 'src/utils/expense/state/date-range.util';
 // import { Transform } from 'class-transformer';
 
 export class GetTrendAnalysisDto {
@@ -10,8 +11,8 @@ export class GetTrendAnalysisDto {
   months?: number = 6; // 기본값: 최근 6개월
 
   @IsOptional()
-  @IsIn(['monthly', 'weekly', 'daily'])
-  period?: 'monthly' | 'weekly' | 'daily' = 'monthly';
+  @IsIn(Object.values(PeriodType))
+  period?: PeriodType = PeriodType.Monthly;
 
   @IsOptional()
   @IsInt()
