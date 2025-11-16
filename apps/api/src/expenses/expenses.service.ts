@@ -20,6 +20,7 @@ import {
 } from 'date-fns';
 import { getDateRange, PeriodType } from 'src/utils/expense/date-range.util';
 import { assertOwner } from 'src/utils/expense/check-owner.util';
+import { findExpensesInRange } from 'src/utils/expense/find-expense-inrange';
 @Injectable()
 export class ExpensesService {
   constructor(private prisma: PrismaService) {}
@@ -95,16 +96,18 @@ export class ExpensesService {
     // const start = startOfDay(targetDate);
     // const end = endOfDay(targetDate);
 
-    const expenses = await this.prisma.expense.findMany({
-      where: {
-        userId,
-        expenseDate: {
-          gte: start,
-          lte: end,
-        },
-      },
-      orderBy: { expenseDate: 'asc' },
-    });
+    // const expenses = await this.prisma.expense.findMany({
+    //   where: {
+    //     userId,
+    //     expenseDate: {
+    //       gte: start,
+    //       lte: end,
+    //     },
+    //   },
+    //   orderBy: { expenseDate: 'asc' },
+    // });
+
+    const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     return { total, expenses };
@@ -127,16 +130,18 @@ export class ExpensesService {
     // const end = endOfWeek(targetDate, {
     //   weekStartsOn: 1,
     // });
-    const expenses = await this.prisma.expense.findMany({
-      where: {
-        userId,
-        expenseDate: {
-          gte: start,
-          lte: end,
-        },
-      },
-      orderBy: { expenseDate: 'asc' },
-    });
+    // const expenses = await this.prisma.expense.findMany({
+    //   where: {
+    //     userId,
+    //     expenseDate: {
+    //       gte: start,
+    //       lte: end,
+    //     },
+    //   },
+    //   orderBy: { expenseDate: 'asc' },
+    // });
+
+    const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     return { total, expenses };
@@ -154,16 +159,17 @@ export class ExpensesService {
     // const start = startOfMonth(new Date(year, month - 1, 1));
     // const end = endOfMonth(new Date(year, month - 1, 1));
 
-    const expenses = await this.prisma.expense.findMany({
-      where: {
-        userId,
-        expenseDate: {
-          gte: start,
-          lte: end,
-        },
-      },
-      orderBy: { expenseDate: 'asc' },
-    });
+    // const expenses = await this.prisma.expense.findMany({
+    //   where: {
+    //     userId,
+    //     expenseDate: {
+    //       gte: start,
+    //       lte: end,
+    //     },
+    //   },
+    //   orderBy: { expenseDate: 'asc' },
+    // });
+    const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
     // console.log('#######', start, end);
@@ -267,13 +273,19 @@ export class ExpensesService {
     }
 
     // 전체 지출 데이터 조회
-    const allExpenses = await this.prisma.expense.findMany({
-      where: {
-        userId,
-        expenseDate: { gte: startDate, lte: endDate },
-      },
-      orderBy: { expenseDate: 'asc' },
-    });
+    // const allExpenses = await this.prisma.expense.findMany({
+    //   where: {
+    //     userId,
+    //     expenseDate: { gte: startDate, lte: endDate },
+    //   },
+    //   orderBy: { expenseDate: 'asc' },
+    // });
+    const allExpenses = await findExpensesInRange(
+      this.prisma,
+      userId,
+      startDate,
+      endDate,
+    );
 
     // 기간별 데이터 포인트 생성
     const dataPoints = this.generateDataPoints(
