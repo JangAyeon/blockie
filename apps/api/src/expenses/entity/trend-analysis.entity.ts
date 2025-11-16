@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { PeriodType } from 'src/utils/expense/date-range.util';
+import { PeriodType } from 'src/utils/expense/state/date-range.util';
 
 export class TrendDataPointEntity {
   @ApiProperty({

@@ -31,8 +31,9 @@ import { CategoryStatsResponseEntity } from './entity/category-stats.entity';
 import { GetTrendAnalysisDto } from './dto/trend-analysis.dto';
 import { TrendAnalysisEntity } from './entity/trend-analysis.entity';
 import { StreakStatsEntity } from './entity/streak-stats.entity';
-import { PeriodType } from 'src/utils/expense/date-range.util';
+import { PeriodType } from 'src/utils/expense/state/date-range.util';
 import { ExpenseStatsService } from './services/expense-stats.service';
+import { ExpenseTrendService } from './services/expense-trend.service';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
@@ -40,6 +41,7 @@ export class ExpensesController {
   constructor(
     private readonly expensesService: ExpensesService,
     private readonly expenseStatsService: ExpenseStatsService,
+    private readonly expenseTrendService: ExpenseTrendService,
   ) {}
 
   // ✅ 지출 생성
@@ -468,7 +470,7 @@ export class ExpensesController {
     @getUser() user: AuthUser,
     @Query() dto: GetTrendAnalysisDto,
   ) {
-    return this.expensesService.getTrendAnalysis(user.id, {
+    return this.expenseTrendService.getTrendAnalysis(user.id, {
       months: dto.months,
       period: dto.period,
       startYear: dto.startYear,

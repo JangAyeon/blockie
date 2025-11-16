@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { calculateExpenseRecord } from 'src/utils/expense/calculate-expense-record.util';
-import { getDateRange, PeriodType } from 'src/utils/expense/date-range.util';
-import { findExpensesInRange } from 'src/utils/expense/find-expense-inrange.util';
+import { calculateExpenseRecord } from 'src/utils/expense/state/calculate-expense-record.util';
+import {
+  getDateRange,
+  PeriodType,
+} from 'src/utils/expense/state/date-range.util';
+import { findExpensesInRange } from 'src/utils/expense/state/find-expense-inrange.util';
 
 @Injectable()
 export class ExpenseStatsService {

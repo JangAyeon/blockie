@@ -1,5 +1,5 @@
 import { IsInt, Min, Max, IsOptional, IsIn } from 'class-validator';
-import { PeriodType } from 'src/utils/expense/date-range.util';
+import { PeriodType } from 'src/utils/expense/state/date-range.util';
 // import { Transform } from 'class-transformer';
 
 export class GetTrendAnalysisDto {
