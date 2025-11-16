@@ -9,7 +9,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ExpensesService } from './expenses.service';
+import { ExpensesService } from './services/expenses.service';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -32,11 +32,15 @@ import { GetTrendAnalysisDto } from './dto/trend-analysis.dto';
 import { TrendAnalysisEntity } from './entity/trend-analysis.entity';
 import { StreakStatsEntity } from './entity/streak-stats.entity';
 import { PeriodType } from 'src/utils/expense/date-range.util';
+import { ExpenseStatsService } from './services/expense-stats.service';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
 export class ExpensesController {
-  constructor(private readonly expensesService: ExpensesService) {}
+  constructor(
+    private readonly expensesService: ExpensesService,
+    private readonly expenseStatsService: ExpenseStatsService,
+  ) {}
 
   // ✅ 지출 생성
   /*
@@ -237,7 +241,7 @@ export class ExpensesController {
     @Query('month') month: number,
     @Query('day') day: number,
   ) {
-    return this.expensesService.getDailyStats(
+    return this.expenseStatsService.getDailyStats(
       user.id,
       Number(year),
       Number(month),
@@ -297,7 +301,7 @@ export class ExpensesController {
     @Query('month') month: number,
     @Query('day') day: number,
   ) {
-    return this.expensesService.getWeeklyStats(
+    return this.expenseStatsService.getWeeklyStats(
       user.id,
       Number(year),
       Number(month),
@@ -356,7 +360,7 @@ export class ExpensesController {
     @Query('month') month: number,
     @Query('day') day: number,
   ) {
-    return this.expensesService.getMonthlyStats(
+    return this.expenseStatsService.getMonthlyStats(
       user.id,
       Number(year),
       Number(month),
@@ -398,7 +402,7 @@ export class ExpensesController {
     @Query('year') year: number,
     @Query('month') month: number,
   ) {
-    return this.expensesService.getCategoryStats(
+    return this.expenseStatsService.getCategoryStats(
       user.id,
       Number(year),
       Number(month),
