@@ -34,6 +34,7 @@ import { StreakStatsEntity } from './entity/streak-stats.entity';
 import { PeriodType } from 'src/utils/expense/state/date-range.util';
 import { ExpenseStatsService } from './services/expense-stats.service';
 import { ExpenseTrendService } from './services/expense-trend.service';
+import { ExpenseStreakService } from './services/expense-streak.service';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
@@ -42,6 +43,7 @@ export class ExpensesController {
     private readonly expensesService: ExpensesService,
     private readonly expenseStatsService: ExpenseStatsService,
     private readonly expenseTrendService: ExpenseTrendService,
+    private readonly expenseStreakService: ExpenseStreakService,
   ) {}
 
   // ✅ 지출 생성
@@ -493,6 +495,6 @@ export class ExpensesController {
     description: '연속 기록 통계 조회 성공',
   })
   getStreakStats(@getUser() user: AuthUser) {
-    return this.expensesService.getStreakStats(user.id);
+    return this.expenseStreakService.getStreakStats(user.id);
   }
 }

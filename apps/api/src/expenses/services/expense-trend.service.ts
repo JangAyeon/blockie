@@ -29,6 +29,7 @@ import {
   analyzeVolatility,
   predictNextPeriod,
 } from 'src/utils/expense/trend/trend.util';
+import { generateInsights } from 'src/utils/expense/trend/insights.util';
 
 @Injectable()
 export class ExpenseTrendService {

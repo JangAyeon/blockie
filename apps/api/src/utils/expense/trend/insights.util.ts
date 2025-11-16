@@ -1,7 +1,7 @@
 /**
  * generateInsights()
  */
-const generateInsights = (
+export const generateInsights = (
   dataPoints: {
     period: string;
     amount: number;
