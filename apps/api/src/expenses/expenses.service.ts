@@ -20,7 +20,8 @@ import {
 } from 'date-fns';
 import { getDateRange, PeriodType } from 'src/utils/expense/date-range.util';
 import { assertOwner } from 'src/utils/expense/check-owner.util';
-import { findExpensesInRange } from 'src/utils/expense/find-expense-inrange';
+import { findExpensesInRange } from 'src/utils/expense/find-expense-inrange.util';
+import { calculateExpenseRecord } from 'src/utils/expense/calculate-expense-record.util';
 @Injectable()
 export class ExpensesService {
   constructor(private prisma: PrismaService) {}
@@ -109,8 +110,10 @@ export class ExpensesService {
 
     const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
-    const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    return { total, expenses };
+    // const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    // return { total, expenses };
+    const { total, count, average } = calculateExpenseRecord(expenses);
+    return { total, count, average, expenses };
   }
 
   async getWeeklyStats(
@@ -143,8 +146,10 @@ export class ExpensesService {
 
     const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
-    const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    return { total, expenses };
+    // const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    // return { total, expenses };
+    const { total, count, average } = calculateExpenseRecord(expenses);
+    return { total, count, average, expenses };
   }
 
   async getMonthlyStats(
@@ -171,10 +176,12 @@ export class ExpensesService {
     // });
     const expenses = await findExpensesInRange(this.prisma, userId, start, end);
 
-    const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    // console.log('#######', start, end);
-    // console.log(expenses);
-    return { total, expenses };
+    // const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+    // // console.log('#######', start, end);
+    // // console.log(expenses);
+    // return { total, expenses };
+    const { total, count, average } = calculateExpenseRecord(expenses);
+    return { total, count, average, expenses };
   }
   async getCategoryStats(userId: string, year: number, month: number) {
     const targetDate = new Date(year, month - 1);
