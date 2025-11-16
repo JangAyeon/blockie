@@ -112,6 +112,7 @@ const Overview: React.FC<OverviewProps> = ({
         label: "expense.totalCount",
         value: `${monthlyExpense.expenses.length}건`,
         icon: "📝",
+
         color: "text-blue-600",
       },
       {
@@ -136,6 +137,8 @@ const Overview: React.FC<OverviewProps> = ({
     budgetStatus?.month,
     expenseCategory?.categories,
   ]);
+
+  console.log(monthlyExpense, monthlyCards);
 
   if (isLoading) return <FullLoader />;
   return (
@@ -506,9 +509,10 @@ const Overview: React.FC<OverviewProps> = ({
                         {t(item.label)}
                       </span>
                     </div>
-                    {/* <span className={`font-semibold ${item.color}`}>
-                      {t(item.unit, { value: item.value })}
-                    </span> */}
+                    <span className={`font-semibold ${item.color}`}>
+                      {/* {t(item.unit, { value: item.value })} */}
+                      {item.value}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -557,13 +561,13 @@ const Overview: React.FC<OverviewProps> = ({
                     </motion.div>
                     <p className="text-title-3 font-medium">
                       {/* 지출 데이터가 없습니다 */}
-                      {t("noExpenseData")}
+                      {t("expense.overview.noExpenseData")}
                     </p>
                     <p className="text-body-2 text-center mt-2">
                       {/* 지출을 추가하여
                       <br />
                       최근 지출 내역을 확인해보세요 */}
-                      {t("addExpensePrompt")}
+                      {t("expense.overview.addExpensePrompt")}
                     </p>
                   </motion.div>
                 ) : (
