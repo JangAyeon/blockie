@@ -31,6 +31,7 @@ import { CategoryStatsResponseEntity } from './entity/category-stats.entity';
 import { GetTrendAnalysisDto } from './dto/trend-analysis.dto';
 import { TrendAnalysisEntity } from './entity/trend-analysis.entity';
 import { StreakStatsEntity } from './entity/streak-stats.entity';
+import { PeriodType } from 'src/utils/expense/date-range.util';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
@@ -422,7 +423,7 @@ export class ExpensesController {
   })
   @ApiQuery({
     name: 'period',
-    enum: ['monthly', 'weekly', 'daily'],
+    enum: Object.values(PeriodType),
     required: false,
     description: '분석 단위 (기본값: monthly)',
     example: 'monthly',

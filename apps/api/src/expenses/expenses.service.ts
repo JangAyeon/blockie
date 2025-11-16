@@ -18,6 +18,7 @@ import {
   eachWeekOfInterval,
   eachDayOfInterval,
 } from 'date-fns';
+import { getDateRange, PeriodType } from 'src/utils/expense/date-range.util';
 @Injectable()
 export class ExpensesService {
   constructor(private prisma: PrismaService) {}
@@ -86,8 +87,10 @@ export class ExpensesService {
   ) {
     const targetDate = new Date(year, month - 1, day);
 
-    const start = startOfDay(targetDate);
-    const end = endOfDay(targetDate);
+    const { start, end } = getDateRange(targetDate, PeriodType.Daily);
+
+    // const start = startOfDay(targetDate);
+    // const end = endOfDay(targetDate);
 
     const expenses = await this.prisma.expense.findMany({
       where: {
@@ -112,13 +115,15 @@ export class ExpensesService {
   ) {
     const targetDate = new Date(year, month - 1, day);
 
-    const start = startOfWeek(targetDate, {
-      weekStartsOn: 1, // 월요일 시작
-    });
+    const { start, end } = getDateRange(targetDate, PeriodType.Weekly);
 
-    const end = endOfWeek(targetDate, {
-      weekStartsOn: 1,
-    });
+    // const start = startOfWeek(targetDate, {
+    //   weekStartsOn: 1, // 월요일 시작
+    // });
+
+    // const end = endOfWeek(targetDate, {
+    //   weekStartsOn: 1,
+    // });
     const expenses = await this.prisma.expense.findMany({
       where: {
         userId,
@@ -141,8 +146,10 @@ export class ExpensesService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     day: number,
   ) {
-    const start = startOfMonth(new Date(year, month - 1, 1));
-    const end = endOfMonth(new Date(year, month - 1, 1));
+    const targetDate = new Date(year, month - 1, 1);
+    const { start, end } = getDateRange(targetDate, PeriodType.Monthly);
+    // const start = startOfMonth(new Date(year, month - 1, 1));
+    // const end = endOfMonth(new Date(year, month - 1, 1));
 
     const expenses = await this.prisma.expense.findMany({
       where: {
@@ -163,8 +170,9 @@ export class ExpensesService {
   async getCategoryStats(userId: string, year: number, month: number) {
     const targetDate = new Date(year, month - 1);
 
-    const start = startOfMonth(targetDate);
-    const end = endOfMonth(targetDate);
+    const { start, end } = getDateRange(targetDate, PeriodType.Monthly);
+    // const start = startOfMonth(targetDate);
+    // const end = endOfMonth(targetDate);
 
     // 1) Prisma에서 카테고리별 합계 + 건수를 바로 집계
     const grouped = await this.prisma.expense.groupBy({
@@ -218,14 +226,14 @@ export class ExpensesService {
     userId: string,
     options: {
       months?: number;
-      period?: 'monthly' | 'weekly' | 'daily';
+      period?: PeriodType;
       startYear?: number;
       startMonth?: number;
       endYear?: number;
       endMonth?: number;
     },
   ) {
-    const periodType = options.period || 'monthly';
+    const periodType = options.period || PeriodType.Monthly;
     const months = options.months || 6;
 
     // 날짜 범위 결정
@@ -244,9 +252,9 @@ export class ExpensesService {
       const now = new Date();
       endDate = endOfMonth(now);
 
-      if (periodType === 'monthly') {
+      if (periodType === PeriodType.Monthly) {
         startDate = startOfMonth(subMonths(now, months - 1));
-      } else if (periodType === 'weekly') {
+      } else if (periodType === PeriodType.Weekly) {
         startDate = startOfWeek(subWeeks(now, months * 4 - 1), {
           weekStartsOn: 1,
         });
@@ -318,13 +326,13 @@ export class ExpensesService {
     }[],
     startDate: Date,
     endDate: Date,
-    periodType: 'monthly' | 'weekly' | 'daily',
+    periodType: PeriodType,
   ) {
     let intervals: Date[];
 
-    if (periodType === 'monthly') {
+    if (periodType === PeriodType.Monthly) {
       intervals = eachMonthOfInterval({ start: startDate, end: endDate });
-    } else if (periodType === 'weekly') {
+    } else if (periodType === PeriodType.Weekly) {
       intervals = eachWeekOfInterval(
         { start: startDate, end: endDate },
         { weekStartsOn: 1 },
@@ -338,11 +346,11 @@ export class ExpensesService {
       let periodLabel: string;
       let periodNumber: number;
 
-      if (periodType === 'monthly') {
+      if (periodType === PeriodType.Monthly) {
         intervalEnd = endOfMonth(intervalStart);
         periodLabel = format(intervalStart, 'yyyy-MM');
         periodNumber = intervalStart.getMonth() + 1;
-      } else if (periodType === 'weekly') {
+      } else if (periodType === PeriodType.Weekly) {
         intervalEnd = endOfWeek(intervalStart, { weekStartsOn: 1 });
         const weekNumber = getWeek(intervalStart, { weekStartsOn: 1 });
         periodLabel = `${format(intervalStart, 'yyyy')}-W${weekNumber.toString().padStart(2, '0')}`;
