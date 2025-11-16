@@ -1,3 +1,4 @@
+import { Expense } from '@prisma/client';
 import { PeriodType } from '../state/date-range.util';
 import { getPeriodEnd, getPeriodStart } from './period.util';
 
@@ -9,20 +10,64 @@ analyzeCategoryTrends()
 predictNextPeriod()
  * 
  */
+
+export enum OverallTrend {
+  Increasing = 'increasing',
+  Decreasing = 'decreasing',
+  Stable = 'stable',
+}
+
+export enum VolatilityLevel {
+  Low = 'low',
+  Moderate = 'moderate',
+  High = 'high',
+}
+
+export interface TrendAnalysisResult {
+  averageSpending: number;
+  overallTrend: OverallTrend;
+  overallChangePercentage: number;
+  maxSpending: number;
+  minSpending: number;
+  maxSpendingPeriod: string;
+  minSpendingPeriod: string;
+}
+
+export interface VolatilityAnalysisResult {
+  volatility: number;
+  volatilityCoefficient: number;
+  volatilityLevel: VolatilityLevel;
+}
+
+export interface CategoryTrendAnalysisResult {
+  category: string;
+  amounts: number[];
+  averageAmount: number;
+  trend: OverallTrend;
+  changePercentage: number;
+}
+
+export interface PredictionResult {
+  predictedNextPeriod: number;
+  predictionConfidence: number;
+}
+
+export interface TrendDataPoint {
+  period: string;
+  amount: number;
+  count: number;
+  averageAmount: number;
+  year: number;
+  periodNumber: number;
+}
+
 export const analyzeTrend = (
-  dataPoints: {
-    period: string;
-    amount: number;
-    count: number;
-    averageAmount: number;
-    year: number;
-    periodNumber: number;
-  }[],
-) => {
+  dataPoints: TrendDataPoint[],
+): TrendAnalysisResult => {
   if (dataPoints.length < 2) {
     return {
       averageSpending: 0,
-      overallTrend: 'stable' as const,
+      overallTrend: OverallTrend.Stable,
       overallChangePercentage: 0,
       maxSpending: 0,
       minSpending: 0,
@@ -60,22 +105,11 @@ export const analyzeTrend = (
     changePercentage = ((lastAmount - firstAmount) / firstAmount) * 100;
   }
 
-  // TODO: 트렌드 판단 기준은 changePercentage인 경우
-  // 즉, 첫 기간과 마지막 기간의 단순한 차이 비율로만 추세를 판별하고 있어서
-  // 중간 기간의 데이터가 어떻게 분포됐든 반영되지 않습니다.
-  // let overallTrend: 'increasing' | 'decreasing' | 'stable' = 'stable';
-  // if (Math.abs(changePercentage) > 5) {
-  //   overallTrend = changePercentage > 0 ? 'increasing' : 'decreasing';
-  // }
-
-  // TODO: slope를 사용한 트렌드 판단
-  // threshold는 원하는 민감도에 따라 0.5 ~ 1 정도의 숫자
-  // 전체 흐름을 반영한 진짜 추세 분석이 가능
-  // 전체 지출 경향 분석 가능
   const threshold = 0.5;
-  let overallTrend: 'increasing' | 'decreasing' | 'stable' = 'stable';
+  let overallTrend: OverallTrend = OverallTrend.Stable;
   if (Math.abs(slope) > threshold) {
-    overallTrend = slope > 0 ? 'increasing' : 'decreasing';
+    overallTrend =
+      slope > 0 ? OverallTrend.Increasing : OverallTrend.Decreasing;
   }
 
   return {
@@ -90,20 +124,13 @@ export const analyzeTrend = (
 };
 
 export const analyzeVolatility = (
-  dataPoints: {
-    period: string;
-    amount: number;
-    count: number;
-    averageAmount: number;
-    year: number;
-    periodNumber: number;
-  }[],
-) => {
+  dataPoints: TrendDataPoint[],
+): VolatilityAnalysisResult => {
   if (dataPoints.length < 2) {
     return {
       volatility: 0,
       volatilityCoefficient: 0,
-      volatilityLevel: 'low' as const,
+      volatilityLevel: VolatilityLevel.Low,
     };
   }
 
@@ -120,11 +147,11 @@ export const analyzeVolatility = (
   const volatilityCoefficient = mean > 0 ? (volatility / mean) * 100 : 0;
 
   // 변동성 수준 분류
-  let volatilityLevel: 'low' | 'moderate' | 'high' = 'low';
+  let volatilityLevel: VolatilityLevel = VolatilityLevel.Low;
   if (volatilityCoefficient > 30) {
-    volatilityLevel = 'high';
+    volatilityLevel = VolatilityLevel.High;
   } else if (volatilityCoefficient > 15) {
-    volatilityLevel = 'moderate';
+    volatilityLevel = VolatilityLevel.Moderate;
   }
 
   return {
@@ -135,10 +162,10 @@ export const analyzeVolatility = (
 };
 
 export const analyzeCategoryTrends = (
-  expenses: any[],
-  dataPoints: any[],
+  expenses: Expense[],
+  dataPoints: TrendDataPoint[],
   periodType: PeriodType,
-) => {
+): CategoryTrendAnalysisResult[] => {
   // 카테고리별로 그룹화
   const categoriesMap = new Map<string, number[]>();
 
@@ -196,9 +223,12 @@ export const analyzeCategoryTrends = (
         changePercentage = ((lastAmount - firstAmount) / firstAmount) * 100;
       }
 
-      let trend: 'increasing' | 'decreasing' | 'stable' = 'stable';
+      let trend: OverallTrend = OverallTrend.Stable;
       if (Math.abs(changePercentage) > 10) {
-        trend = changePercentage > 0 ? 'increasing' : 'decreasing';
+        trend =
+          changePercentage > 0
+            ? OverallTrend.Increasing
+            : OverallTrend.Decreasing;
       }
 
       return {

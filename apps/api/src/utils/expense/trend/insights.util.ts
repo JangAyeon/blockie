@@ -1,30 +1,30 @@
+import {
+  CategoryTrendAnalysisResult,
+  OverallTrend,
+  TrendAnalysisResult,
+  TrendDataPoint,
+} from './trend.util';
+
 /**
  * generateInsights()
  */
 export const generateInsights = (
-  dataPoints: {
-    period: string;
-    amount: number;
-    count: number;
-    averageAmount: number;
-    year: number;
-    periodNumber: number;
-  }[],
-  categoryTrends: any[],
-  trendAnalysis: any,
+  dataPoints: TrendDataPoint[],
+  categoryTrends: CategoryTrendAnalysisResult[],
+  trendAnalysis: TrendAnalysisResult,
 ) => {
   const insights: string[] = [];
   const recommendations: string[] = [];
 
   // 전체 트렌드 인사이트
-  if (trendAnalysis.overallTrend === 'increasing') {
+  if (trendAnalysis.overallTrend === OverallTrend.Increasing) {
     insights.push(
       `지출이 ${Math.abs(trendAnalysis.overallChangePercentage)}% 증가하는 추세입니다`,
     );
     recommendations.push(
       '지출 카테고리를 재검토하고 불필요한 지출을 줄여보세요',
     );
-  } else if (trendAnalysis.overallTrend === 'decreasing') {
+  } else if (trendAnalysis.overallTrend === OverallTrend.Decreasing) {
     insights.push(
       `지출이 ${Math.abs(trendAnalysis.overallChangePercentage)}% 감소하는 추세입니다`,
     );
@@ -33,10 +33,10 @@ export const generateInsights = (
 
   // 카테고리 트렌드 인사이트
   const increasingCategories = categoryTrends.filter(
-    (ct) => ct.trend === 'increasing',
+    (ct) => ct.trend === OverallTrend.Increasing,
   );
   const decreasingCategories = categoryTrends.filter(
-    (ct) => ct.trend === 'decreasing',
+    (ct) => ct.trend === OverallTrend.Decreasing,
   );
 
   if (increasingCategories.length > 0) {

@@ -10,6 +10,8 @@ import {
 } from 'date-fns';
 
 import { PeriodType } from '../state/date-range.util';
+import { Expense } from '@prisma/client';
+import { TrendDataPoint } from './trend.util';
 
 /*
 getPeriodStart(), getPeriodEnd()
@@ -19,7 +21,7 @@ generateDataPoints()
 startOfPeriod, endOfPeriod 계산 관련 헬퍼
 */
 export const getPeriodStart = (
-  dataPoint: any,
+  dataPoint: TrendDataPoint,
   periodType: PeriodType,
 ): Date => {
   if (periodType === PeriodType.Monthly) {
@@ -32,7 +34,10 @@ export const getPeriodStart = (
   }
 };
 
-export const getPeriodEnd = (dataPoint: any, periodType: PeriodType): Date => {
+export const getPeriodEnd = (
+  dataPoint: TrendDataPoint,
+  periodType: PeriodType,
+): Date => {
   const start = getPeriodStart(dataPoint, periodType);
   if (periodType === PeriodType.Monthly) {
     return endOfMonth(start);
@@ -43,14 +48,7 @@ export const getPeriodEnd = (dataPoint: any, periodType: PeriodType): Date => {
   }
 };
 export const generateDataPoints = (
-  expenses: {
-    id: string;
-    amount: number;
-    category: string;
-    userId: string;
-    createdAt: Date;
-    expenseDate: Date;
-  }[],
+  expenses: Expense[],
   startDate: Date,
   endDate: Date,
   periodType: PeriodType,
