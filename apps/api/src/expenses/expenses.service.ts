@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateExpensesDto } from './dto/create-expenses.dto';
 import { UpdateExpensesDto } from './dto/update-expenses.dto';
@@ -19,6 +19,7 @@ import {
   eachDayOfInterval,
 } from 'date-fns';
 import { getDateRange, PeriodType } from 'src/utils/expense/date-range.util';
+import { assertOwner } from 'src/utils/expense/check-owner.util';
 @Injectable()
 export class ExpensesService {
   constructor(private prisma: PrismaService) {}
@@ -51,13 +52,14 @@ export class ExpensesService {
       where: { id: expenseId },
     });
 
-    if (!expense) {
-      throw new ForbiddenException('해당 지출 항목이 존재하지 않습니다.');
-    } else if (expense.userId !== userId) {
-      throw new ForbiddenException(
-        '해당 지출 항목에 대한 삭제 권한이  존재하지 않습니다.',
-      );
-    }
+    assertOwner(expense, userId);
+    // if (!expense) {
+    //   throw new ForbiddenException('해당 지출 항목이 존재하지 않습니다.');
+    // } else if (expense.userId !== userId) {
+    //   throw new ForbiddenException(
+    //     '해당 지출 항목에 대한 삭제 권한이  존재하지 않습니다.',
+    //   );
+    // }
 
     return this.prisma.expense.update({
       where: { id: expenseId },
@@ -71,9 +73,10 @@ export class ExpensesService {
       where: { id: expenseId },
     });
 
-    if (!expense || expense.userId !== userId) {
-      throw new ForbiddenException('이 지출 항목에 대한 권한이 없습니다.');
-    }
+    assertOwner(expense, userId);
+    // if (!expense || expense.userId !== userId) {
+    //   throw new ForbiddenException('이 지출 항목에 대한 권한이 없습니다.');
+    // }
 
     return this.prisma.expense.delete({
       where: { id: expenseId },
