@@ -1,0 +1,6 @@
+node_modules/
+*.log
+coverage/
+.storybook/
+storybook-static/
+package-lock.json

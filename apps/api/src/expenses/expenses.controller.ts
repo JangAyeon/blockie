@@ -9,7 +9,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ExpensesService } from './expenses.service';
+import { ExpensesService } from './services/expenses.service';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -27,11 +27,24 @@ import { getUser } from 'src/users/users.decorator';
 import { CreateExpensesDto } from './dto/create-expenses.dto';
 import { UpdateExpensesDto } from './dto/update-expenses.dto';
 import { AuthUser } from '@repo/types';
+import { CategoryStatsResponseEntity } from './entity/category-stats.entity';
+import { GetTrendAnalysisDto } from './dto/trend-analysis.dto';
+import { TrendAnalysisEntity } from './entity/trend-analysis.entity';
+import { StreakStatsEntity } from './entity/streak-stats.entity';
+import { PeriodType } from 'src/utils/expense/state/date-range.util';
+import { ExpenseStatsService } from './services/expense-stats.service';
+import { ExpenseTrendService } from './services/expense-trend.service';
+import { ExpenseStreakService } from './services/expense-streak.service';
 
 @ApiTags('Expense (지출 관련 API)')
 @Controller('expenses')
 export class ExpensesController {
-  constructor(private readonly expensesService: ExpensesService) {}
+  constructor(
+    private readonly expensesService: ExpensesService,
+    private readonly expenseStatsService: ExpenseStatsService,
+    private readonly expenseTrendService: ExpenseTrendService,
+    private readonly expenseStreakService: ExpenseStreakService,
+  ) {}
 
   // ✅ 지출 생성
   /*
@@ -189,10 +202,25 @@ export class ExpensesController {
       '해당 날짜(date)에 대한 사용자의 지출 총합을 반환합니다. 예: /daily?date=2025-06-06',
   })
   @ApiQuery({
-    name: 'date',
+    name: 'year',
+    type: Number,
     required: true,
-    type: String,
-    description: '기준 일자 (예: 2025-06-06)',
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiQuery({
+    name: 'day',
+    type: Number,
+    required: true,
+    description: '일',
+    example: 7,
   })
   @ApiOkResponse({
     description: '총 지출 금액과 지출 목록',
@@ -211,8 +239,18 @@ export class ExpensesController {
       },
     },
   })
-  getDailyStats(@getUser() user: AuthUser, @Query('date') date: string) {
-    return this.expensesService.getDailyStats(user.id, new Date(date));
+  getDailyStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+    @Query('day') day: number,
+  ) {
+    return this.expenseStatsService.getDailyStats(
+      user.id,
+      Number(year),
+      Number(month),
+      Number(day),
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -224,10 +262,25 @@ export class ExpensesController {
       '해당 날짜가 속한 주(월~일)에 대한 사용자의 지출 총합을 반환합니다.',
   })
   @ApiQuery({
-    name: 'date',
+    name: 'year',
+    type: Number,
     required: true,
-    type: String,
-    description: '기준 일자 (예: 2025-06-06)',
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiQuery({
+    name: 'day',
+    type: Number,
+    required: true,
+    description: '일',
+    example: 7,
   })
   @ApiOkResponse({
     description: '총 지출 금액과 지출 목록',
@@ -246,8 +299,18 @@ export class ExpensesController {
       },
     },
   })
-  getWeeklyStats(@getUser() user: AuthUser, @Query('date') date: string) {
-    return this.expensesService.getWeeklyStats(user.id, new Date(date));
+  getWeeklyStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+    @Query('day') day: number,
+  ) {
+    return this.expenseStatsService.getWeeklyStats(
+      user.id,
+      Number(year),
+      Number(month),
+      Number(day),
+    );
   }
 
   @UseGuards(JwtAuthGuard)
@@ -258,10 +321,25 @@ export class ExpensesController {
     description: '해당 날짜가 속한 달의 지출 총합을 반환합니다.',
   })
   @ApiQuery({
-    name: 'date',
+    name: 'year',
+    type: Number,
     required: true,
-    type: String,
-    description: '기준 일자 (예: 2025-06-06)',
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiQuery({
+    name: 'day',
+    type: Number,
+    required: true,
+    description: '일',
+    example: 7,
   })
   @ApiOkResponse({
     description: '총 지출 금액과 지출 목록',
@@ -280,7 +358,143 @@ export class ExpensesController {
       },
     },
   })
-  getMonthlyStats(@getUser() user: AuthUser, @Query('date') date: string) {
-    return this.expensesService.getMonthlyStats(user.id, new Date(date));
+  getMonthlyStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+    @Query('day') day: number,
+  ) {
+    return this.expenseStatsService.getMonthlyStats(
+      user.id,
+      Number(year),
+      Number(month),
+      Number(day),
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('stats/category')
+  @ApiOperation({
+    summary: '카테고리별 지출 통계 조회',
+    description:
+      '특정 년월의 카테고리별 지출 통계를 조회합니다. 도넛 차트 데이터로 활용할 수 있습니다.',
+  })
+  @ApiQuery({
+    name: 'year',
+    type: Number,
+    required: true,
+    description: '조회할 연도 (예: 2025)',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'month',
+    type: Number,
+    required: true,
+    description: '조회할 월 (1~12)',
+    example: 7,
+  })
+  @ApiOkResponse({
+    type: CategoryStatsResponseEntity,
+    description: '카테고리별 지출 통계 조회 성공',
+  })
+  @ApiNotFoundResponse({
+    description: '해당 기간에 지출 데이터가 없습니다',
+  })
+  getCategoryStats(
+    @getUser() user: AuthUser,
+    @Query('year') year: number,
+    @Query('month') month: number,
+  ) {
+    return this.expenseStatsService.getCategoryStats(
+      user.id,
+      Number(year),
+      Number(month),
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('analysis')
+  @ApiOperation({
+    summary: '지출 추이 분석',
+    description: `지출 패턴의 상세한 트렌드 분석을 제공합니다. 
+  월별/주별/일별 분석이 가능하며, 카테고리별 트렌드, 변동성 분석, 
+  예측 정보, 맞춤 인사이트를 포함합니다.`,
+  })
+  @ApiQuery({
+    name: 'months',
+    type: Number,
+    required: false,
+    description: '분석할 기간 (개월 수, 기본값: 6, 최대: 24)',
+    example: 6,
+  })
+  @ApiQuery({
+    name: 'period',
+    enum: Object.values(PeriodType),
+    required: false,
+    description: '분석 단위 (기본값: monthly)',
+    example: 'monthly',
+  })
+  @ApiQuery({
+    name: 'startYear',
+    type: Number,
+    required: false,
+    description: '시작 연도 (명시적 기간 설정시)',
+    example: 2024,
+  })
+  @ApiQuery({
+    name: 'startMonth',
+    type: Number,
+    required: false,
+    description: '시작 월 (1~12)',
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'endYear',
+    type: Number,
+    required: false,
+    description: '종료 연도',
+    example: 2025,
+  })
+  @ApiQuery({
+    name: 'endMonth',
+    type: Number,
+    required: false,
+    description: '종료 월 (1~12)',
+    example: 7,
+  })
+  @ApiOkResponse({
+    type: TrendAnalysisEntity,
+    description: '지출 추이 분석 완료',
+  })
+  getTrendAnalysis(
+    @getUser() user: AuthUser,
+    @Query() dto: GetTrendAnalysisDto,
+  ) {
+    return this.expenseTrendService.getTrendAnalysis(user.id, {
+      months: dto.months,
+      period: dto.period,
+      startYear: dto.startYear,
+      startMonth: dto.startMonth,
+      endYear: dto.endYear,
+      endMonth: dto.endMonth,
+    });
+  }
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('stats/streak')
+  @ApiOperation({
+    summary: '연속 기록 통계 조회',
+    description: `사용자의 지출 기록 연속 일수와 관련 통계를 조회합니다.
+연속 기록은 하루라도 지출 기록이 있으면 카운트됩니다.
+보상 시스템과 레벨 시스템이 포함되어 있습니다.`,
+  })
+  @ApiOkResponse({
+    type: StreakStatsEntity,
+    description: '연속 기록 통계 조회 성공',
+  })
+  getStreakStats(@getUser() user: AuthUser) {
+    return this.expenseStreakService.getStreakStats(user.id);
   }
 }

@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { cookies } from "next/headers";
-import { fetchSignIn } from "../../../../@utils/apis/sb.auth";
+import { fetchSignIn } from "@utils/apis/services/sb.auth";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,6 +28,9 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (err) {
-    return NextResponse.json({ message: "로그인 실패" }, { status: 500 });
+    return NextResponse.json(
+      { message: `로그인 실패 ${err}` },
+      { status: 500 }
+    );
   }
 }

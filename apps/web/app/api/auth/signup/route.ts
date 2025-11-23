@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchSignUp } from "../../../../@utils/apis/sb.auth";
+import { fetchSignUp } from "@utils/apis/services/sb.auth";
 import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {

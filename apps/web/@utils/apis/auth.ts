@@ -1,8 +1,8 @@
 import { SupabaseSignUpRequest, SupabaseSignInRequest } from "@repo/types";
-import { ApiRoute, AuthRoute } from "../../@constant/api.route";
+import { ApiRoute } from "../../@constant/api.route";
 
 export const signIn = async (data: SupabaseSignInRequest) => {
-  const res = await fetch(`/api${ApiRoute.AUTH}${AuthRoute.SIGN_IN}`, {
+  const res = await fetch(`/api${ApiRoute.auth.SIGN_IN}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -21,7 +21,8 @@ export const signOut = async () => {
 };
 
 export const signUp = async (data: SupabaseSignUpRequest) => {
-  const res = await fetch("/api/auth/signup", {
+  console.log("signUp", data);
+  const res = await fetch(`/api${ApiRoute.auth.SIGN_UP}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

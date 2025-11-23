@@ -13,9 +13,11 @@
     "build:web": "turbo build --filter=web",
     "start:api": "npm --workspace=api run start:prod",
     "start:web": "npm --workspace=web run start",
+    "dev:stock": "turbo dev --filter=stock",
     "dev:web": "turbo dev --filter=web",
     "dev:ui": "turbo dev --filter=@repo/ui",
-    "storybook": "turbo storybook --filter=@repo/ui"
+    "storybook": "turbo storybook --filter=@repo/ui",
+    "build:graph": "bash build_graph/build_graph.sh"
   },
   "devDependencies": {
     "@types/react": "19.1.8",
@@ -34,6 +36,9 @@
     "packages/*"
   ],
   "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/platform-socket.io": "^11.1.6",
+    "@nestjs/websockets": "^11.1.6",
     "@tailwindcss/cli": "^4.1.11",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.10",
@@ -41,6 +46,8 @@
     "@tanstack/react-query-devtools": "^5.80.7",
     "framer-motion": "^12.19.1",
     "postcss": "^8.5.6",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tailwind": "^4.0.0",
     "tailwindcss": "^4.1.10"
   }

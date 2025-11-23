@@ -107,7 +107,7 @@ export class UsersController {
     @Query('phone') phone?: string,
     @Query('id') id?: string,
   ) {
-    console.log('###', email, phone, id);
+    // console.log('###', email, phone, id);
     if (email && phone) {
       throw new BadRequestException(
         'email 또는 phone 또는 id 중 하나만 전달해야 합니다.',
@@ -154,7 +154,7 @@ export class UsersController {
     description: '해당 유저는 존재하지 않습니다',
   })
   getMyProfile(@getUser() user: AuthUser) {
-    console.log('### zzz', user);
+    // console.log('### zzz', user);
     return this.usersService.findUserById(user.id);
   }
 

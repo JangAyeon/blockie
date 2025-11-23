@@ -5,16 +5,28 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    // ✅ 아래 두 줄 추가
+    "baseUrl": ".",
+    "types": ["jest", "@testing-library/jest-dom"],
+    "paths": {
+      "@component/*": ["./@component/*"],
+      "@constant/*": ["./@constant/*"],
+      "@hook/*": ["./@hook/*"],
+      "@provider/*": ["./@provider/*"],
+      "@store/*": ["./@store/*"],
+      "@utils/*": ["./@utils/*"],
+      "@type/*": ["./@type/*"],
+      "@i18n/*": ["./@i18n/*"]
+    }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
     "next.config.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types/jest-dom.d.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
