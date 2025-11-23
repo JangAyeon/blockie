@@ -8,13 +8,13 @@ import { handleDateChangeBtn } from "@utils/expense";
 import { useRouter } from "@i18n/navigation";
 import React from "react";
 import { useTranslations } from "next-intl";
+import { CubeContainerProps } from "app/[locale]/(private)/cube/page";
 
 const StreakCard: React.FC<{
   streak: StreakInfoResponse;
-  year: string;
-  month: string;
-  day: string;
-}> = ({ streak, year, month, day }) => {
+  dateInfo: CubeContainerProps["dateInfo"];
+}> = ({ streak, dateInfo }) => {
+  const { year, month, day } = dateInfo;
   const router = useRouter();
   const t = useTranslations("cube.streak");
   return (

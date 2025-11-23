@@ -4,16 +4,13 @@ import {
   useExpensesCategory,
   useExpensesStreak,
 } from "@hook/api/expense/useExpense";
+import { CubeContainerProps } from "app/[locale]/(private)/cube/page";
 
 export const useCube = ({
   year,
   month,
   day,
-}: {
-  year: string;
-  month: string;
-  day: string;
-}) => {
+}: CubeContainerProps["dateInfo"]) => {
   const budgetQuery = useBudgetStatus({ year, month });
   const expenseCategoryQuery = useExpensesCategory({ year, month });
   const expensesQuery = useMonthlyExpenses({
@@ -22,25 +19,25 @@ export const useCube = ({
     day,
   });
   const streakQuery = useExpensesStreak();
-  const isLoading =
-    budgetQuery.isLoading ||
-    expenseCategoryQuery.isLoading ||
-    expensesQuery.isLoading ||
-    streakQuery.isLoading;
+  const isFullPageLoading = [
+    budgetQuery.isLoading,
+    expenseCategoryQuery.isLoading,
+    expensesQuery.isLoading,
+    streakQuery.isLoading,
+  ].every(Boolean);
+
   const hasError =
     budgetQuery.isError ||
     expenseCategoryQuery.isError ||
     expensesQuery.isError ||
     streakQuery.isError;
-  // budgetHistoryQuery.isError ||
-  // recentExpensesQuery.isError;
+
   const isSuccess =
     budgetQuery.isSuccess ||
     expenseCategoryQuery.isSuccess ||
     expensesQuery.isSuccess ||
     streakQuery.isSuccess;
-  // expensesQuery.isSuccess ||
-  // recentExpensesQuery.isSuccess;
+
   console.log({
     budgetQuery: budgetQuery.data,
     expenseCategory: expenseCategoryQuery.data,
@@ -48,14 +45,8 @@ export const useCube = ({
     streakQuery: streakQuery.data,
   });
   return {
-    // 개별 쿼리 상태
-    budgetQuery: budgetQuery,
-    expenseCategoryQuery: expenseCategoryQuery,
-    expensesQuery,
-    streakQuery,
-
     // 통합 상태
-    isLoading,
+    isFullPageLoading,
     hasError,
     isSuccess,
 
