@@ -135,21 +135,21 @@
     "email": "邮箱",
     "phone": "电话",
     "joinDate": "注册日期",
-    "greeting": "你好，{name}！",
-    "defaultName": "用户",
+    "greeting": "你好，{name}！👋",
+    "defaultName": "朋友",
     "profileInfo": "个人资料",
     "profileDescription": "我的珍贵信息",
-    "budgetCompliance": "预算遵守率",
+    "budgetCompliance": "预算达成率",
     "since": "年开始一起",
-    "recentRecords": "个最近记录",
-    "master": "支出管理大师",
+    "recentRecords": "个方块记录",
+    "master": "方块大师",
     "phonePlaceholder": "010-0000-0000",
     "honorific": "",
     "loadingMessage": "方块正在获取信息",
     "message": {
-      "perfect": "🎉 完美的支出管理大师！",
-      "good": "✨ 通过持续管理建立习惯！",
-      "encourage": "🚀 让我们一起建立智能支出习惯！"
+      "perfect": "🎉 太棒了！你完美地遵守了预算！",
+      "good": "✨ 做得好！你正在持续地堆砌方块！",
+      "encourage": "🚀 今天也让我们一块一块地堆砌吧！一起加油！"
     }
   },
   "common": {

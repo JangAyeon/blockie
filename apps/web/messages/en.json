@@ -134,21 +134,21 @@
     "email": "Email",
     "phone": "Phone",
     "joinDate": "Join Date",
-    "greeting": "Hello, {name}!",
-    "defaultName": "User",
+    "greeting": "Hello, {name}! 👋",
+    "defaultName": "Friend",
     "profileInfo": "Profile Information",
     "profileDescription": "Your personal details",
-    "budgetCompliance": "Budget Compliance Rate",
+    "budgetCompliance": "Budget Achievement",
     "since": "With us since",
-    "recentRecords": "Recent Records",
-    "master": "Expense Management Master",
+    "recentRecords": "Block Records",
+    "master": "Block Master",
     "phonePlaceholder": "010-0000-0000",
     "honorific": "",
     "loadingMessage": "Blockie is loading your information...",
     "message": {
-      "perfect": "🎉 Perfect Expense Master!",
-      "good": "✨ You’re building great spending habits!",
-      "encourage": "🚀 Let’s build smart spending habits together!"
+      "perfect": "🎉 Perfect! You're keeping your budget perfectly!",
+      "good": "✨ Great job! You're building blocks consistently!",
+      "encourage": "🚀 Let's build one block at a time today! We're in this together!"
     }
   },
   "common": {

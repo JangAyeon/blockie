@@ -134,21 +134,21 @@
     "email": "이메일",
     "phone": "전화번호",
     "joinDate": "가입일",
-    "greeting": "{name}님, 안녕하세요!",
-    "defaultName": "사용자",
+    "greeting": "안녕하세요, {name}님! 👋",
+    "defaultName": "친구",
     "profileInfo": "프로필 정보",
     "profileDescription": "나의 개인 정보",
-    "budgetCompliance": "예산 준수율",
-    "since": "함께한 기간",
-    "recentRecords": "최근 기록",
-    "master": "지출 관리 마스터",
+    "budgetCompliance": "예산 달성률",
+    "since": "년부터 함께",
+    "recentRecords": "개의 블록 기록",
+    "master": "블록 마스터",
     "phonePlaceholder": "010-0000-0000",
     "honorific": "",
-    "loadingMessage": "Blockie가 회원 정보를 불러오는 중입니다...",
+    "loadingMessage": "블로키가 회원 정보를 불러오는 중입니다...",
     "message": {
-      "perfect": "🎉 완벽한 지출 마스터!",
-      "good": "✨ 훌륭한 소비 습관을 만들어 가고 있어요!",
-      "encourage": "🚀 함께 스마트한 소비 습관을 만들어가요!"
+      "perfect": "🎉 완벽해요! 예산을 완벽하게 지키고 계시네요!",
+      "good": "✨ 잘하고 있어요! 꾸준히 블록을 쌓고 계시네요!",
+      "encourage": "🚀 오늘도 블록 하나씩 쌓아가요! 함께 해봐요!"
     }
   },
   "common": {
