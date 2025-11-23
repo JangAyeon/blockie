@@ -16,7 +16,8 @@
     "dev:stock": "turbo dev --filter=stock",
     "dev:web": "turbo dev --filter=web",
     "dev:ui": "turbo dev --filter=@repo/ui",
-    "storybook": "turbo storybook --filter=@repo/ui"
+    "storybook": "turbo storybook --filter=@repo/ui",
+    "build:graph": "bash build_graph/build_graph.sh"
   },
   "devDependencies": {
     "@types/react": "19.1.8",
