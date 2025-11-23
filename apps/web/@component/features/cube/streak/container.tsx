@@ -14,10 +14,14 @@ const StreakContainer: React.FC<StreakContainerProps> = ({ dateInfo }) => {
     isError: isStreakError,
   } = useExpensesStreak();
   const showSkeleton = isStreakLoading || isStreakError || !streak;
-  if (showSkeleton) return <StreakSkeleton />;
+
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 relative overflow-hidden group hover:shadow-md transition-shadow">
-      <StreakCard streak={streak} dateInfo={dateInfo} />
+      {showSkeleton ? (
+        <StreakSkeleton />
+      ) : (
+        <StreakCard streak={streak} dateInfo={dateInfo} />
+      )}
     </div>
   );
 };

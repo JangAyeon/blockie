@@ -1,8 +1,8 @@
 "use client";
 
+import ErrorCard from "@component/common/error.card";
 import {
   MyPageLoading,
-  MyPageError,
   HeroSection,
   ProfileForm,
 } from "@component/features/user";
@@ -23,7 +23,7 @@ export default function MyPage() {
   const emotion = useUserEmotion(budgetHistory.data);
 
   if (isLoading) return <MyPageLoading />;
-  if (hasError || !isSuccess) return <MyPageError errors={errors} />;
+  if (hasError || !isSuccess) return <ErrorCard errors={errors} />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 w-full">
