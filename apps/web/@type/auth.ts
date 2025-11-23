@@ -33,6 +33,9 @@ export interface UseSignupFormReturn {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   errors: FormErrors;
+  showPassword: boolean;
+  showConfirmPassword: boolean;
+  toggleShowPassword: (type: "password" | "confirmPassword") => void;
 }
 
 /* signin */
@@ -46,8 +49,14 @@ export interface UseSigninFormReturn {
   formData: SigninFormData;
   errors: Record<string, string>;
   isLoading: boolean;
-  handleInputChange: (e: any) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
+  showPassword: boolean;
+  toggleShowPassword: () => void;
 }
 
 export interface RememberEmailData {

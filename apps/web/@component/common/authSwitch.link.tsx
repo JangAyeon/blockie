@@ -12,6 +12,7 @@ const AuthSwitchLink: React.FC<AuthTypeProps> = ({ type }) => {
     togoUrl: t(`${type}.togoUrl`),
   };
   const router = useRouter();
+  console.log(togoUrl);
 
   return (
     <div className="text-center">

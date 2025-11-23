@@ -23,14 +23,14 @@
       "title": "没有账户？",
       "togoPageName": "注册",
       "headerTitle": "登录",
-      "togoUrl": "/signin",
+      "togoUrl": "/signup",
       "welcomeTitle": "与Blockie一起开始！",
       "welcomeSubTitle": "趣味支出管理第一步"
     },
     "signup": {
       "title": "已有账户？",
       "togoPageName": "登录",
-      "togoUrl": "/signup",
+      "togoUrl": "/signin",
       "headerTitle": "注册",
       "welcomeTitle": "欢迎回来！",
       "welcomeSubTitle": "登录并开始建造方块！"
