@@ -5,7 +5,6 @@ import { useRouter } from "@i18n/navigation";
 import { useEffect } from "react";
 
 import { useCube } from "@hook/business/cube/useCube";
-import { MyPageLoading } from "@component/features/user";
 
 import { toYMDWithString } from "@utils/date/YMD";
 
@@ -15,6 +14,8 @@ import BudgetContainer from "@component/features/cube/budget/container";
 import BlockContainer from "@component/features/cube/block/contianer";
 import InsightContainer from "@component/features/cube/insight/container";
 import ExpenseContainer from "@component/features/cube/expense/container";
+import ErrorCard from "@component/common/error.card";
+import FullLoader from "@component/features/budget/loading/FullLoader";
 
 export interface CubeContainerProps {
   dateInfo: {
@@ -36,7 +37,6 @@ export default function CubeContainer() {
     hasDate ? { year, month, day } : { year: "", month: "", day: "" }
   );
 
-  // console.log("expenseCategory", expenseCategory);
   useEffect(() => {
     if (!hasDate) {
       const today = new Date();
@@ -44,7 +44,8 @@ export default function CubeContainer() {
       router.replace(`${pageUrl.cube}?year=${year}&month=${month}&day=${day}`);
     }
   }, [router, searchParams, hasDate]);
-  if (isFullPageLoading || hasError || !hasDate) return <MyPageLoading />;
+  if (isFullPageLoading || !hasDate) return <FullLoader />;
+  else if (hasError) return <ErrorCard errors={errors} />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 w-full">
