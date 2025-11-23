@@ -32,6 +32,10 @@
 5. [고군분투 모노레포 배포 1](https://hixsch-kixsch59.tistory.com/126?category=1288344)
 6. [고군분투 모노레포 배포 2](https://hixsch-kixsch59.tistory.com/125)
 
+### 컴포넌트 및 디자인 시스템
+
+- [스토리북 링크](https://vocal-naiad-fd167c.netlify.app/?path=/docs/blockie-design-system-blockieface--docs)
+
 ```
 [지출 등록 화면]  [큐브 대시보드]  [예산 설정]  [통계 분석]
 ```
