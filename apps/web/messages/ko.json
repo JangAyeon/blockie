@@ -23,17 +23,17 @@
       "title": "아직 계정이 없으신가요?",
       "togoPageName": "회원가입",
       "headerTitle": "로그인",
-      "togoUrl": "/signin",
+      "togoUrl": "/signup",
       "welcomeTitle": "Blockie와 함께 여정을 시작하세요!",
       "welcomeSubTitle": "스마트한 소비로의 첫걸음을 내딛어 보세요"
     },
     "signup": {
       "title": "이미 계정이 있으신가요?",
       "togoPageName": "로그인",
-      "togoUrl": "/signup",
+      "togoUrl": "/signin",
       "headerTitle": "회원가입",
-      "welcomeTitle": "다시 오신 것을 환영합니다!",
-      "welcomeSubTitle": "로그인하고 금융 블록 쌓기를 시작해 보세요!"
+      "welcomeTitle": "새로 오신 것을 환영합니다!",
+      "welcomeSubTitle": "로그인하고 지출 블록 쌓기를 시작해 보세요!"
     }
   },
   "email": {

@@ -2,13 +2,14 @@
 
 import { useSigninForm } from "@hook/business/signin";
 import { Button, Input } from "@repo/ui";
-import { validateForm } from "@utils/auth";
 import { useTranslations } from "next-intl";
 
 const SigninForm = () => {
   const { formData, errors, isLoading, handleInputChange, handleSubmit } =
     useSigninForm();
   const t = useTranslations();
+
+  console.log("SigninForm", formData, errors, isLoading);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -31,13 +32,6 @@ const SigninForm = () => {
           error={errors.email}
           required
         />
-
-        {/* <button
-              type="button"
-              className="text-sm text-gray-900 hover:text-gray-700 transition-colors"
-            >
-              비밀번호를 잊으셨나요?
-            </button> */}
 
         <Input
           label={t("password.label")}

@@ -23,14 +23,14 @@
       "title": "Don't have an account?",
       "togoPageName": "Sign Up",
       "headerTitle": "Sign In",
-      "togoUrl": "/signin",
+      "togoUrl": "/signup",
       "welcomeTitle": "Start your journey with Blockie!",
       "welcomeSubTitle": "Take your first step toward smarter spending"
     },
     "signup": {
       "title": "Already have an account?",
       "togoPageName": "Sign In",
-      "togoUrl": "/signup",
+      "togoUrl": "/signin",
       "headerTitle": "Sign Up",
       "welcomeTitle": "Welcome back!",
       "welcomeSubTitle": "Log in and start building your financial blocks!"

@@ -14,6 +14,7 @@ export function useSignupForm(): UseSignupFormReturn {
     confirmPassword: "",
   });
   const { mutate: signUp, isPending, error } = useSignUp();
+  const [isRouting, setIsRouting] = useState(false);
   // 폼 데이터 업데이트
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, type, checked } = e.target;
@@ -52,7 +53,14 @@ export function useSignupForm(): UseSignupFormReturn {
     try {
       // 유틸리티 함수를 사용한 API 호출
       const { email, password } = formData;
-      signUp({ email, password });
+      signUp(
+        { email, password },
+        {
+          onSuccess: () => {
+            setIsRouting(true); // 라우팅 시작 → 버튼 계속 disabled 유지
+          },
+        }
+      );
 
       console.log("회원가입 성공:", { email, password });
     } catch (e) {
@@ -68,7 +76,7 @@ export function useSignupForm(): UseSignupFormReturn {
 
   return {
     formData,
-    isLoading,
+    isLoading: isPending || isRouting,
 
     handleChange,
     handleSubmit,

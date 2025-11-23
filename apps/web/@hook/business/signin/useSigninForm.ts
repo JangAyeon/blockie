@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { validateForm, emailStorage } from "@utils/auth";
-
 import { useSignIn } from "@hook/useAuth";
 import { UseSigninFormReturn, SigninFormData, FormErrors } from "@type/auth";
 
@@ -12,7 +11,7 @@ export function useSigninForm(): UseSigninFormReturn {
     isError: isSigninError,
     error,
   } = useSignIn();
-  const [isLoading, setIsLoading] = useState(isSigninPending || false);
+  const [isRouting, setIsRouting] = useState(false);
 
   const [formData, setFormData] = useState<SigninFormData>({
     email: "",
@@ -69,7 +68,7 @@ export function useSigninForm(): UseSigninFormReturn {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setIsLoading(true);
+
     // 폼 유효성 검사
     if (!validateAllFields()) {
       return;
@@ -80,7 +79,14 @@ export function useSigninForm(): UseSigninFormReturn {
     try {
       // 유틸리티 함수를 사용한 API 호출
       const { email, password } = formData;
-      mutate({ email, password });
+      mutate(
+        { email, password },
+        {
+          onSuccess: () => {
+            setIsRouting(true); // 라우팅 시작 → 버튼 계속 disabled 유지
+          },
+        }
+      );
 
       // 이메일 기억하기 설정 처리
       if (formData.rememberEmail) {
@@ -96,15 +102,13 @@ export function useSigninForm(): UseSigninFormReturn {
         general:
           error instanceof Error ? error.message : "로그인에 실패했습니다.",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return {
     formData,
     errors,
-    isLoading,
+    isLoading: isSigninPending || isRouting,
     handleInputChange,
     handleSubmit,
   };
