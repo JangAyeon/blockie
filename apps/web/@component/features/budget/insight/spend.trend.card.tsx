@@ -1,4 +1,4 @@
-import { BudgetHistoryResponse } from "@type/budget";
+import { BudgetHistoryItem, BudgetHistoryResponse } from "@type/budget";
 import Card from "@component/common/card";
 import { Line } from "react-chartjs-2";
 import { useTranslations } from "next-intl";
@@ -22,7 +22,9 @@ const SpendingTrendCard: React.FC<SpendingTrendCardProps> = ({
     datasets: [
       {
         label: "월별 지출 추이",
-        data: budgetHistory.history.map((item: any) => item.spent).reverse(),
+        data: budgetHistory.history
+          .map((item: BudgetHistoryItem) => item.spent)
+          .reverse(),
         borderColor: "#7DC0F4",
         backgroundColor: "rgba(125, 192, 244, 0.1)",
         tension: 0.3,
@@ -59,7 +61,9 @@ const SpendingTrendCard: React.FC<SpendingTrendCardProps> = ({
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-blue-50 rounded-lg p-4">
               <p className="text-sm text-blue-700 mb-1">
-                {t("budget.monthlyAverage", { months: budgetHistory.history.length })}
+                {t("budget.monthlyAverage", {
+                  months: budgetHistory.history.length,
+                })}
               </p>
               <p className="text-xl font-bold">
                 {stats.averageSpent.toLocaleString()}원
@@ -67,7 +71,9 @@ const SpendingTrendCard: React.FC<SpendingTrendCardProps> = ({
             </div>
             <div className="bg-purple-50 rounded-lg p-4">
               <p className="text-sm text-purple-700 mb-1">
-                {t("budget.complianceRate", { months: budgetHistory.history.length })}
+                {t("budget.complianceRate", {
+                  months: budgetHistory.history.length,
+                })}
               </p>
               <p className="text-xl font-bold">
                 {stats.complianceRate.toFixed(0)}%
@@ -76,7 +82,9 @@ const SpendingTrendCard: React.FC<SpendingTrendCardProps> = ({
           </div>
 
           <div className="bg-gray-50 rounded-lg p-4">
-            <h4 className="text-sm font-medium mb-2">{t("budget.trendAnalysis")}</h4>
+            <h4 className="text-sm font-medium mb-2">
+              {t("budget.trendAnalysis")}
+            </h4>
             <p className="text-sm text-gray-600">{trendAnalysis}</p>
           </div>
         </div>
