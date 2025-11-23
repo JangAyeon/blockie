@@ -34,11 +34,19 @@ export function useSigninForm(): UseSigninFormReturn {
     }
   }, []);
 
-  const handleInputChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    const nextValue =
+      e.target instanceof HTMLInputElement && e.target.type === "checkbox"
+        ? e.target.checked
+        : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: nextValue,
     }));
 
     // 실시간 유효성 검사 및 에러 클리어

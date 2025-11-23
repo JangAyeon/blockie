@@ -1,7 +1,7 @@
 import { Radar } from "react-chartjs-2";
 import Card from "../../../common/card";
 import Image from "next/image";
-import { ExpenseCategorySummary } from "@type/expense";
+import { ExpenseCategoryItem, ExpenseCategorySummary } from "@type/expense";
 import { useTranslations } from "next-intl";
 
 interface CategoryComparisonCardProps {
@@ -44,11 +44,15 @@ const CategoryComparisonCard: React.FC<CategoryComparisonCardProps> = ({
   }
 
   const radarData = {
-    labels: expenseCategory.categories.map((cat: any) => cat.category),
+    labels: expenseCategory.categories.map(
+      (cat: ExpenseCategoryItem) => cat.category
+    ),
     datasets: [
       {
         label: t("budget.thisMonth"),
-        data: expenseCategory.categories.map((cat: any) => cat.amount),
+        data: expenseCategory.categories.map(
+          (cat: ExpenseCategoryItem) => cat.amount
+        ),
         backgroundColor: "rgba(244, 223, 125, 0.2)",
         borderColor: "#F4DF7D",
         pointBackgroundColor: "#F4DF7D",
