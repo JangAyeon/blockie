@@ -21,6 +21,7 @@ export const signOut = async () => {
 };
 
 export const signUp = async (data: SupabaseSignUpRequest) => {
+  console.log("signUp", data);
   const res = await fetch(`/api${ApiRoute.auth.SIGN_UP}`, {
     method: "POST",
     headers: {

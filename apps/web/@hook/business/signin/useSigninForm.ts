@@ -25,6 +25,7 @@ export function useSigninForm(): UseSigninFormReturn {
     error,
   } = useSignIn();
   const [isRouting, setIsRouting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState<SigninFormData>(FORM_DATA_INIT);
   const [errors, setErrors] = useState<FormErrors>(ERRORS_INIT);
@@ -43,11 +44,7 @@ export function useSigninForm(): UseSigninFormReturn {
     }
   }, []);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
+  const handleInputChange: UseSigninFormReturn["handleInputChange"] = (e) => {
     const { name, value } = e.target;
     const nextValue =
       e.target instanceof HTMLInputElement && e.target.type === "checkbox"
@@ -80,7 +77,7 @@ export function useSigninForm(): UseSigninFormReturn {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit: UseSigninFormReturn["handleSubmit"] = async (e) => {
     e.preventDefault();
 
     // 폼 유효성 검사
@@ -122,11 +119,17 @@ export function useSigninForm(): UseSigninFormReturn {
     }
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return {
     formData,
     errors,
     isLoading: isSigninPending || isRouting,
     handleInputChange,
     handleSubmit,
+    showPassword,
+    toggleShowPassword,
   };
 }

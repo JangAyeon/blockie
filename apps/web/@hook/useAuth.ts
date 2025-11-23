@@ -27,16 +27,16 @@ export const useLogout = () => {
 };
 
 export const useSignUp = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   return useMutation({
     mutationFn: signUp,
-    onSuccess: () => {
-      router.push(`${pageUrl.onboarding}`); // 회원가입 후 마이페이지로 이동
-    },
-    onError: (err) => {
-      console.error("회원가입 실패", err);
-    },
+    // onSuccess: () => {
+    //   router.push(`${pageUrl.onboarding}`); // 회원가입 후 마이페이지로 이동
+    // },
+    // onError: (err) => {
+    //   console.error("회원가입 실패", err);
+    // },
   });
 };
 
