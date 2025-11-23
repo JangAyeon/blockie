@@ -16,7 +16,15 @@ import BlockContainer from "@component/features/cube/block/contianer";
 import InsightContainer from "@component/features/cube/insight/container";
 import ExpenseContainer from "@component/features/cube/expense/container";
 
-export default function ExpenseCubePage() {
+export interface CubeContainerProps {
+  dateInfo: {
+    year: string;
+    month: string;
+    day: string;
+  };
+}
+
+export default function CubeContainer() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const year = searchParams.get("year");
@@ -24,16 +32,7 @@ export default function ExpenseCubePage() {
   const day = searchParams.get("day")?.padStart(2, "0");
 
   const hasDate = year && month && day;
-  const {
-    budgetQuery: { data: budgetStatus },
-    expenseCategoryQuery: { data: expenseCategory },
-    expensesQuery: { data: expenses },
-    streakQuery: { data: streak },
-    isLoading,
-    hasError,
-    errors,
-    isSuccess,
-  } = useCube(
+  const { isFullPageLoading, hasError, errors, isSuccess } = useCube(
     hasDate ? { year, month, day } : { year: "", month: "", day: "" }
   );
 
@@ -45,7 +44,7 @@ export default function ExpenseCubePage() {
       router.replace(`${pageUrl.cube}?year=${year}&month=${month}&day=${day}`);
     }
   }, [router, searchParams, hasDate]);
-  if (isLoading || hasError || !hasDate) return <MyPageLoading />;
+  if (isFullPageLoading || hasError || !hasDate) return <MyPageLoading />;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 w-full">
@@ -53,26 +52,19 @@ export default function ExpenseCubePage() {
         {" "}
         <main className="py-6 px-1 space-y-6">
           {/* 연속 기록 배지 */}
-          <StreakContainer streak={streak} dateInfo={{ year, month, day }} />
+          <StreakContainer dateInfo={{ year, month, day }} />
 
           {/* 예산 카드 */}
-          <BudgetContainer budgetStatus={budgetStatus} />
+          <BudgetContainer dateInfo={{ year, month, day }} />
 
           {/* 블록 컬렉션 */}
-          <BlockContainer
-            expenses={expenses}
-            budgetStatus={budgetStatus}
-            expenseCategory={expenseCategory}
-          />
+          <BlockContainer dateInfo={{ year, month, day }} />
 
           {/* 인사이트 카드 */}
-          <InsightContainer
-            budgetStatus={budgetStatus!}
-            expenseCategory={expenseCategory!}
-          />
+          <InsightContainer dateInfo={{ year, month, day }} />
 
           {/* 최근 지출 목록 */}
-          <ExpenseContainer expenses={expenses} />
+          <ExpenseContainer dateInfo={{ year, month, day }} />
         </main>
       </main>
     </div>

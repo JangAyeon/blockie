@@ -1,18 +1,40 @@
 import { BlockieFace } from "@repo/ui";
-import { BudgetSummary } from "@type/budget";
-import { ExpenseCategorySummary } from "@type/expense";
 import getUsageEmotion from "@utils/common/getUsageEmotion";
 import { formatWithCurrencySymbol } from "@utils/common/formatter";
 import { useTranslations } from "next-intl";
+import InsightSkeleton from "./insight.skeleton";
+import { CubeContainerProps } from "app/[locale]/(private)/cube/page";
+import { useBudgetStatus } from "@hook/api/budget/useBudget";
+import { useExpensesCategory } from "@hook/api/expense/useExpense";
+
+interface InsightContainerProps {
+  dateInfo: CubeContainerProps["dateInfo"];
+}
 
 const InsightContainer = ({
-  budgetStatus,
-  expenseCategory,
-}: {
-  budgetStatus: BudgetSummary;
-  expenseCategory: ExpenseCategorySummary;
-}) => {
+  dateInfo: { year, month, day },
+}: InsightContainerProps) => {
   const t = useTranslations("cube.insight");
+  const {
+    data: budgetStatus,
+    isLoading: isBudgetLoading,
+    isError: isBudgetError,
+  } = useBudgetStatus({ year, month });
+  const {
+    data: expenseCategory,
+    isLoading: isExpenseCategoryLoading,
+    isError: isExpenseCategoryError,
+  } = useExpensesCategory({ year, month });
+
+  const showSkeleton =
+    isBudgetLoading ||
+    isExpenseCategoryLoading ||
+    isBudgetError ||
+    isExpenseCategoryError ||
+    !budgetStatus ||
+    !expenseCategory;
+  if (showSkeleton) return <InsightSkeleton />;
+
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-20 h-20 bg-blue-200/20 rounded-full -translate-y-10 translate-x-10" />
@@ -22,8 +44,8 @@ const InsightContainer = ({
             <BlockieFace
               size={30}
               emotion={getUsageEmotion({
-                spent: budgetStatus!.spent,
-                budget: budgetStatus!.budget,
+                spent: budgetStatus.spent,
+                budget: budgetStatus.budget,
               })}
             />
             {t("title")}
@@ -40,7 +62,7 @@ const InsightContainer = ({
               <span className="text-sm text-gray-600">{t("dailyAverage")}</span>
               <span className="font-semibold text-gray-800">
                 {formatWithCurrencySymbol(
-                  Math.floor(budgetStatus?.spent! / new Date().getDate())
+                  Math.floor(budgetStatus.spent / new Date().getDate())
                 )}
               </span>
             </div>
@@ -50,14 +72,14 @@ const InsightContainer = ({
               </span>
               <span
                 className={`font-semibold ${
-                  (budgetStatus?.spent! / new Date().getDate()) * 31 >
-                  budgetStatus?.budget!
+                  (budgetStatus.spent / new Date().getDate()) * 31 >
+                  budgetStatus.budget
                     ? "text-red-600"
                     : "text-green-600"
                 }`}
               >
                 {formatWithCurrencySymbol(
-                  Math.floor((budgetStatus?.spent! / new Date().getDate()) * 31)
+                  Math.floor((budgetStatus.spent / new Date().getDate()) * 31)
                 )}
               </span>
             </div>
