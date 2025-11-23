@@ -14,9 +14,9 @@ const SigninForm = () => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* 에러 메시지 */}
-      {errors.general && (
+      {errors.account && (
         <div className="bg-red-50 border border-red-200 rounded-md p-3">
-          <p className="text-sm text-red-600">{errors.general}</p>
+          <p className="text-sm text-red-600">{errors.account}</p>
         </div>
       )}
 

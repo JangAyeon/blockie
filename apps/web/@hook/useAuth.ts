@@ -41,15 +41,11 @@ export const useSignUp = () => {
 };
 
 export const useSignIn = () => {
-  const router = useRouter();
   return useMutation({
     mutationFn: signIn,
-    onSuccess: () => {
-      router.push(`${pageUrl.cube}`); // 로그인 후 cube
-    },
-    onError: (err) => {
-      console.error("로그인 실패", err);
-    },
+    // onSuccess: () => {
+    //   router.push(`${pageUrl.cube}`); // 로그인 후 cube
+    // },
   });
 };
 
